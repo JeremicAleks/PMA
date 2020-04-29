@@ -14,4 +14,8 @@
 
     <string name="home_second">Home Second</string>
     <string name="login">Login</string>
+    <string name="sign_in">Sign In</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="logo">logo</string>
 </resources>

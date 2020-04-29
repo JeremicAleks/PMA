@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/car_repair_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.RegistrationActivity"></activity>
         <activity
             android:name=".view.HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.MainActivity">
             <intent-filter>
