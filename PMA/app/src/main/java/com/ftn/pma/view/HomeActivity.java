@@ -1,8 +1,11 @@
 package com.ftn.pma.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.view.WindowManager;
+import android.widget.ImageButton;
 
 import com.ftn.pma.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,11 +23,16 @@ import androidx.appcompat.widget.Toolbar;
 public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private ImageButton img_btn_buy_car;
+    private ImageButton img_btn_service;
+    private ImageButton img_btn_profile;
+    private ImageButton img_btn_about;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -39,6 +47,18 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //prelazak u novi prozor
+        ImageButton btnAbout = findViewById(R.id.img_btn_about);
+
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this,AboutActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override
