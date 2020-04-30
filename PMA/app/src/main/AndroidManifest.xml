@@ -8,7 +8,7 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/car_repair_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -29,12 +29,10 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/map_key" />
 
-        <activity
-            android:name=".view.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".view.AboutActivity" />
+        <activity android:name=".view.AboutActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".view.ServiceActivity" />
         <activity android:name=".view.RegistrationActivity" />
         <activity
