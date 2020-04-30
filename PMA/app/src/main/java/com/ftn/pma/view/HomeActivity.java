@@ -59,6 +59,17 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ImageButton imageButtonService = findViewById(R.id.img_btn_service);
+
+        imageButtonService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this,ServiceActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

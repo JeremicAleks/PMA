@@ -16,18 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <fragment
-        android:id="@+id/mapApi"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="400dp"
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/google_maps"
+        android:layout_width="318dp"
+        android:layout_height="286dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </fragment>
+        app:layout_constraintTop_toBottomOf="@+id/pt_telefone_service" />
 
     <EditText
         android:id="@+id/pt_name_service"
@@ -102,4 +98,5 @@
         app:layout_constraintBottom_toBottomOf="@+id/pt_telefone_service"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_email" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
