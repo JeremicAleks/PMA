@@ -7,12 +7,12 @@ import android.view.WindowManager;
 
 import com.ftn.pma.R;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class ShoppingCartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_registration);
+        setContentView(R.layout.activity_shopping_cart);
     }
 }

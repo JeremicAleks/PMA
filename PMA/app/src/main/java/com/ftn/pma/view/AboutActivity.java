@@ -2,15 +2,22 @@ package com.ftn.pma.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.google.android.gms.maps.CameraUpdate;
@@ -40,6 +47,10 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
         toolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         setSupportActionBar(toolbar);
 
+        //provera da li je internet ukljucen
+        proveraInterneta();
+
+        //google maps
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
         mapFragment.getMapAsync(this);
 
@@ -66,5 +77,20 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
 
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fax_NS,15),2000,null);
 
+    }
+
+    public void proveraInterneta()
+    {
+        ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo aktivnaMreza = manager.getActiveNetworkInfo();
+
+        if(aktivnaMreza!=null)
+        {
+            Toast.makeText(this,"Data Network Enabled", Toast.LENGTH_LONG).show();
+        }else
+        {
+            Toast.makeText(this,"No Internet Connection", Toast.LENGTH_LONG).show();
+        }
     }
 }
