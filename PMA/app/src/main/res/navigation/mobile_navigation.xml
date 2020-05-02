@@ -30,14 +30,19 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.ftn.pma.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_settings"
+        android:name="com.ftn.pma.ui.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.ftn.pma.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_notifications"
+        android:name="com.ftn.pma.ui.notification.NotificationsFragment"
+        android:label="@string/notifications"
+        tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.ftn.pma.ui.help.HelpFragment"
+        android:label="@string/help"
+        tools:layout="@layout/fragment_notifications" />
 </navigation>
