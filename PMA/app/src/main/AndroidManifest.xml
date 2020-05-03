@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ftn.pma">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -19,16 +18,14 @@
         android:roundIcon="@mipmap/car_repair_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.BuyCarsActivity"></activity>
         <activity
             android:name=".view.ShoppingCartActivity"
-            android:label="@string/title_activity_shopping_cart">
-        </activity>
-
+            android:label="@string/title_activity_shopping_cart" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
-
         <activity android:name=".view.UserProfileActivity" />
 
         <uses-library

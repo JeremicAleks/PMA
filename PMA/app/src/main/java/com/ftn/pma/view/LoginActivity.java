@@ -34,13 +34,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String pass = etPassword.getText().toString();
-                if(email.equals("admin") && pass.equals("admin")) {
+//                if(email.equals("admin") && pass.equals("admin")) {
                     Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
-            }else{
-                Toast.makeText(LoginActivity.this,"Failed Login",Toast.LENGTH_SHORT).show();
-            }
+//            }else{
+//                Toast.makeText(LoginActivity.this,"Failed Login",Toast.LENGTH_SHORT).show();
+//            }
 
             }
         });
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
 
