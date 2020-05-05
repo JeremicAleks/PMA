@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/car_repair_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.BuyCarsActivity"></activity>
+        <activity android:name=".view.CardetailsActivity"></activity>
+        <activity android:name=".view.BuyCarsActivity" />
         <activity
             android:name=".view.ShoppingCartActivity"
             android:label="@string/title_activity_shopping_cart" />
