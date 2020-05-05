@@ -3,13 +3,14 @@ package com.ftn.pma.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.appcompat.widget.Toolbar;
+
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -19,6 +20,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+
+
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.Gravity;
 
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -39,6 +45,7 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_buy_cars);
+
         Toolbar toolbar = findViewById(R.id.tb_buyCar);
         setSupportActionBar(toolbar);
 
