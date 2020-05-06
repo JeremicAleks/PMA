@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".ui.home.HomeFragment">
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="298dp"
+        android:layout_height="258dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.519"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nav_host_fragment"
+        app:layout_constraintVertical_bias="0.52"
+        app:srcCompat="@mipmap/car_repair_foreground" />
+
+    <ImageButton
+        android:id="@+id/img_btn_buy_car"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/newcar_foreground" />
+
+    <ImageButton
+        android:id="@+id/img_btn_service"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/img_btn_buy_car"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/service_foreground" />
+
+    <ImageButton
+        android:id="@+id/img_btn_profile"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_btn_buy_car"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_person_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/img_btn_about"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/img_btn_profile"
+        app:layout_constraintTop_toBottomOf="@+id/img_btn_service"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@mipmap/question_mark_foreground" />
+
+    <TextView
+        android:id="@+id/tv_buy_car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Buy Car"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_btn_buy_car"
+        app:layout_constraintEnd_toEndOf="@+id/img_btn_buy_car"
+        app:layout_constraintStart_toStartOf="@+id/img_btn_buy_car"
+        app:layout_constraintTop_toTopOf="@+id/img_btn_buy_car"
+        app:layout_constraintVertical_bias="0.79" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="User profile"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_btn_profile"
+        app:layout_constraintEnd_toEndOf="@+id/img_btn_profile"
+        app:layout_constraintStart_toStartOf="@+id/img_btn_profile"
+        app:layout_constraintTop_toTopOf="@+id/img_btn_profile"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tv_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Service"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_btn_service"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/img_btn_service"
+        app:layout_constraintTop_toTopOf="@+id/img_btn_service"
+        app:layout_constraintVertical_bias="0.86" />
+
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/img_btn_about"
+        app:layout_constraintTop_toTopOf="@+id/img_btn_about"
+        app:layout_constraintVertical_bias="0.9" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

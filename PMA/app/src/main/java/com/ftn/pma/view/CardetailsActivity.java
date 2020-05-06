@@ -41,7 +41,7 @@ public class CardetailsActivity extends AppCompatActivity {
                 final SimpleArcDialog mDialog = new SimpleArcDialog(CardetailsActivity.this);
                 ArcConfiguration configuration = new ArcConfiguration(CardetailsActivity.this);
                 configuration.setAnimationSpeed(SimpleArcLoader.SPEED_MEDIUM);
-                int[] mColors = {Color.parseColor("#0266C8")};// GREEN
+                int[] mColors = {Color.parseColor("#0266C8")};
                 configuration.setText("Please wait..");
                 configuration.setColors(mColors);
                 mDialog.setConfiguration(configuration);
@@ -53,7 +53,6 @@ public class CardetailsActivity extends AppCompatActivity {
                         mDialog.cancel();
                     }
                 },4000);
-
             }
         });
 
