@@ -7,14 +7,38 @@
     android:background="@color/newCar_background"
     tools:context=".view.CardetailsActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_carDetail"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="2dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Car Detail" />
+
     <ImageView
         android:id="@+id/img_view_clio2"
-        android:layout_width="391dp"
-        android:layout_height="184dp"
+        android:layout_width="380dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="8dp"
         android:src="@mipmap/renault_cars"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_carDetail" />
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        android:layout_width="241dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_view_clio2" />
 
     <TextView
         android:id="@+id/textView12"
@@ -26,15 +50,6 @@
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
-
-    <RatingBar
-        android:id="@+id/ratingBar2"
-        android:layout_width="241dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_view_clio2" />
 
     <TextView
         android:id="@+id/textView13"
@@ -59,12 +74,12 @@
 
     <TabHost
         android:id="@+id/tabHost"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/btn_buy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13">
@@ -267,7 +282,7 @@
     </TabHost>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_buy"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
