@@ -7,109 +7,156 @@
     tools:context=".view.AboutActivity"
     android:background="@drawable/gradient_background">
 
-    <ImageView
-        android:id="@+id/img_logo"
-        android:layout_width="172dp"
-        android:layout_height="173dp"
-        android:layout_marginEnd="400dp"
-        android:src="@mipmap/car_repair_foreground"
-        app:layout_constraintBottom_toTopOf="@+id/pt_name_service"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        tools:context=".view.BuyCarsActivity"
+        tools:showIn="navigation_view">
 
-    <fragment
-        android:id="@+id/maps"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="334dp"
-        android:layout_height="311dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.425"></fragment>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/pt_name_service"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="350dp"
-        android:layout_marginBottom="20dp"
-        android:clickable="false"
-        android:editable="false"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="          Car Repair Service"
-        app:layout_constraintBottom_toTopOf="@+id/pt_email_service"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_logo"
-        app:layout_constraintVertical_bias="0.48000002" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_background"
+                tools:context=".view.AboutActivity">
 
-    <EditText
-        android:id="@+id/pt_email_service"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="350dp"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="          carrepair@gmail.com"
-        app:layout_constraintBottom_toTopOf="@+id/pt_telefone_service"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pt_name_service" />
+                <ImageView
+                    android:id="@+id/img_logo"
+                    android:layout_width="152dp"
+                    android:layout_height="153dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="400dp"
+                    android:src="@mipmap/car_repair_foreground"
+                    app:layout_constraintBottom_toTopOf="@+id/pt_name_service"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/pt_telefone_service"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="350dp"
-        android:layout_marginBottom="25dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="          +381 64 5517986"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pt_email_service" />
+                <fragment
+                    android:id="@+id/maps"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="334dp"
+                    android:layout_height="311dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.425"></fragment>
 
-    <ImageView
-        android:id="@+id/img_person"
-        android:layout_width="50dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="25dp"
-        android:src="@drawable/ic_person_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/pt_name_service"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.96" />
+                <EditText
+                    android:id="@+id/pt_name_service"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginEnd="350dp"
+                    android:layout_marginBottom="20dp"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="          Car Repair Service"
+                    app:layout_constraintBottom_toTopOf="@+id/pt_email_service"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_logo"
+                    app:layout_constraintVertical_bias="0.48000002" />
 
-    <ImageView
-        android:id="@+id/img_email"
-        android:layout_width="50dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:src="@android:drawable/sym_action_email"
-        app:layout_constraintBottom_toBottomOf="@+id/pt_email_service"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_person" />
+                <EditText
+                    android:id="@+id/pt_email_service"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="350dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="          carrepair@gmail.com"
+                    app:layout_constraintBottom_toTopOf="@+id/pt_telefone_service"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pt_name_service" />
 
-    <ImageView
-        android:id="@+id/img_telephone"
-        android:layout_width="50dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="25dp"
-        android:src="@android:drawable/stat_sys_phone_call"
-        app:layout_constraintBottom_toBottomOf="@+id/pt_telefone_service"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_email" />
+                <EditText
+                    android:id="@+id/pt_telefone_service"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="350dp"
+                    android:layout_marginBottom="25dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="          +381 64 5517986"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pt_email_service" />
+
+                <ImageView
+                    android:id="@+id/img_person"
+                    android:layout_width="50dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="25dp"
+                    android:src="@drawable/ic_person_black_24dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/pt_name_service"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.96" />
+
+                <ImageView
+                    android:id="@+id/img_email"
+                    android:layout_width="50dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@android:drawable/sym_action_email"
+                    app:layout_constraintBottom_toBottomOf="@+id/pt_email_service"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_person" />
+
+                <ImageView
+                    android:id="@+id/img_telephone"
+                    android:layout_width="50dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="25dp"
+                    android:src="@android:drawable/stat_sys_phone_call"
+                    app:layout_constraintBottom_toBottomOf="@+id/pt_telefone_service"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_email" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar_about"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:textAlignment="center"
+                android:layout_marginTop="1dp"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:title="About"></androidx.appcompat.widget.Toolbar>
+
+        </RelativeLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header_home"
+            app:menu="@menu/activity_home_drawer" />
+
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

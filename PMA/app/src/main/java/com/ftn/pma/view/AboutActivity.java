@@ -1,18 +1,24 @@
 package com.ftn.pma.view;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -28,8 +34,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.navigation.NavigationView;
 
-public class AboutActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class AboutActivity extends AppCompatActivity implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
     private SupportMapFragment mapFragment;
     private EditText name_service;
@@ -37,7 +44,11 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
     private EditText telefone_service;
     private ImageView img_email;
     private ImageView img_telephone;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private ActionBarDrawerToggle toggle;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +78,16 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
         int color = Color.parseColor("#000000");
         img_email.setColorFilter(color);
         img_telephone.setColorFilter(color);
+
+        //meni koji izlazi :D
+        drawerLayout = findViewById(R.id.drawer);
+        navigationView = findViewById(R.id.nav_view);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -99,5 +120,26 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
     {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.nav_home:
+            { Intent intent = new Intent(this,HomeActivity.class);
+                startActivity(intent);}
+            break;
+            case R.id.nav_settings:
+            { setContentView(R.layout.fragment_settings);}
+            break;
+            case R.id.nav_notifications:
+            { setContentView(R.layout.fragment_notifications);}
+            break;
+            case R.id.nav_help:
+            { setContentView(R.layout.fragment_help);}
+            break;
+        }
+        return false;
     }
 }
