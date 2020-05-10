@@ -120,4 +120,5 @@
     </string>
     <string name="location">Location</string>
     <string name="theme">Theme</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
