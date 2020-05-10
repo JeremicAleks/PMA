@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ftn.pma.R;
+import com.ftn.pma.db.User_db;
 
 public class MainActivity extends AppCompatActivity {
 
