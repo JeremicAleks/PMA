@@ -64,6 +64,35 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null)
+        if(extras.containsKey("openFragment") && extras.containsKey("openFragmentName")){
+            int id = (int) getIntent().getSerializableExtra("openFragment");
+            String fragmentName = (String) getIntent().getSerializableExtra("openFragmentName");
+            switch (id){
+                case R.id.nav_home:
+                    openFragment(new HomeFragment());
+                    break;
+                case R.id.nav_help:
+                    openFragment(new HelpFragment());
+                    break;
+                case R.id.nav_settings:
+                    openFragment(new SettingsFragment());
+                    break;
+                case R.id.nav_notifications:
+                    openFragment(new NotificationsFragment());
+
+                    break;
+                case R.id.nav_signOut:{
+                    Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                break;
+            }
+            setTitle(fragmentName);
+        }
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 //        mAppBarConfiguration = new AppBarConfiguration.Builder(
