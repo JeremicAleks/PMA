@@ -13,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,8 +23,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ftn.pma.R;
+import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
 
 public class UserProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +36,9 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
+    TextView tv_name;
+    TextView tv_email;
+    TextView tv_telephone;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -44,6 +50,16 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         shoppingCart.setBackgroundColor(Color.TRANSPARENT);
         Toolbar toolbar = findViewById(R.id.tb_user_profile);
         setSupportActionBar(toolbar);
+
+        User user = (User) getIntent().getSerializableExtra("user");
+
+        tv_name = findViewById(R.id.tv_name);
+        tv_email = findViewById(R.id.tv_email);
+        tv_telephone = findViewById(R.id.tv_telephone);
+
+        tv_name.setText(user.getName()+" "+user.getSurname());
+        tv_email.setText(user.getEmail());
+        tv_telephone.setText(user.getTelephone());
 
         shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,4 +107,17 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         }
         return false;
     }
+
+//    public void onConfigurationChanged (Configuration newConfig)
+//    {
+//        int currentNightMode = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+//        switch (currentNightMode) {
+//            case Configuration.UI_MODE_NIGHT_NO:
+//                // Night mode is not active, we're using the light theme
+//                break;
+//            case Configuration.UI_MODE_NIGHT_YES:
+//                // Night mode is active, we're using dark theme
+//                break;
+//        }
+//    }
 }

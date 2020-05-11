@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".view.UserProfileActivity"
     android:background="@drawable/gradient_background"
+    android:configChanges="uiMode"
     >
 
     <androidx.drawerlayout.widget.DrawerLayout

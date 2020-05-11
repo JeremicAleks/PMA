@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.ftn.pma.R;
+import com.ftn.pma.model.User;
 import com.ftn.pma.view.AboutActivity;
 import com.ftn.pma.view.BuyCarsActivity;
 import com.ftn.pma.view.ServiceActivity;
@@ -28,6 +29,10 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         ImageButton btnAbout = root.findViewById(R.id.img_btn_about);
+
+        final User user = (User) getActivity().getIntent().getSerializableExtra("user");
+
+
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +59,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
