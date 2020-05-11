@@ -76,16 +76,34 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         {
             case R.id.nav_home:
             { Intent intent = new Intent(this,HomeActivity.class);
+                intent.putExtra("openFragment",R.id.nav_home);
+                intent.putExtra("openFragmentName",item.getTitle());
                 startActivity(intent);}
                 break;
             case R.id.nav_settings:
-            { setContentView(R.layout.fragment_settings);}
+            { Intent intent = new Intent(this,HomeActivity.class);
+                intent.putExtra("openFragment",R.id.nav_settings);
+                intent.putExtra("openFragmentName",item.getTitle());
+                startActivity(intent);
+            }
             break;
             case R.id.nav_notifications:
-            { setContentView(R.layout.fragment_notifications);}
+            { Intent intent = new Intent(this,HomeActivity.class);
+                intent.putExtra("openFragment",R.id.nav_notifications);
+                intent.putExtra("openFragmentName",item.getTitle());
+                startActivity(intent);}
             break;
             case R.id.nav_help:
-            { setContentView(R.layout.fragment_help);}
+            { Intent intent = new Intent(this,HomeActivity.class);
+                intent.putExtra("openFragment",R.id.nav_help);
+                intent.putExtra("openFragmentName",item.getTitle());
+                startActivity(intent);}
+            break;
+            case R.id.nav_signOut:
+            { Intent intent = new Intent(this,HomeActivity.class);
+                intent.putExtra("openFragment",R.id.nav_signOut);
+                intent.putExtra("openFragmentName",item.getTitle());
+                startActivity(intent);}
             break;
         }
         return false;
