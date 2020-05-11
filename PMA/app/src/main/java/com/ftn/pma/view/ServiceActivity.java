@@ -12,14 +12,19 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.ftn.pma.R;
 import com.google.android.material.navigation.NavigationView;
+import com.leo.simplearcloader.ArcConfiguration;
+import com.leo.simplearcloader.SimpleArcDialog;
+import com.leo.simplearcloader.SimpleArcLoader;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -75,6 +80,29 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                 datePickerDialog.show();
             }
         });
+
+        Button btnReserve = findViewById(R.id.btn_reserve);
+        btnReserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final SimpleArcDialog mDialog = new SimpleArcDialog(ServiceActivity.this);
+                ArcConfiguration configuration = new ArcConfiguration(ServiceActivity.this);
+                configuration.setAnimationSpeed(SimpleArcLoader.SPEED_MEDIUM);
+                int[] mColors = {Color.parseColor("#0266C8")};
+                configuration.setText("Please wait..");
+                configuration.setColors(mColors);
+                mDialog.setConfiguration(configuration);
+                mDialog.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mDialog.cancel();
+                    }
+                },4000);
+            }
+        });
+
     }
     @Override
     public void finish()
