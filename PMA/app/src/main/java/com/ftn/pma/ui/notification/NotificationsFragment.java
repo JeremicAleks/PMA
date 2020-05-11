@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.ftn.pma.R;
 
-public class NotificationsFragment extends Fragment {
+public class NotificationsFragment extends Fragment  {
 
     private NotificationsViewModel notificationsViewModel;
 
@@ -32,4 +32,6 @@ public class NotificationsFragment extends Fragment {
         });
         return root;
     }
+
+
 }

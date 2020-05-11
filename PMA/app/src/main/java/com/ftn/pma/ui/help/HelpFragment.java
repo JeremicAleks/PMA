@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.ftn.pma.R;
 
-public class HelpFragment extends Fragment {
+public class HelpFragment extends Fragment  {
 
     private HelpViewModel mViewModel;
 

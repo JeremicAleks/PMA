@@ -21,14 +21,25 @@
             android:background="@color/newCar_background"
             tools:context=".view.CardetailsActivity">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb_carDetail2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title="Car Detail" />
+
             <ImageView
                 android:id="@+id/img_view_clio2"
                 android:layout_width="308dp"
                 android:layout_height="124dp"
-                android:layout_marginTop="16dp"
                 android:src="@mipmap/renault_cars"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tb_carDetail2" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -45,10 +56,9 @@
                 android:id="@+id/ratingBar2"
                 android:layout_width="234dp"
                 android:layout_height="49dp"
-                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_view_clio2"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tb_carDetail2" />
 
             <TextView
                 android:id="@+id/textView13"
@@ -282,11 +292,12 @@
 
             <Button
                 android:id="@+id/btn_buy"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_button"
                 android:text="Buy"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

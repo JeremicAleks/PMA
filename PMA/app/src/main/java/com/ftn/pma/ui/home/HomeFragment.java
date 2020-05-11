@@ -18,7 +18,7 @@ import com.ftn.pma.view.BuyCarsActivity;
 import com.ftn.pma.view.ServiceActivity;
 import com.ftn.pma.view.UserProfileActivity;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private HomeViewModel homeViewModel;
 
@@ -76,5 +76,10 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

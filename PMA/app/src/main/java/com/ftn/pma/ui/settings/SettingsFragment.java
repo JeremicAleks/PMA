@@ -26,10 +26,9 @@ public class SettingsFragment extends Fragment {
     private Switch location;
     FusedLocationProviderClient fusedLocationProviderClient;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        settingsViewModel =
-                ViewModelProviders.of(this).get(SettingsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
 
         location = root.findViewById(R.id.switch_geo);
@@ -50,4 +49,6 @@ public class SettingsFragment extends Fragment {
         });
         return root;
     }
+
+
 }
