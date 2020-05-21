@@ -71,8 +71,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         //postavljanje username u navigation View
-        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user_name);
-        txtProfileName.setText(user.getName()+" "+user.getSurname());
+//        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user_name);
+//        txtProfileName.setText(user.getName()+" "+user.getSurname());
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -186,6 +186,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void openFragment(Fragment fragment){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.contentContainer, fragment);
+        ft.addToBackStack(null);
         ft.commit();
     }
 

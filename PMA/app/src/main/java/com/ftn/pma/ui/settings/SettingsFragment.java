@@ -35,6 +35,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.ftn.pma.R;
+import com.ftn.pma.globals.Constants;
 import com.ftn.pma.model.User;
 import com.ftn.pma.ui.home.HomeFragment;
 import com.ftn.pma.view.HomeActivity;
@@ -62,6 +63,9 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        settingsViewModel =
+                ViewModelProviders.of(this).get(SettingsViewModel.class);
 
         location = root.findViewById(R.id.switch_geo);
 
@@ -105,11 +109,21 @@ public class SettingsFragment extends Fragment {
         //dark od light BAR
         dark = root.findViewById(R.id.rb_dark);
         light = root.findViewById(R.id.rb_light);
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-        {
-            dark.setChecked(true);
-        }else
-            light.setChecked(true);
+
+        settingsViewModel.getDark().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                dark.setChecked(aBoolean);
+            }
+        });
+        settingsViewModel.getLight().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                light.setChecked(aBoolean);
+            }
+        });
+
+
         dark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
