@@ -24,9 +24,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ftn.pma.R;
+import com.ftn.pma.model.User;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -69,6 +71,8 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
         toolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         setSupportActionBar(toolbar);
 
+        final User user = (User) getIntent().getSerializableExtra("user");
+
         //provera da li je internet ukljucen
         proveraInterneta();
 
@@ -95,6 +99,9 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
         navigationView = findViewById(R.id.nav_view);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //postavljanje username u navigation View
+        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user_name);
+        txtProfileName.setText(user.getName()+" "+user.getSurname());
         toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();

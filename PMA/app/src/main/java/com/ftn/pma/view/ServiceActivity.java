@@ -22,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.ftn.pma.R;
+import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
 import com.leo.simplearcloader.ArcConfiguration;
 import com.leo.simplearcloader.SimpleArcDialog;
@@ -55,11 +56,16 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar = findViewById(R.id.tb_service);
         setSupportActionBar(toolbar);
 
+        final User user = (User) getIntent().getSerializableExtra("user");
+
         //meni koji izlazi :D
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.nav_view);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //postavljanje username u navigation View
+        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user_name);
+        txtProfileName.setText(user.getName()+" "+user.getSurname());
         toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
