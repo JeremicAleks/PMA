@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.AboutActivity"
-    android:background="@drawable/gradient_background">
+    android:background="?attr/backgroundcolor">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
@@ -22,7 +22,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/gradient_background"
+                android:background="?attr/backgroundcolor"
                 tools:context=".view.AboutActivity">
 
                 <ImageView
@@ -51,7 +51,7 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.425"></fragment>
+                    app:layout_constraintVertical_bias="0.425"/>
 
                 <EditText
                     android:id="@+id/pt_name_service"
@@ -63,6 +63,7 @@
                     android:clickable="false"
                     android:editable="false"
                     android:ems="10"
+                    android:textColor="?attr/textcolor"
                     android:inputType="textPersonName"
                     android:text="          Car Repair Service"
                     app:layout_constraintBottom_toTopOf="@+id/pt_email_service"
@@ -78,6 +79,7 @@
                     android:layout_marginEnd="350dp"
                     android:layout_marginBottom="20dp"
                     android:ems="10"
+                    android:textColor="?attr/textcolor"
                     android:inputType="textPersonName"
                     android:text="          carrepair@gmail.com"
                     app:layout_constraintBottom_toTopOf="@+id/pt_telefone_service"
@@ -92,6 +94,7 @@
                     android:layout_marginEnd="350dp"
                     android:layout_marginBottom="25dp"
                     android:ems="10"
+                    android:textColor="?attr/textcolor"
                     android:inputType="textPersonName"
                     android:text="          +381 64 5517986"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -139,11 +142,10 @@
                 android:layout_height="?attr/actionBarSize"
                 android:textAlignment="center"
                 android:layout_marginTop="1dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/backgroundcolor"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="About"></androidx.appcompat.widget.Toolbar>
+                app:title="About"/>
 
         </RelativeLayout>
 

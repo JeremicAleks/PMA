@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="?attr/backgroundcolor"
     tools:context=".ui.home.HomeFragment">
 
     <ImageView
@@ -20,16 +20,20 @@
 
     <ImageButton
         android:id="@+id/img_btn_buy_car"
-        android:layout_width="180dp"
-        android:layout_height="178dp"
+        android:layout_width="175dp"
+        android:layout_height="173dp"
+        android:layout_marginTop="3dp"
+        android:background="?attr/buttoncolor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/newcar_foreground" />
 
     <ImageButton
         android:id="@+id/img_btn_service"
-        android:layout_width="180dp"
-        android:layout_height="178dp"
+        android:layout_width="175dp"
+        android:layout_height="173dp"
+        android:layout_marginTop="3dp"
+        android:background="?attr/buttoncolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/img_btn_buy_car"
@@ -38,8 +42,10 @@
 
     <ImageButton
         android:id="@+id/img_btn_profile"
-        android:layout_width="180dp"
-        android:layout_height="178dp"
+        android:layout_width="175dp"
+        android:layout_height="173dp"
+        android:layout_marginBottom="3dp"
+        android:background="?attr/buttoncolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_logo"
@@ -48,8 +54,10 @@
 
     <ImageButton
         android:id="@+id/img_btn_about"
-        android:layout_width="180dp"
-        android:layout_height="178dp"
+        android:layout_width="175dp"
+        android:layout_height="173dp"
+        android:layout_marginBottom="3dp"
+        android:background="?attr/buttoncolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -63,6 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Buy Car"
+        android:textColor="?attr/textcolor"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/img_btn_buy_car"
         app:layout_constraintEnd_toEndOf="@+id/img_btn_buy_car"
@@ -76,6 +85,7 @@
         android:layout_height="wrap_content"
         android:text="Service"
         android:textSize="18sp"
+        android:textColor="?attr/textcolor"
         app:layout_constraintBottom_toBottomOf="@+id/img_btn_service"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/img_btn_service"
@@ -88,6 +98,7 @@
         android:layout_height="wrap_content"
         android:text="User profile"
         android:textSize="18sp"
+        android:textColor="?attr/textcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/img_btn_profile"
         app:layout_constraintHorizontal_bias="0.483"
@@ -101,6 +112,7 @@
         android:layout_height="wrap_content"
         android:text="About"
         android:textSize="18sp"
+        android:textColor="?attr/textcolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"

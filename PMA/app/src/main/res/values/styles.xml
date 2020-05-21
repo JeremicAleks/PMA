@@ -4,8 +4,22 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/car_repair_background</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/car_repair_background</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundcolor">@drawable/gradient_background</item>
+        <item name="textcolor">#000000</item>
+        <item name="buttoncolor">@drawable/custom_button</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+    </style>
+
+    <style name="darkMode" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundcolor">@color/colorAccent</item>
+        <item name="textcolor">#FFFFFF</item>
+        <item name="buttoncolor">@drawable/custom_button</item>
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
     </style>
 

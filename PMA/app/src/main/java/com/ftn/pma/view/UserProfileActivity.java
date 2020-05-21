@@ -3,6 +3,7 @@ package com.ftn.pma.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -43,15 +44,27 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //promena dark ili light modela
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        {
+            System.out.println("DARK MOD");
+            setTheme(R.style.darkMode);
+        }else
+        {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_user_profile);
+
+        hideSystemUIImperativeMode();
+
         shoppingCart = findViewById(R.id.img_btn_shopping_cart);
         shoppingCart.setBackgroundColor(Color.TRANSPARENT);
         Toolbar toolbar = findViewById(R.id.tb_user_profile);
         setSupportActionBar(toolbar);
 
-        User user = (User) getIntent().getSerializableExtra("user");
+        final User user = (User) getIntent().getSerializableExtra("user");
 
         tv_name = findViewById(R.id.tv_name);
         tv_email = findViewById(R.id.tv_email);
@@ -65,6 +78,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserProfileActivity.this,ShoppingCartActivity.class);
+                intent.putExtra("user",user);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
@@ -75,6 +89,9 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         navigationView = findViewById(R.id.nav_view);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        //postavljanje username u navigation View
+        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user_name);
+        txtProfileName.setText(user.getName()+" "+user.getSurname());
         toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -126,16 +143,20 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         return false;
     }
 
-//    public void onConfigurationChanged (Configuration newConfig)
-//    {
-//        int currentNightMode = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
-//        switch (currentNightMode) {
-//            case Configuration.UI_MODE_NIGHT_NO:
-//                // Night mode is not active, we're using the light theme
-//                break;
-//            case Configuration.UI_MODE_NIGHT_YES:
-//                // Night mode is active, we're using dark theme
-//                break;
-//        }
-//    }
+    private void hideSystemUIImperativeMode() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
 }

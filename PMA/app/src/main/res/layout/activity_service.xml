@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="?attr/backgroundcolor"
     tools:context=".view.ServiceActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -22,7 +22,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/gradient_background"
+                android:background="?attr/backgroundcolor"
                 tools:context=".view.ServiceActivity">
 
                 <EditText
@@ -34,6 +34,7 @@
                     android:layout_marginEnd="32dp"
                     android:ems="10"
                     android:hint="@string/email"
+                    android:textColor="?attr/textcolor"
                     android:inputType="textEmailAddress"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +46,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="24dp"
                     android:text="Type of service"
+                    android:textColor="?attr/textcolor"
                     app:layout_constraintEnd_toEndOf="@+id/editText6"
                     app:layout_constraintStart_toStartOf="@+id/editText6"
                     app:layout_constraintTop_toBottomOf="@+id/editText6" />
@@ -64,6 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="?attr/textcolor"
                         android:text="Small service" />
 
                     <CheckBox
@@ -71,6 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="?attr/textcolor"
                         android:text="Big service" />
 
                     <CheckBox
@@ -78,6 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="?attr/textcolor"
                         android:text="Techical inspection" />
                 </LinearLayout>
 
@@ -87,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="Date"
+                    android:textColor="?attr/textcolor"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -99,7 +105,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="32dp"
                     android:text="Reserve"
-                    android:background="@drawable/custom_button"
+                    android:background="?attr/buttoncolor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -112,6 +118,7 @@
                     android:clickable="true"
                     android:fontFamily="sans-serif"
                     android:text="Select Date"
+                    android:textColor="?attr/textcolor"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout"
@@ -123,9 +130,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="45dp"
                     android:layout_marginTop="2dp"
-                    android:background="?attr/colorPrimary"
+                    android:background="?attr/backgroundcolor"
                     android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
