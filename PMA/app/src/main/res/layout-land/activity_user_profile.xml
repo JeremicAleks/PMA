@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.UserProfileActivity"
+    android:layout_marginLeft="30dp"
     android:background="?attr/backgroundcolor"
-    >
+    tools:context=".view.UserProfileActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
@@ -57,9 +57,9 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginBottom="10dp"
                     android:text="Reserved appointments:"
+                    android:textColor="?attr/textcolor"
                     android:textSize="18sp"
                     android:textStyle="bold|italic"
-                    android:textColor="?attr/textcolor"
                     app:layout_constraintBottom_toTopOf="@+id/tableLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -86,8 +86,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="johndoe@gmail.com"
-                    android:textSize="18sp"
                     android:textColor="?attr/textcolor"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.169"
                     app:layout_constraintStart_toEndOf="@+id/img_person"
@@ -100,8 +100,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="60dp"
                     android:text="+381 60 6028638"
-                    android:textSize="18sp"
                     android:textColor="?attr/textcolor"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/tableLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.158"

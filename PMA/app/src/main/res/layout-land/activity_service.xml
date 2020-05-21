@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="30dp"
     android:background="?attr/backgroundcolor"
     tools:context=".view.ServiceActivity">
 
@@ -34,8 +35,8 @@
                     android:layout_marginEnd="32dp"
                     android:ems="10"
                     android:hint="@string/email"
-                    android:textColor="?attr/textcolor"
                     android:inputType="textEmailAddress"
+                    android:textColor="?attr/textcolor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -66,24 +67,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="?attr/textcolor"
-                        android:text="Small service" />
+                        android:text="Small service"
+                        android:textColor="?attr/textcolor" />
 
                     <CheckBox
                         android:id="@+id/checkBox5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="?attr/textcolor"
-                        android:text="Big service" />
+                        android:text="Big service"
+                        android:textColor="?attr/textcolor" />
 
                     <CheckBox
                         android:id="@+id/checkBox6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="?attr/textcolor"
-                        android:text="Techical inspection" />
+                        android:text="Techical inspection"
+                        android:textColor="?attr/textcolor" />
                 </LinearLayout>
 
                 <TextView
@@ -118,8 +119,8 @@
                     android:clickable="true"
                     android:fontFamily="sans-serif"
                     android:text="Select Date"
-                    android:textSize="24sp"
                     android:textColor="?attr/textcolor"
+                    android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />

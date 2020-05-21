@@ -28,7 +28,7 @@
                     android:id="@+id/img_logo"
                     android:layout_width="202dp"
                     android:layout_height="224dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="40dp"
                     android:src="@mipmap/car_repair_foreground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -132,12 +132,13 @@
                 android:id="@+id/toolbar_about"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_marginTop="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="30dp"
                 android:background="?attr/backgroundcolor"
                 android:minHeight="?attr/actionBarSize"
                 android:textAlignment="center"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="About"/>
+                app:title="About" />
 
         </RelativeLayout>
 

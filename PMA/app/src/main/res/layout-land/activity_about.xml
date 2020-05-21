@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.AboutActivity"
-    android:background="?attr/backgroundcolor">
+    android:layout_marginLeft="30dp"
+    android:background="?attr/backgroundcolor"
+    tools:context=".view.AboutActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
@@ -51,7 +52,7 @@
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.425"/>
+                    app:layout_constraintVertical_bias="0.425" />
 
                 <EditText
                     android:id="@+id/pt_name_service"
@@ -63,9 +64,9 @@
                     android:clickable="false"
                     android:editable="false"
                     android:ems="10"
-                    android:textColor="?attr/textcolor"
                     android:inputType="textPersonName"
                     android:text="          Car Repair Service"
+                    android:textColor="?attr/textcolor"
                     app:layout_constraintBottom_toTopOf="@+id/pt_email_service"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,9 +80,9 @@
                     android:layout_marginEnd="350dp"
                     android:layout_marginBottom="20dp"
                     android:ems="10"
-                    android:textColor="?attr/textcolor"
                     android:inputType="textPersonName"
                     android:text="          carrepair@gmail.com"
+                    android:textColor="?attr/textcolor"
                     app:layout_constraintBottom_toTopOf="@+id/pt_telefone_service"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,9 +95,9 @@
                     android:layout_marginEnd="350dp"
                     android:layout_marginBottom="25dp"
                     android:ems="10"
-                    android:textColor="?attr/textcolor"
                     android:inputType="textPersonName"
                     android:text="          +381 64 5517986"
+                    android:textColor="?attr/textcolor"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -140,12 +141,12 @@
                 android:id="@+id/toolbar_about"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:textAlignment="center"
                 android:layout_marginTop="1dp"
                 android:background="?attr/backgroundcolor"
                 android:minHeight="?attr/actionBarSize"
+                android:textAlignment="center"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:title="About"/>
+                app:title="About" />
 
         </RelativeLayout>
 
