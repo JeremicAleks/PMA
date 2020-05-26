@@ -190,6 +190,7 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                 {
                     Toast.makeText(ServiceActivity.this,"Successful registration",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ServiceActivity.this,HomeActivity.class);
+                    intent.putExtra("user",user);
                     startActivity(intent);
                 }else
                 {

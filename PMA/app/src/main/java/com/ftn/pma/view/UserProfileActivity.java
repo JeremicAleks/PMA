@@ -35,6 +35,7 @@ import com.ftn.pma.model.TypeOfService;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class UserProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -183,26 +184,39 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             for(Reservation r : rezervacije)
             {
                 TableRow tr = new TableRow(this);
-                tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
                 /* Create a Button to be the row-content. */
                 TextView date = new TextView(this);
                 date.setText(r.getDate());
+                date.setLines(r.getTypeOfService().size());
                 date.setBackgroundColor(Color.parseColor("#f1f1f1"));
-                date.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                date.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                date.setLayoutParams(new TableRow.LayoutParams(127, TableRow.LayoutParams.WRAP_CONTENT));
                 /* Add Button to row. */
                 tr.addView(date);
+                TextView time = new TextView(this);
+                time.setBackgroundColor(Color.parseColor("#f1f1f1"));
+                time.setText(r.getTime());
+                time.setLines(r.getTypeOfService().size());
+                time.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                time.setLayoutParams(new TableRow.LayoutParams(127, TableRow.LayoutParams.WRAP_CONTENT));
+                /* Add Button to row. */
+                tr.addView(time);
                 TextView service = new TextView(this);
                 service.setBackgroundColor(Color.parseColor("#f1f1f1"));
-                //service.setLines(r.getTypeOfService().size());
-                for(TypeOfService type : r.getTypeOfService())
+                service.setLines(r.getTypeOfService().size());
+                service.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                for(int i=0;i<r.getTypeOfService().size()-1;i++)
                 {
-                    service.append(type.toString());
+                    service.append(r.getTypeOfService().get(i).toString());
+                    service.append(",\n");
                 }
-                service.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                service.append(r.getTypeOfService().get(r.getTypeOfService().size()-1).toString());
+                service.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
                 /* Add Button to row. */
                 tr.addView(service);
                 /* Add row to TableLayout. */
-                t.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+                t.addView(tr);
             }
         }
     }

@@ -17,6 +17,7 @@ public class Reservation implements Serializable {
         this.email = email;
         this.typeOfService = typeOfService;
         this.date = date;
+        this.time=time;
     }
 
     public String getEmail() {

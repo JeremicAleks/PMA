@@ -34,7 +34,7 @@ public class User_db extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+ TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,SURNAME TEXT, TELEPHONE TEXT, EMAIL TEXT,PASSWORD TEXT)");
-        db.execSQL("create table "+ TABLE_NAME1 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, EMAIL TEXT,TYPE_OF_SERVICE TEXT, DATE TEXT, USER_ID REFERENCES user(ID))");
+        db.execSQL("create table "+ TABLE_NAME1 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, EMAIL TEXT,TYPE_OF_SERVICE TEXT, DATE TEXT,TIME TEXT, USER_ID REFERENCES user(ID))");
     }
 
     @Override
