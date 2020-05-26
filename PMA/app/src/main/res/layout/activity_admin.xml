@@ -39,6 +39,13 @@
                 android:text="Choose Image"
                 android:textSize="24sp" />
 
+            <ImageView
+                android:id="@+id/img_adminChoose"
+                android:layout_width="match_parent"
+                android:layout_height="113dp"
+                android:src="@mipmap/collect_cars"
+                app:srcCompat="@drawable/ic_menu_gallery" />
+
             <EditText
                 android:id="@+id/et_adminCarBrand"
                 android:layout_width="match_parent"
