@@ -49,6 +49,10 @@ public class LoginActivity extends AppCompatActivity{
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
+                }else if(email.equalsIgnoreCase("admin") && pass.equalsIgnoreCase("admin")){
+                    Intent intent = new Intent(LoginActivity.this,AdminActivity.class);
+                    startActivity(intent);
+                    finish();
                 }else
                 {
                     Toast.makeText(LoginActivity.this,"Failed Login",Toast.LENGTH_SHORT).show();

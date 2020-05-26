@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AdminActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/AdminToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Admin Panel" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="406dp"
+        android:layout_height="678dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80px"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_chooseImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="Choose Image"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/et_adminCarBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Car brand"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_adminCarModel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Car model"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_adminCarPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Price"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true" />
+
+            <TextView
+                android:id="@+id/tv_adminSpecification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Car Specification"
+                android:textSize="18sp" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:background="?android:attr/listDivider" />
+
+            <EditText
+                android:id="@+id/et_adminPower"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Power"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_adminHorsePower"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="HorsePower"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_adminTorque"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Torque"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_adminMaxPower"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Rev. at Max Power"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_Transmission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Transmission"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/tv_adminDimension"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Car Dimension"
+                android:textSize="18sp" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:background="?android:attr/listDivider" />
+
+            <EditText
+                android:id="@+id/et_admnHeight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Height"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_adminWidth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Width"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/et_adminLenght"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Lenght"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/btn_adminAddCar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Car" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -56,7 +56,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        setTitle("Home");
         //notch
         hideSystemUIImperativeMode();
         Toolbar toolbar = findViewById(R.id.toolbar);
