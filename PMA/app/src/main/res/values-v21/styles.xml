@@ -8,6 +8,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorPrimary">@color/car_repair_background</item>
         <item name="colorPrimaryDark">@color/car_repair_background</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -19,6 +20,7 @@
 
     <style name="darkMode" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorPrimary">#000000</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">@color/colorAccent</item>

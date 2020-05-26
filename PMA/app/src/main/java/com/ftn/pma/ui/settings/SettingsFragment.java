@@ -46,6 +46,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 public class SettingsFragment extends Fragment {
@@ -60,6 +61,7 @@ public class SettingsFragment extends Fragment {
     private static Uri alarmSound;
     private final long[] pattern = {100,500,500,100};
     private NotificationManager notificationManager;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_settings, container, false);
@@ -79,29 +81,17 @@ public class SettingsFragment extends Fragment {
                 if(ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 {
                     Intent intent1 = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(intent1);
-                    // Reload current fragment
-
-                    List<Fragment> f = getActivity().getSupportFragmentManager().getFragments();
-
-//                    for(Fragment fr : f)
-//                    {
-//                        System.out.println("NAZIV " +fr.getId());
-//                        System.out.println("Ima nesto " +fr.getId());
-//                    }
-//                    SettingsFragment frg = (SettingsFragment) getActivity().getSupportFragmentManager().findFragmentByTag("settings");
-
-                    final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    ft.detach(f.get(0));
-                    ft.attach(f.get(0));
-                    ft.commit();
+                    startActivityForResult(intent1,100);
+                    System.out.println("PROSO KOD");
                 }else
                 {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);
                     Intent intent1 = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivity(intent1);
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(container.getId(), new SettingsFragment()).commit();
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.contentContainer, new SettingsFragment());
+                    ft.addToBackStack(null);
+                    ft.commit();
                 }
                 checkGPS();
             }
@@ -207,22 +197,25 @@ public class SettingsFragment extends Fragment {
     {
         manager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
         boolean GpsStatus = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        System.out.println("Status GPS: " +GpsStatus);
         if(!GpsStatus)
         {
-            System.out.println("ISKLJUCEN");
             location.setChecked(false);
 
         }else {
             location.setChecked(true);
-            System.out.println("UKLJUCEN");
         }
     }
 
-    public void finish()
-    {
-//        getActivity().finish();
-        getActivity().overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Reload current fragment
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.detach(SettingsFragment.this);
+        ft.replace(R.id.contentContainer, new SettingsFragment());
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
 

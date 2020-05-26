@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,17 +19,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.ftn.pma.R;
+import com.ftn.pma.db.Reservation_db;
+import com.ftn.pma.model.TypeOfService;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
 import com.leo.simplearcloader.ArcConfiguration;
 import com.leo.simplearcloader.SimpleArcDialog;
 import com.leo.simplearcloader.SimpleArcLoader;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ServiceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +47,7 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
+    Reservation_db reservation_db;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -55,9 +67,10 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
 
         Toolbar toolbar = findViewById(R.id.tb_service);
         setSupportActionBar(toolbar);
-
+        //uzimanje uloogvanog User-a
         final User user = (User) getIntent().getSerializableExtra("user");
-
+        //inicijalizacija baze reservation
+        reservation_db = new Reservation_db(this);
         //meni koji izlazi :D
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.nav_view);
@@ -71,7 +84,12 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        final EditText et_email_service = findViewById(R.id.et_email_service);
+        final CheckBox cb_small_service = findViewById(R.id.cb_small_service);
+        final CheckBox cb_big_service = findViewById(R.id.cb_big_service);
+        final CheckBox cb_technical_inspection = findViewById(R.id.cb_technical_inspection);
         final TextView tvSelectDate = findViewById(R.id.tv_selectDate);
+        final TextView tvSelectTime = findViewById(R.id.tv_timePicker);
         final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -97,10 +115,62 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
             }
         });
 
+        final TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                String time = hourOfDay+":"+minute;
+                tvSelectTime.setText(time);
+            }
+        };
+
+        tvSelectTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR);
+                int minute = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(ServiceActivity.this,timeSetListener,hour,minute,true);
+
+                timePickerDialog.getWindow();
+                timePickerDialog.show();
+            }
+        });
         Button btnReserve = findViewById(R.id.btn_reserve);
         btnReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean rezultat = false;
+                if(cb_small_service.isChecked() && cb_big_service.isChecked() && cb_technical_inspection.isChecked())
+                {
+                    rezultat=reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE+","+TypeOfService.BIG_SERVICE+","+TypeOfService.TECHNICAL_INSPECTION,tvSelectDate.getText().toString(), tvSelectTime.getText().toString(),String.valueOf(user.getId()));
+                }else if(cb_small_service.isChecked() && cb_big_service.isChecked())
+                {
+                    rezultat=reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE+","+TypeOfService.BIG_SERVICE,tvSelectDate.getText().toString(),tvSelectTime.getText().toString(),String.valueOf(user.getId()));
+
+                }else if(cb_big_service.isChecked() && cb_technical_inspection.isChecked())
+                {
+                    rezultat=reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.BIG_SERVICE+","+TypeOfService.TECHNICAL_INSPECTION,tvSelectDate.getText().toString(),tvSelectTime.getText().toString(),String.valueOf(user.getId()));
+
+                }else if(cb_small_service.isChecked() && cb_technical_inspection.isChecked())
+                {
+                    rezultat=reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE+","+TypeOfService.TECHNICAL_INSPECTION,tvSelectDate.getText().toString(),tvSelectTime.getText().toString(),String.valueOf(user.getId()));
+
+                }else if(cb_small_service.isChecked())
+                {
+                   rezultat=reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE.toString(),tvSelectDate.getText().toString(),tvSelectTime.getText().toString(),String.valueOf(user.getId()));
+
+                }else if(cb_big_service.isChecked())
+                {
+                    rezultat=reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.BIG_SERVICE.toString(),tvSelectDate.getText().toString(),tvSelectTime.getText().toString(),String.valueOf(user.getId()));
+
+                }else if(cb_technical_inspection.isChecked())
+                {
+                    rezultat=reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.TECHNICAL_INSPECTION.toString(),tvSelectDate.getText().toString(),tvSelectTime.getText().toString(),String.valueOf(user.getId()));
+
+                }
                 final SimpleArcDialog mDialog = new SimpleArcDialog(ServiceActivity.this);
                 ArcConfiguration configuration = new ArcConfiguration(ServiceActivity.this);
                 configuration.setAnimationSpeed(SimpleArcLoader.SPEED_MEDIUM);
@@ -116,6 +186,15 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                         mDialog.cancel();
                     }
                 },4000);
+                if(rezultat)
+                {
+                    Toast.makeText(ServiceActivity.this,"Successful registration",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ServiceActivity.this,HomeActivity.class);
+                    startActivity(intent);
+                }else
+                {
+                    Toast.makeText(ServiceActivity.this,"Problem with reservation",Toast.LENGTH_LONG).show();
+                }
             }
         });
 

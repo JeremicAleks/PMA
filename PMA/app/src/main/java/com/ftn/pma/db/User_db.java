@@ -20,6 +20,11 @@ public class User_db extends SQLiteOpenHelper {
     public static final String TELEPHONE = "TELEPHONE";
     public static final String EMAIL = "EMAIL";
     public static final String PASSWORD = "PASSWORD";
+    public static final String TABLE_NAME1 = "reservation";
+    public static final String USER_ID = "USER_ID";
+    public static final String TYPE_OF_SERVICE = "TYPE_OF_SERVICE";
+    public static final String DATE = "DATE";
+    public static final String TIME = "TIME";
 
     public User_db(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -29,11 +34,13 @@ public class User_db extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+ TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,SURNAME TEXT, TELEPHONE TEXT, EMAIL TEXT,PASSWORD TEXT)");
+        db.execSQL("create table "+ TABLE_NAME1 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, EMAIL TEXT,TYPE_OF_SERVICE TEXT, DATE TEXT, USER_ID REFERENCES user(ID))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME1);
         onCreate(db);
     }
 
@@ -62,7 +69,7 @@ public class User_db extends SQLiteOpenHelper {
         if(read.getCount() > 0)
         {
             read.moveToFirst();
-            user = new User(read.getString(read.getColumnIndex("NAME")), read.getString(read.getColumnIndex("SURNAME")), read.getString(read.getColumnIndex("TELEPHONE")),read.getString(read.getColumnIndex("EMAIL")),read.getString(read.getColumnIndex("PASSWORD")));
+            user = new User(Integer.parseInt(read.getString(read.getColumnIndex("ID"))),read.getString(read.getColumnIndex("NAME")), read.getString(read.getColumnIndex("SURNAME")), read.getString(read.getColumnIndex("TELEPHONE")),read.getString(read.getColumnIndex("EMAIL")),read.getString(read.getColumnIndex("PASSWORD")));
             return user;
         }else
         {

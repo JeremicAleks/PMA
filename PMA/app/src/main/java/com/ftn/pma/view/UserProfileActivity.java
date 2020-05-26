@@ -24,11 +24,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.ftn.pma.R;
+import com.ftn.pma.db.Reservation_db;
+import com.ftn.pma.model.Reservation;
+import com.ftn.pma.model.TypeOfService;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
 
 public class UserProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -40,7 +47,8 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
     TextView tv_name;
     TextView tv_email;
     TextView tv_telephone;
-
+    Reservation_db reservation_db;
+    TableLayout reservation_table;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +73,13 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         setSupportActionBar(toolbar);
 
         final User user = (User) getIntent().getSerializableExtra("user");
+        //inicijalizacija baze reservation
+        reservation_db = new Reservation_db(this);
+
+        reservation_table = findViewById(R.id.tabela_rezervacija);
+
+        //izlistavanje rezervacija od korinsika
+        rezervacijeKorisnika(String.valueOf(user.getId()),reservation_table);
 
         tv_name = findViewById(R.id.tv_name);
         tv_email = findViewById(R.id.tv_email);
@@ -158,5 +173,37 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    public void rezervacijeKorisnika(String id, TableLayout t)
+    {
+        List<Reservation> rezervacije = reservation_db.getAllReservation(id);
+        if(rezervacije.size()>0)
+        {
+            for(Reservation r : rezervacije)
+            {
+                TableRow tr = new TableRow(this);
+                tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                /* Create a Button to be the row-content. */
+                TextView date = new TextView(this);
+                date.setText(r.getDate());
+                date.setBackgroundColor(Color.parseColor("#f1f1f1"));
+                date.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                /* Add Button to row. */
+                tr.addView(date);
+                TextView service = new TextView(this);
+                service.setBackgroundColor(Color.parseColor("#f1f1f1"));
+                //service.setLines(r.getTypeOfService().size());
+                for(TypeOfService type : r.getTypeOfService())
+                {
+                    service.append(type.toString());
+                }
+                service.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                /* Add Button to row. */
+                tr.addView(service);
+                /* Add row to TableLayout. */
+                t.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            }
+        }
     }
 }

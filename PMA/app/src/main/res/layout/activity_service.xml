@@ -26,7 +26,7 @@
                 tools:context=".view.ServiceActivity">
 
                 <EditText
-                    android:id="@+id/editText6"
+                    android:id="@+id/et_email_service"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -47,9 +47,9 @@
                     android:layout_marginTop="24dp"
                     android:text="Type of service"
                     android:textColor="?attr/textcolor"
-                    app:layout_constraintEnd_toEndOf="@+id/editText6"
-                    app:layout_constraintStart_toStartOf="@+id/editText6"
-                    app:layout_constraintTop_toBottomOf="@+id/editText6" />
+                    app:layout_constraintEnd_toEndOf="@+id/et_email_service"
+                    app:layout_constraintStart_toStartOf="@+id/et_email_service"
+                    app:layout_constraintTop_toBottomOf="@+id/et_email_service" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout"
@@ -57,12 +57,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="@+id/editText6"
-                    app:layout_constraintStart_toStartOf="@+id/editText6"
+                    app:layout_constraintEnd_toEndOf="@+id/et_email_service"
+                    app:layout_constraintStart_toStartOf="@+id/et_email_service"
                     app:layout_constraintTop_toBottomOf="@+id/textView3">
 
                     <CheckBox
-                        android:id="@+id/checkBox4"
+                        android:id="@+id/cb_small_service"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -70,7 +70,7 @@
                         android:text="Small service" />
 
                     <CheckBox
-                        android:id="@+id/checkBox5"
+                        android:id="@+id/cb_big_service"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -78,7 +78,7 @@
                         android:text="Big service" />
 
                     <CheckBox
-                        android:id="@+id/checkBox6"
+                        android:id="@+id/cb_technical_inspection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -124,6 +124,31 @@
                     app:layout_constraintStart_toStartOf="@+id/linearLayout"
                     app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Time"
+                    android:textColor="?attr/textcolor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_selectDate" />
+
+                <TextView
+                    android:id="@+id/tv_timePicker"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:clickable="true"
+                    android:fontFamily="sans-serif"
+                    android:text="Select Time"
+                    android:textColor="?attr/textcolor"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_selectDate"
+                    app:layout_constraintStart_toStartOf="@+id/tv_selectDate"
+                    app:layout_constraintTop_toBottomOf="@+id/time" />
+
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/tb_service"
                     android:layout_width="409dp"
@@ -136,6 +161,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:title="Service" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </RelativeLayout>

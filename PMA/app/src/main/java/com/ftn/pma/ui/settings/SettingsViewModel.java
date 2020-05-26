@@ -9,10 +9,13 @@ public class SettingsViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> mRadioButtonDark;
     private MutableLiveData<Boolean> mRadioButtonLight;
+    private MutableLiveData<Boolean> mCheckBooxLocation;
 
     public SettingsViewModel() {
             mRadioButtonDark = new MutableLiveData<>();
             mRadioButtonLight = new MutableLiveData<>();
+            mCheckBooxLocation = new MutableLiveData<>();
+
             if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
             mRadioButtonDark.setValue(true);
             mRadioButtonLight.setValue(false);
@@ -20,7 +23,6 @@ public class SettingsViewModel extends ViewModel {
             mRadioButtonLight.setValue(true);
             mRadioButtonDark.setValue(false);
             }
-
     }
 
     public LiveData<Boolean> getLight() {
@@ -30,4 +32,7 @@ public class SettingsViewModel extends ViewModel {
         return mRadioButtonDark;
     }
 
+    public MutableLiveData<Boolean> getLocation() {
+        return mCheckBooxLocation;
+    }
 }
