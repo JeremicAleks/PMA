@@ -9,11 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <!-- permission za vibraciju   -->
-    <uses-permission android:name="android.permission.VIBRATE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- permission za vibraciju -->
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -22,7 +19,8 @@
         android:roundIcon="@mipmap/car_repair_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.CardetailsActivity"></activity>
+        <activity android:name=".view.AdminActivity"></activity>
+        <activity android:name=".view.CardetailsActivity" />
         <activity android:name=".view.BuyCarsActivity" />
         <activity
             android:name=".view.ShoppingCartActivity"
