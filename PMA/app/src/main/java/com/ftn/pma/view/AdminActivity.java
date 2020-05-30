@@ -5,23 +5,49 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ftn.pma.R;
+import com.ftn.pma.model.Car;
 
 public class AdminActivity extends AppCompatActivity {
 
     public static final int PICK_IMAGE = 1000;
     public static final int PERMISSION_CODE = 1001;
     ImageView imageView;
+    EditText etBrand;
+    EditText etModel;
+    EditText etPrice;
+    EditText etPower;
+    EditText etHorsePower;
+    EditText etTorque;
+    EditText etMaxPower;
+    EditText etWidth;
+    EditText etLength;
+    EditText etHeight;
+    EditText etTransmission;
+    Button btnAddCar;
+
+    private static Uri alarmSound;
+    private NotificationManager notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +63,49 @@ public class AdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin);
 
 
+        //Edit Texts Admin add car
+        etBrand = findViewById(R.id.et_adminCarBrand);
+        etModel = findViewById(R.id.et_adminCarModel);
+        etPrice = findViewById(R.id.et_adminCarPrice);
+        etPower = findViewById(R.id.et_adminPower);
+        etHorsePower = findViewById(R.id.et_adminHorsePower);
+        etTorque = findViewById(R.id.et_adminTorque);
+        etMaxPower = findViewById(R.id.et_adminMaxPower);
+        etTransmission = findViewById(R.id.et_Transmission);
+        etWidth = findViewById(R.id.et_adminWidth);
+        etHeight = findViewById(R.id.et_adminHeight);
+        etLength = findViewById(R.id.et_adminLenght);
+
+        btnAddCar = findViewById(R.id.btn_adminAddCar);
+
+        alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+
         imageView = findViewById(R.id.img_adminChoose);
         TextView tvChooseImage = findViewById(R.id.tv_chooseImage);
+
+        btnAddCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Car car = new Car();
+                car.setBrand(etBrand.getText().toString());
+                car.setModel(etModel.getText().toString());
+                car.setPrice(Double.parseDouble(etPrice.getText().toString()));
+                car.setPower(etPower.getText().toString());
+                car.setHorsePower(etHorsePower.getText().toString());
+                car.setTorque(etTorque.getText().toString());
+                car.setRevAtMaxPower(etMaxPower.getText().toString());
+                car.setTransmission(etTransmission.getText().toString());
+                car.setLength(Double.parseDouble(etLength.getText().toString()));
+                car.setWidth(Double.parseDouble(etWidth.getText().toString()));
+                car.setLength(Double.parseDouble(etLength.getText().toString()));
+                showNotification(1,car);
+            }
+        });
+
 
         tvChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,5 +169,35 @@ public class AdminActivity extends AppCompatActivity {
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private void showNotification(int id,Car car) {
+        NotificationCompat.Builder notification = null;
+
+        //zbog verzije androida. Koristio sam metodu za API26 a min je 24
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel notificationChannel = new NotificationChannel("ID", "Name", importance);
+            notificationManager.createNotificationChannel(notificationChannel);
+            notification = new NotificationCompat.Builder(getApplicationContext(), notificationChannel.getId());
+        } else {
+            notification = new NotificationCompat.Builder(getApplicationContext());
+        }
+
+        notification.setContentTitle("New Cars");
+        notification.setLights(Color.YELLOW,2000,2000);
+        notification.setContentText("Stigao je auto "+ car.getBrand() + " " + car.getModel());
+        notification.setTicker("New Message Alert!");
+        notification.setSmallIcon(R.drawable.ic_person_black_24dp);
+
+        if(id == 1)
+            notification.setSound(alarmSound);
+        else {
+            Vibrator v = (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 500 milliseconds
+            v.vibrate(500);
+
+        }
+        notificationManager.notify(111,notification.build());
     }
 }

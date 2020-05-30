@@ -73,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Price"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|numberDecimal"
+                android:numeric="decimal"
                 android:selectAllOnFocus="true" />
 
             <TextView
@@ -143,12 +144,13 @@
                 android:background="?android:attr/listDivider" />
 
             <EditText
-                android:id="@+id/et_admnHeight"
+                android:id="@+id/et_adminHeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Height"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|numberDecimal"
+                android:numeric="decimal" />
 
             <EditText
                 android:id="@+id/et_adminWidth"
@@ -156,7 +158,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Width"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|numberDecimal"
+                android:numeric="decimal" />
 
             <EditText
                 android:id="@+id/et_adminLenght"
@@ -164,13 +167,16 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Lenght"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|numberDecimal"
+                android:numeric="decimal" />
 
             <Button
                 android:id="@+id/btn_adminAddCar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/buttoncolor"
+                android:inputType="numberDecimal"
+                android:numeric="decimal"
                 android:text="Add Car" />
 
         </LinearLayout>
