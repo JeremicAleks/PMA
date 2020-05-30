@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -179,29 +180,32 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
     public void rezervacijeKorisnika(String id, TableLayout t)
     {
         List<Reservation> rezervacije = reservation_db.getAllReservation(id);
+        System.out.println("SIZE: " + rezervacije.size());
         if(rezervacije.size()>0)
         {
             for(Reservation r : rezervacije)
             {
                 TableRow tr = new TableRow(this);
                 tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-                /* Create a Button to be the row-content. */
+                /* Date button */
                 TextView date = new TextView(this);
                 date.setText(r.getDate());
+                TableRow.LayoutParams params = new TableRow.LayoutParams(127, TableRow.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0,0,0,10);
+                date.setLayoutParams(params);
                 date.setLines(r.getTypeOfService().size());
                 date.setBackgroundColor(Color.parseColor("#f1f1f1"));
                 date.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                date.setLayoutParams(new TableRow.LayoutParams(127, TableRow.LayoutParams.WRAP_CONTENT));
-                /* Add Button to row. */
                 tr.addView(date);
+                /* TIME button */
                 TextView time = new TextView(this);
                 time.setBackgroundColor(Color.parseColor("#f1f1f1"));
                 time.setText(r.getTime());
                 time.setLines(r.getTypeOfService().size());
                 time.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                time.setLayoutParams(new TableRow.LayoutParams(127, TableRow.LayoutParams.WRAP_CONTENT));
-                /* Add Button to row. */
+                time.setLayoutParams(params);
                 tr.addView(time);
+                /* SERVICE button */
                 TextView service = new TextView(this);
                 service.setBackgroundColor(Color.parseColor("#f1f1f1"));
                 service.setLines(r.getTypeOfService().size());
@@ -213,8 +217,8 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                 }
                 service.append(r.getTypeOfService().get(r.getTypeOfService().size()-1).toString());
                 service.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                /* Add Button to row. */
                 tr.addView(service);
+
                 /* Add row to TableLayout. */
                 t.addView(tr);
             }

@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/car_repair_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.AdminActivity"></activity>
+        <activity android:name=".view.AdminActivity"/>
         <activity android:name=".view.CardetailsActivity" />
         <activity android:name=".view.BuyCarsActivity" />
         <activity
