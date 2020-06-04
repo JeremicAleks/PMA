@@ -83,6 +83,37 @@ public class Reservation_db extends SQLiteOpenHelper{
         {
             return null;
         }
+    }
 
+    public Reservation zadnjaRezervacija(String id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor read = db.rawQuery("select * from "+ User_db.TABLE_NAME1 + " where USER_ID=?",new String[]{id});
+        Reservation reservation;
+        if(read.getCount() > 0)
+        {
+            read.moveToLast();
+                String[] s = read.getString(read.getColumnIndex("TYPE_OF_SERVICE")).split(",");
+                List<TypeOfService> type_of_service = new ArrayList<>();
+                for(int i=0;i<s.length;i++)
+                {
+                    System.out.println("SERVIS JE : " + s[i]);
+                    if(s[i].equals(TypeOfService.SMALL_SERVICE.toString()))
+                    {
+                        type_of_service.add(TypeOfService.SMALL_SERVICE);
+                    }else if(s[i].equals(TypeOfService.BIG_SERVICE.toString()))
+                    {
+                        type_of_service.add(TypeOfService.BIG_SERVICE);
+                    }else if(s[i].equals(TypeOfService.TECHNICAL_INSPECTION.toString()))
+                    {
+                        type_of_service.add(TypeOfService.TECHNICAL_INSPECTION);
+                    }
+                }
+                reservation = new Reservation(read.getString(read.getColumnIndex("EMAIL")),type_of_service, read.getString(read.getColumnIndex("DATE")), read.getString(read.getColumnIndex("TIME") ));
+            return reservation;
+        }else
+        {
+            return null;
+        }
     }
 }

@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.Reservation_db;
+import com.ftn.pma.globals.SendMail;
+import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.TypeOfService;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
@@ -41,6 +43,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class ServiceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -48,7 +60,7 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
     Reservation_db reservation_db;
-
+    User user;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +80,7 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar = findViewById(R.id.tb_service);
         setSupportActionBar(toolbar);
         //uzimanje uloogvanog User-a
-        final User user = (User) getIntent().getSerializableExtra("user");
+        user = (User) getIntent().getSerializableExtra("user");
         //inicijalizacija baze reservation
         reservation_db = new Reservation_db(this);
         //meni koji izlazi :D
@@ -188,6 +200,11 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                 },4000);
                 if(rezultat)
                 {
+                    try {
+                        sendEmail(et_email_service.getText().toString());
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
                     Toast.makeText(ServiceActivity.this,"Successful registration",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(ServiceActivity.this,HomeActivity.class);
                     intent.putExtra("user",user);
@@ -261,5 +278,42 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    public void sendEmail(String emailTo) throws MessagingException {
+
+        Reservation reservation = reservation_db.zadnjaRezervacija(String.valueOf(user.getId()));
+        final String email="nijemidosadno@gmail.com";
+        final String password="nijemidosadno123";
+
+        //podesavanja za gmail
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth","true");
+        properties.put("mail.smtp.starttls.enable","true");
+        properties.put("mail.smtp.host","smtp.gmail.com");
+        properties.put("mail.smtp.port","587");
+
+        //Kreiranje sesija za mail i provera autentifikacije
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(email,password);
+            }
+        });
+
+        //kreiranje poruke
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(email));
+        message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(emailTo.trim()));
+        message.setSubject("[Car Repair] - Rezervacija");
+        String poruka = "Poštovani "+ user.getName()+",\n\n"+"Uspešno ste rezervisali termin.\n Informacije o rezervaciji su:\n\t"+"Datum: "+reservation.getDate()+"\n\tVreme: "+reservation.getTime()+"\n\tUsluga: ";
+        for(int i=0;i<reservation.getTypeOfService().size()-1;i++)
+        {
+            poruka+=reservation.getTypeOfService().get(i).toString()+", ";
+        }
+        poruka+=reservation.getTypeOfService().get(reservation.getTypeOfService().size()-1).toString();
+        message.setText(poruka);
+
+        new SendMail().execute(message);
     }
 }
