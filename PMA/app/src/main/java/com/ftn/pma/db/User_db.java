@@ -21,6 +21,7 @@ public class User_db extends SQLiteOpenHelper {
     public static final String EMAIL = "EMAIL";
     public static final String PASSWORD = "PASSWORD";
     public static final String TABLE_NAME1 = "reservation";
+    public static final String TABLE_NAME_Car = "car";
     public static final String USER_ID = "USER_ID";
     public static final String TYPE_OF_SERVICE = "TYPE_OF_SERVICE";
     public static final String DATE = "DATE";

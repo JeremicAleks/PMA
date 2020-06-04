@@ -13,11 +13,14 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +29,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ftn.pma.R;
+import com.ftn.pma.db.Car_db;
 import com.ftn.pma.model.Car;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -103,6 +111,8 @@ public class AdminActivity extends AppCompatActivity {
                 car.setWidth(Double.parseDouble(etWidth.getText().toString()));
                 car.setLength(Double.parseDouble(etLength.getText().toString()));
                 showNotification(1,car);
+                Car_db car_db = new Car_db(AdminActivity.this);
+                car_db.insertDataCar(car);
             }
         });
 
@@ -151,6 +161,15 @@ public class AdminActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             imageView.setImageURI(data.getData());
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+
+//                FOR VERY LARGE IMAGE
+//                BitmapRegionDecoder decoder = BitmapRegionDecoder.newInstance(myStream, false);
+//                Bitmap region = decoder.decodeRegion(new Rect(10, 10, 50, 50), null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -199,5 +218,17 @@ public class AdminActivity extends AppCompatActivity {
 
         }
         notificationManager.notify(111,notification.build());
+    }
+
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
     }
 }
