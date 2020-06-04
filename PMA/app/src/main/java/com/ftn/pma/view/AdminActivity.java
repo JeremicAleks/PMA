@@ -190,14 +190,14 @@ public class AdminActivity extends AppCompatActivity {
         notification.setTicker("New Message Alert!");
         notification.setSmallIcon(R.drawable.ic_person_black_24dp);
 
-        if(id == 1)
-            notification.setSound(alarmSound);
-        else {
-            Vibrator v = (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-            // Vibrate for 500 milliseconds
-            v.vibrate(500);
-
-        }
+//        if(id == 1)
+//            notification.setSound(alarmSound);
+//        else {
+//            Vibrator v = (Vibrator) this.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+//            // Vibrate for 500 milliseconds
+//            v.vibrate(500);
+//
+//        }
         notificationManager.notify(111,notification.build());
     }
 }

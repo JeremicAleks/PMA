@@ -25,10 +25,11 @@ public class User_db extends SQLiteOpenHelper {
     public static final String TYPE_OF_SERVICE = "TYPE_OF_SERVICE";
     public static final String DATE = "DATE";
     public static final String TIME = "TIME";
+    public static final String TABLE_NAME3 = "shoppingcart";
+    public static final String CARS = "CARS";
 
     public User_db(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
-
     }
 
     @Override

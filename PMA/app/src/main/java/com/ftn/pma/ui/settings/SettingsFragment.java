@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,12 +42,8 @@ import com.ftn.pma.ui.home.HomeFragment;
 import com.ftn.pma.view.HomeActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 
-import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
+import static android.content.Context.AUDIO_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 public class SettingsFragment extends Fragment {
@@ -61,6 +58,7 @@ public class SettingsFragment extends Fragment {
     private static Uri alarmSound;
     private final long[] pattern = {100,500,500,100};
     private NotificationManager notificationManager;
+    private  AudioManager audioManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
@@ -134,6 +132,7 @@ public class SettingsFragment extends Fragment {
         cb_sound = root.findViewById(R.id.cb_sound);
         cb_vibrate = root.findViewById(R.id.cb_vibration);
 
+        audioManager = (AudioManager) getActivity().getApplicationContext().getSystemService(AUDIO_SERVICE);
         alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -142,48 +141,50 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(cb_sound.isChecked())
-                     showNotification(1);
+                {
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                    cb_vibrate.setChecked(false);
+                }
             }
         });
         cb_vibrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cb_vibrate.isChecked())
-                    showNotification(2);
+                if(cb_vibrate.isChecked()) {
+                    cb_sound.setChecked(false);
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                }
             }
         });
         return root;
     }
 
-    private void showNotification(int id) {
-        NotificationCompat.Builder notification = null;
-
-            //zbog verzije androida. Koristio sam metodu za API26 a min je 24
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                NotificationChannel notificationChannel = new NotificationChannel("ID", "Name", importance);
-                notificationManager.createNotificationChannel(notificationChannel);
-                notification = new NotificationCompat.Builder(getActivity().getApplicationContext(), notificationChannel.getId());
-            } else {
-                notification = new NotificationCompat.Builder(getActivity().getApplicationContext());
-            }
-
-        notification.setContentTitle("New Cars");
-        notification.setLights(Color.YELLOW,2000,2000);
-        notification.setContentText("STIGO JE NOVI AUTO");
-        notification.setTicker("New Message Alert!");
-        notification.setSmallIcon(R.drawable.ic_person_black_24dp);
-
-        if(id == 1)
-            notification.setSound(alarmSound);
-        else {
-            Vibrator v = (Vibrator) this.getActivity().getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-            // Vibrate for 500 milliseconds
-            v.vibrate(500);
-
-        }
-        notificationManager.notify(111,notification.build());
-    }
+//    private void showNotification(int id) {
+//        NotificationCompat.Builder notification = null;
+//
+//            //zbog verzije androida. Koristio sam metodu za API26 a min je 24
+//            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//                int importance = NotificationManager.IMPORTANCE_DEFAULT;
+//                NotificationChannel notificationChannel = new NotificationChannel("ID", "Name", importance);
+//                notificationManager.createNotificationChannel(notificationChannel);
+//                notification = new NotificationCompat.Builder(getActivity().getApplicationContext(), notificationChannel.getId());
+//            } else {
+//                notification = new NotificationCompat.Builder(getActivity().getApplicationContext());
+//            }
+//
+//        notification.setContentTitle("New Cars");
+//        notification.setLights(Color.YELLOW,2000,2000);
+//        notification.setContentText("STIGO JE NOVI AUTO");
+//        notification.setTicker("New Message Alert!");
+//        notification.setSmallIcon(R.drawable.ic_person_black_24dp);
+//
+//        if(id == 1)
+//            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+//        else {
+//              audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+//        }
+//        notificationManager.notify(111,notification.build());
+//    }
 
     private void restartApp() {
         Intent i = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
