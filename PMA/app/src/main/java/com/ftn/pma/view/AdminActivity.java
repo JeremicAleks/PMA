@@ -4,20 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,15 +29,9 @@ import com.ftn.pma.R;
 import com.ftn.pma.db.Car_db;
 import com.ftn.pma.model.Car;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -55,7 +50,9 @@ public class AdminActivity extends AppCompatActivity {
     EditText etHeight;
     EditText etTransmission;
     Button btnAddCar;
+
     Uri uri = null;
+
 
     private static Uri alarmSound;
     private NotificationManager notificationManager;
@@ -103,23 +100,22 @@ public class AdminActivity extends AppCompatActivity {
         btnAddCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Car car = new Car();
-//                car.setBrand(etBrand.getText().toString());
-//                car.setModel(etModel.getText().toString());
-//                car.setPrice(Double.parseDouble(etPrice.getText().toString()));
-//                car.setPower(etPower.getText().toString());
-//                car.setHorsePower(etHorsePower.getText().toString());
-//                car.setTorque(etTorque.getText().toString());
-//                car.setRevAtMaxPower(etMaxPower.getText().toString());
-//                car.setTransmission(etTransmission.getText().toString());
-//                car.setLength(Double.parseDouble(etLength.getText().toString()));
-//                car.setWidth(Double.parseDouble(etWidth.getText().toString()));
-//                car.setLength(Double.parseDouble(etLength.getText().toString()));
-//                showNotification(1,car);
-                
+                Car car = new Car();
+                car.setBrand(etBrand.getText().toString());
+                car.setModel(etModel.getText().toString());
+                car.setPrice(Double.parseDouble(etPrice.getText().toString()));
+                car.setPower(etPower.getText().toString());
+                car.setHorsePower(etHorsePower.getText().toString());
+                car.setTorque(etTorque.getText().toString());
+                car.setRevAtMaxPower(etMaxPower.getText().toString());
+                car.setTransmission(etTransmission.getText().toString());
+                car.setHeight(Double.parseDouble(etHeight.getText().toString()));
+                car.setWidth(Double.parseDouble(etWidth.getText().toString()));
+                car.setLength(Double.parseDouble(etLength.getText().toString()));
+                showNotification(1,car);
+
                 byte[] img = uriImageToByte(uri);
-                System.out.println("Image: " + img.length);
-//                car_db.insertDataCar(car,null);
+                car_db.insertDataCar(car,img);
             }
         });
 
@@ -169,14 +165,6 @@ public class AdminActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             imageView.setImageURI(data.getData());
             uri = data.getData();
-//            try {
-//
-////                FOR VERY LARGE IMAGE
-////                BitmapRegionDecoder decoder = BitmapRegionDecoder.newInstance(myStream, false);
-////                Bitmap region = decoder.decodeRegion(new Rect(10, 10, 50, 50), null);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
         }
     }
 
@@ -227,45 +215,19 @@ public class AdminActivity extends AppCompatActivity {
         notificationManager.notify(111,notification.build());
     }
 
-    private byte[] imageToByte(String uri){
-        try {
-            URL imageUrl = new URL(uri);
-            URLConnection ucon = imageUrl.openConnection();
-
-            InputStream is = ucon.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
-
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            byte[] data = new byte[500];
-            int current = 0;
-            while ((current = bis.read(data,0,data.length)) != -1) {
-                buffer.write(data,0,current);
-            }
-
-            System.out.println("AAAAAAAAA  " + buffer.toByteArray());
-            return buffer.toByteArray();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("ImageManager", "Error: " + e.toString());
-        }
-        return null;
-    }
-
     private byte[] uriImageToByte(Uri uri){
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        FileInputStream fis;
+        byte[] data = null;
         try {
-            fis = new FileInputStream(new File(uri.toString()));
-            byte[] buffer = new byte[1024];
-            int current = 0;
-            while ((current = fis.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer,0,current);
-            }
-             return  byteArrayOutputStream.toByteArray();
-        }catch (Exception e){
+            ContentResolver cr = getBaseContext().getContentResolver();
+            InputStream inputStream = cr.openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            data = baos.toByteArray();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return  null;
+        return data;
     }
 
 }
