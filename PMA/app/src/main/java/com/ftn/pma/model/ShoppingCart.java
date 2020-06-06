@@ -1,19 +1,19 @@
 package com.ftn.pma.model;
 
-import java.util.List;
-
 public class ShoppingCart {
 
     private int id;
-    private List<Car> kupljeni_automobili;
+    private String user_id;
+    private String cars_id;
 
     public ShoppingCart()
     {
 
     }
-    public ShoppingCart(int id, List<Car> kupljeni_automobili) {
-        this.id = id;
-        this.kupljeni_automobili = kupljeni_automobili;
+
+    public ShoppingCart(String user_id, String cars_id) {
+        this.user_id = user_id;
+        this.cars_id = cars_id;
     }
 
     public int getId() {
@@ -24,11 +24,19 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public List<Car> getKupljeni_automobili() {
-        return kupljeni_automobili;
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setKupljeni_automobili(List<Car> kupljeni_automobili) {
-        this.kupljeni_automobili = kupljeni_automobili;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getCars_id() {
+        return cars_id;
+    }
+
+    public void setCars_id(String cars_id) {
+        this.cars_id = cars_id;
     }
 }

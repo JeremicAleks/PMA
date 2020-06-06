@@ -32,7 +32,7 @@ public class Car_db extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+ User_db.TABLE_NAME_Car +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,IMAGE BLOB, BRAND TEXT,MODEL TEXT, PRICE TEXT, POWER TEXT, HORSEPOWER TEXT,TORQUE TEXT, REVATMAXPOWER TEXT,TRANSMISSION TEXT,HEIGHT TEXT,LENGHT TEXT,WIDTH TEXT)");
+        db.execSQL("create table "+ User_db.TABLE_NAME_Car +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,IMAGE BLOB, BRAND TEXT,MODEL TEXT, PRICE TEXT, POWER TEXT, HORSEPOWER TEXT,TORQUE TEXT, REVATMAXPOWER TEXT,TRANSMISSION TEXT,HEIGHT TEXT,LENGTH TEXT,WIDTH TEXT)");
     }
 
     @Override
@@ -45,6 +45,7 @@ public class Car_db extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues parameters = new ContentValues();
+        parameters.putNull(CarDBGlobals.IMAGE);
         parameters.put(CarDBGlobals.BRAND,car.getBrand());
         parameters.put(CarDBGlobals.MODEL,car.getModel());
         parameters.put(CarDBGlobals.PRICE,car.getPrice());
@@ -53,9 +54,9 @@ public class Car_db extends SQLiteOpenHelper {
         parameters.put(CarDBGlobals.TORQUE,car.getTorque());
         parameters.put(CarDBGlobals.REVATMAXPOWER,car.getRevAtMaxPower());
         parameters.put(CarDBGlobals.TRANSMISSION,car.getTransmission());
-        parameters.put(CarDBGlobals.WIDTH,car.getWidth());
-        parameters.put(CarDBGlobals.LENGTH,car.getLength());
         parameters.put(CarDBGlobals.HEIGHT,car.getHeight());
+        parameters.put(CarDBGlobals.LENGTH,car.getLength());
+        parameters.put(CarDBGlobals.WIDTH,car.getWidth());
         long rez = db.insert(User_db.TABLE_NAME_Car,null,parameters);
         if(rez != -1)
         {

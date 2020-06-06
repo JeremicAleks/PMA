@@ -48,7 +48,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         //promena dark ili light modela
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
         {
-            System.out.println("MAIN DARK");
             setTheme(R.style.darkMode);
         }else
         {

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -43,6 +44,16 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
     @SuppressLint({"WrongConstant", "RestrictedApi"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //promena dark ili light modela
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        {
+
+            setTheme(R.style.darkMode);
+        }else
+        {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         hideSystemUIImperativeMode();
         setContentView(R.layout.activity_buy_cars);
@@ -70,6 +81,7 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(BuyCarsActivity.this,CardetailsActivity.class);
+                intent.putExtra("user",user);
                 startActivity(intent);
             }
         });

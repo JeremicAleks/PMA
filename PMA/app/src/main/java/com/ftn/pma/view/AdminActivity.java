@@ -13,6 +13,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.Image;
@@ -70,6 +71,8 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        //inicijalizacija baze cars
+        final Car_db car_db = new Car_db(this);
 
         //Edit Texts Admin add car
         etBrand = findViewById(R.id.et_adminCarBrand);
@@ -111,7 +114,6 @@ public class AdminActivity extends AppCompatActivity {
                 car.setWidth(Double.parseDouble(etWidth.getText().toString()));
                 car.setLength(Double.parseDouble(etLength.getText().toString()));
                 showNotification(1,car);
-                Car_db car_db = new Car_db(AdminActivity.this);
                 car_db.insertDataCar(car);
             }
         });

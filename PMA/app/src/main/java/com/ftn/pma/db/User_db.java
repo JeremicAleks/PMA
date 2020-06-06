@@ -37,12 +37,16 @@ public class User_db extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table "+ TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,SURNAME TEXT, TELEPHONE TEXT, EMAIL TEXT,PASSWORD TEXT)");
         db.execSQL("create table "+ TABLE_NAME1 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, EMAIL TEXT,TYPE_OF_SERVICE TEXT, DATE TEXT,TIME TEXT, USER_ID REFERENCES user(ID))");
+        db.execSQL("create table "+ TABLE_NAME_Car +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,IMAGE BLOB, BRAND TEXT,MODEL TEXT, PRICE TEXT, POWER TEXT, HORSEPOWER TEXT,TORQUE TEXT, REVATMAXPOWER TEXT,TRANSMISSION TEXT,HEIGHT TEXT,LENGTH TEXT,WIDTH TEXT)");
+        db.execSQL("create table "+ TABLE_NAME3 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, USER_ID REFERENCES user(ID), CARS_ID REFERENCES car(ID))");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME1);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME_Car);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME3);
         onCreate(db);
     }
 
