@@ -3,6 +3,7 @@ package com.ftn.pma.model;
 import java.io.Serializable;
 
 public class Car implements Serializable {
+    private byte[] image;
     private String brand;
     private String model;
     private double price;
@@ -118,5 +119,13 @@ public class Car implements Serializable {
 
     public void setTransmission(String transmission) {
         this.transmission = transmission;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
