@@ -232,12 +232,14 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_home);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_settings:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_settings);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);
             }
             break;
@@ -245,18 +247,21 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_notifications);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_help:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_help);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_signOut:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_signOut);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
         }

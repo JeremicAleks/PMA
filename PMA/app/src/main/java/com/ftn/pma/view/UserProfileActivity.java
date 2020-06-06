@@ -51,6 +51,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
     TextView tv_telephone;
     Reservation_db reservation_db;
     TableLayout reservation_table;
+    User user;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         Toolbar toolbar = findViewById(R.id.tb_user_profile);
         setSupportActionBar(toolbar);
 
-        final User user = (User) getIntent().getSerializableExtra("user");
+        user = (User) getIntent().getSerializableExtra("user");
         //inicijalizacija baze reservation
         reservation_db = new Reservation_db(this);
 
@@ -129,12 +130,14 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_home);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_settings:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_settings);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);
             }
             break;
@@ -142,18 +145,21 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_notifications);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_help:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_help);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_signOut:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_signOut);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
         }
@@ -180,7 +186,8 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
     public void rezervacijeKorisnika(String id, TableLayout t)
     {
         List<Reservation> rezervacije = reservation_db.getAllReservation(id);
-        if(rezervacije != null)
+
+        if(rezervacije!= null)
         {
             for(Reservation r : rezervacije)
             {

@@ -40,7 +40,7 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
-
+    User user;
     @SuppressLint({"WrongConstant", "RestrictedApi"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar = findViewById(R.id.tb_buyCar);
         setSupportActionBar(toolbar);
 
-        final User user = (User) getIntent().getSerializableExtra("user");
+         user = (User) getIntent().getSerializableExtra("user");
 
         //meni koji izlazi :D
         drawerLayout = findViewById(R.id.drawer);
@@ -96,12 +96,14 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_home);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
                 break;
             case R.id.nav_settings:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_settings);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);
             }
             break;
@@ -109,18 +111,21 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_notifications);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_help:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_help);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_signOut:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_signOut);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
         }

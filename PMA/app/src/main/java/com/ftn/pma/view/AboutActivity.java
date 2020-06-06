@@ -39,6 +39,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -63,6 +64,8 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
     private FusedLocationProviderClient fusedLocationProviderClient;
+    User user;
+
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -82,7 +85,7 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
         toolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         setSupportActionBar(toolbar);
 
-        final User user = (User) getIntent().getSerializableExtra("user");
+         user = (User) getIntent().getSerializableExtra("user");
 
         //provera da li je internet ukljucen
         proveraInterneta();
@@ -126,7 +129,7 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
 
         final LatLng fax_NS = new LatLng(45.245557, 19.851231);
         //dodavanje markera na mapi (pozicija 1 markera)
-        googleMap.addMarker(new MarkerOptions().position(fax_NS).title("Car Repair Service"));
+        googleMap.addMarker(new MarkerOptions().position(fax_NS).title("Car Repair Service").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fax_NS,15),2000,null);
 
         //dodavanje trenutne lokacije gde se korisnik nalazi
@@ -180,12 +183,14 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_home);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_settings:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_settings);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);
             }
             break;
@@ -193,18 +198,21 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_notifications);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_help:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_help);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_signOut:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_signOut);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
         }
