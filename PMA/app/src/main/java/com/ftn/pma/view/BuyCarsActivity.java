@@ -14,6 +14,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 
@@ -29,11 +32,18 @@ import android.view.Gravity;
 
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ftn.pma.R;
+import com.ftn.pma.db.Car_db;
+import com.ftn.pma.model.Car;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
 
 public class BuyCarsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,6 +51,7 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
     User user;
+    Car_db car_db;
     @SuppressLint({"WrongConstant", "RestrictedApi"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +69,16 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         hideSystemUIImperativeMode();
         setContentView(R.layout.activity_buy_cars);
 
+        car_db = new Car_db(this);
         Toolbar toolbar = findViewById(R.id.tb_buyCar);
         setSupportActionBar(toolbar);
-
+        ImageView imageView = findViewById(R.id.img_view_clio);
          user = (User) getIntent().getSerializableExtra("user");
+
+         List<Car> cars = car_db.getAllCars();
+
+
+         displayCars(cars);
 
         //meni koji izlazi :D
         drawerLayout = findViewById(R.id.drawer);
@@ -148,4 +165,69 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
+
+    private void displayCars(List<Car> cars){
+            LinearLayout linearLayout = findViewById(R.id.linearLayout);
+            LinearLayout line = new LinearLayout(this);
+            int dp = 5;
+            int dpImage = 3;
+        for (Car car : cars) {
+            final Car carbtn = car;
+            ImageView imageCar = new ImageView(this);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
+            imageCar.setImageBitmap(bitmap);
+            imageCar.setLayoutParams(new LinearLayout.LayoutParams(365*dpImage,300*dpImage));
+            linearLayout.addView(imageCar);
+
+            RatingBar ratingBar = new RatingBar(this);
+            LinearLayout.LayoutParams ratingParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,30*dp);
+            ratingParams.setMarginEnd(15*dp);
+            ratingParams.gravity = Gravity.CENTER;
+            ratingBar.setNumStars(5);
+            ratingBar.setStepSize(1);
+            ratingBar.setLayoutParams(ratingParams);
+            ratingBar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            linearLayout.addView(ratingBar);
+
+            TextView textCar = new TextView(this);
+            LinearLayout.LayoutParams textCarParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            String carText = car.getBrand() + " " + car.getModel();
+            textCar.setLayoutParams(textCarParams);
+            textCar.setText(carText);
+            textCar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textCar.setTextSize(24);
+            textCar.setTypeface(null, Typeface.BOLD);
+            linearLayout.addView(textCar);
+
+            TextView textAbout = new TextView(this);
+            String about = car.getPower() + " " + car.getHorsePower()+ "ks";
+            textAbout.setText(about);
+            textAbout.setLayoutParams(textCarParams);
+            textAbout.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            linearLayout.addView(textAbout);
+
+            TextView textViewSeeDetails = new TextView(this);
+            textViewSeeDetails.setText("SEE DETAILS");
+            LinearLayout.LayoutParams seeParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            seeParams.topMargin = 20*dp;
+            seeParams.setMarginEnd(10*dp);
+            textViewSeeDetails.setLayoutParams(seeParams);
+            textViewSeeDetails.setClickable(true);
+            textViewSeeDetails.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            textViewSeeDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(BuyCarsActivity.this,CardetailsActivity.class);
+                    intent.putExtra("user",user);
+                    intent.putExtra("car",carbtn);
+                    startActivity(intent);
+                }
+            });
+            linearLayout.addView(textViewSeeDetails);
+
+
+
+        }
+    }
+
 }

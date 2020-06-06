@@ -15,10 +15,14 @@ import androidx.annotation.Nullable;
 
 import com.ftn.pma.globals.CarDBGlobals;
 import com.ftn.pma.model.Car;
+import com.ftn.pma.model.Reservation;
+import com.ftn.pma.model.TypeOfService;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Car_db extends SQLiteOpenHelper {
 
@@ -41,11 +45,11 @@ public class Car_db extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertDataCar(Car car)
+    public boolean insertDataCar(Car car,byte[] image)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues parameters = new ContentValues();
-        parameters.putNull(CarDBGlobals.IMAGE);
+        parameters.put(CarDBGlobals.IMAGE,image);
         parameters.put(CarDBGlobals.BRAND,car.getBrand());
         parameters.put(CarDBGlobals.MODEL,car.getModel());
         parameters.put(CarDBGlobals.PRICE,car.getPrice());
@@ -66,15 +70,21 @@ public class Car_db extends SQLiteOpenHelper {
     }
 
 
-    public  void fetchImage(SQLiteDatabase db, byte[] image) throws IOException {
+    public List<Car> getAllCars(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor read = db.rawQuery("select * from "+ User_db.TABLE_NAME_Car ,null);
+        List<Car> cars = new ArrayList<>();
+        if(read.getCount() > 0) {
+            read.moveToFirst();
+            do {
+                Car car = new Car(read.getString(read.getColumnIndex(CarDBGlobals.BRAND)), read.getString(read.getColumnIndex(CarDBGlobals.MODEL)), read.getDouble(read.getColumnIndex(CarDBGlobals.PRICE)), read.getString(read.getColumnIndex(CarDBGlobals.POWER)), read.getString(read.getColumnIndex(CarDBGlobals.HORSEPOWER)), read.getString(read.getColumnIndex(CarDBGlobals.TORQUE)), read.getString(read.getColumnIndex(CarDBGlobals.REVATMAXPOWER)), read.getString(read.getColumnIndex(CarDBGlobals.TRANSMISSION)), read.getDouble(read.getColumnIndex(CarDBGlobals.HEIGHT)), read.getDouble(read.getColumnIndex(CarDBGlobals.LENGTH)), read.getDouble(read.getColumnIndex(CarDBGlobals.WIDTH)));
+                car.setId(read.getInt(read.getColumnIndex("ID")));
+                car.setImage(read.getBlob(read.getColumnIndex(CarDBGlobals.IMAGE)));
+                cars.add(car);
+            } while (read.moveToNext());
+        }
 
-//        FileInputStream fis = new FileInputStream(folder);
-//        byte[] byteImage= new byte[fis.available()];
-//        fis.read(byteImage);
-        ContentValues values = new ContentValues();
-        values.put("IMAGE",image);
-        db.insert(User_db.TABLE_NAME_Car, null,values);
-//        fis.close();
+        return  cars;
     }
 
     public Bitmap getImage(int i,SQLiteDatabase db){
