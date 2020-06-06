@@ -180,8 +180,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
     public void rezervacijeKorisnika(String id, TableLayout t)
     {
         List<Reservation> rezervacije = reservation_db.getAllReservation(id);
-        System.out.println("SIZE: " + rezervacije.size());
-        if(rezervacije.size()>0)
+        if(rezervacije != null)
         {
             for(Reservation r : rezervacije)
             {

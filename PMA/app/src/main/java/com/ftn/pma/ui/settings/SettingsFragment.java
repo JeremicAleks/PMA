@@ -80,7 +80,6 @@ public class SettingsFragment extends Fragment {
                 {
                     Intent intent1 = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivityForResult(intent1,100);
-                    System.out.println("PROSO KOD");
                 }else
                 {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);

@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -28,7 +29,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ftn.pma.R;
+import com.ftn.pma.globals.TaskRequestDirections;
 import com.ftn.pma.model.User;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,9 +41,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 
-public class AboutActivity extends AppCompatActivity implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class AboutActivity extends AppCompatActivity implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
     private SupportMapFragment mapFragment;
     private EditText name_service;
@@ -50,22 +62,21 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //promena dark ili light modela
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-        {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             System.out.println("DARK MOD");
             setTheme(R.style.darkMode);
-        }else
-        {
+        } else {
             setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        //ukinut he notch
+        //ukinut je notch
         hideSystemUIImperativeMode();
         Toolbar toolbar = findViewById(R.id.toolbar_about);
         toolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -77,6 +88,7 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
         proveraInterneta();
 
         //google maps
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
         mapFragment.getMapAsync(this);
 
@@ -101,20 +113,40 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         //postavljanje username u navigation View
         TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user_name);
-        txtProfileName.setText(user.getName()+" "+user.getSurname());
-        toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        txtProfileName.setText(user.getName() + " " + user.getSurname());
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressLint("MissingPermission")
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
 
-        LatLng fax_NS = new LatLng(45.245557, 19.851231);
+        final LatLng fax_NS = new LatLng(45.245557, 19.851231);
+        //dodavanje markera na mapi (pozicija 1 markera)
         googleMap.addMarker(new MarkerOptions().position(fax_NS).title("Car Repair Service"));
-
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(fax_NS,15),2000,null);
+
+        //dodavanje trenutne lokacije gde se korisnik nalazi
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null)
+                {
+                    LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                    //dodavanje markera na mapi (pozicija 1 markera)
+                    googleMap.addMarker(new MarkerOptions().position(currentLocation).title("My Locatioon"));
+
+                    //kreiranje URL za dve lokacije koje su dodate na mapi
+                    String url = RequetsURL(fax_NS,currentLocation);
+                    System.out.println("POVRATNI STRING: " + url.toString());
+                    TaskRequestDirections taskRequestDirections = new TaskRequestDirections(googleMap);
+                    taskRequestDirections.execute(url);
+                }
+            }
+        });
 
     }
 
@@ -194,5 +226,61 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private String RequetsURL(LatLng destination, LatLng current)
+    {
+        //vrednost za current lokaciju
+        String curr = "origin="+current.latitude+","+current.longitude;
+        //vrednost za destinaciju
+        String dest = "destination="+destination.latitude+","+destination.longitude;
+
+        String sensor = "sensor=false";
+        //selektovati mod za mapu
+        String mode = "mode=driving";
+        //spajanje parametara za url
+        String full_param = curr+"&"+dest+"&"+sensor+"&"+mode;
+        //izlazni format
+        String output="json";
+        //url
+        String url ="https://maps.googleapis.com/maps/api/directions/"+output+"?"+full_param+"&key=AIzaSyAGrcEgELZiptQoAzaU7_MQqZGP_F-Ttdk";
+
+        return url;
+
+    }
+
+    public static final String requestDirection(String urlPath) throws IOException {
+        String responseString = "";
+        InputStream inputStream = null;
+        HttpURLConnection httpURLConnection = null;
+        try
+        {
+            URL url = new URL(urlPath);
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.connect();
+
+            inputStream = httpURLConnection.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            String line = "";
+            while((line = bufferedReader.readLine())!=null)
+            {
+               responseString += line;
+            }
+
+            bufferedReader.close();
+            inputStreamReader.close();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }finally {
+            if(inputStream != null)
+            {
+                inputStream.close();
+            }
+            httpURLConnection.disconnect();
+        }
+        return responseString;
     }
 }
