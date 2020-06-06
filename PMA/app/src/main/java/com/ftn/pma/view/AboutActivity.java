@@ -50,6 +50,7 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
+    User user;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -71,7 +72,7 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
         toolbar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         setSupportActionBar(toolbar);
 
-        final User user = (User) getIntent().getSerializableExtra("user");
+         user = (User) getIntent().getSerializableExtra("user");
 
         //provera da li je internet ukljucen
         proveraInterneta();
@@ -148,12 +149,14 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_home);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_settings:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_settings);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);
             }
             break;
@@ -161,18 +164,21 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_notifications);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_help:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_help);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
             case R.id.nav_signOut:
             { Intent intent = new Intent(this,HomeActivity.class);
                 intent.putExtra("openFragment",R.id.nav_signOut);
                 intent.putExtra("openFragmentName",item.getTitle());
+                intent.putExtra("user",user);
                 startActivity(intent);}
             break;
         }
