@@ -218,10 +218,12 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                 service.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 for(int i=0;i<r.getTypeOfService().size()-1;i++)
                 {
-                    service.append(r.getTypeOfService().get(i).toString());
-                    service.append(",\n");
+                        service.append(r.getTypeOfService().get(i).toString().replace("_"," "));
+                        service.append(",\n");
                 }
-                service.append(r.getTypeOfService().get(r.getTypeOfService().size()-1).toString());
+
+                service.append(r.getTypeOfService().get(r.getTypeOfService().size()-1).toString().replace("_"," "));
+
                 service.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
                 tr.addView(service);
 

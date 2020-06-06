@@ -124,7 +124,7 @@
 
                         <TextView
                             android:id="@+id/tv_date_table"
-                            android:layout_width="127dp"
+                            android:layout_width="110dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="3dp"
                             android:background="#f1f1f1"
@@ -134,7 +134,7 @@
 
                         <TextView
                             android:id="@+id/tv_time_table"
-                            android:layout_width="127dp"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="3dp"
                             android:background="#f1f1f1"
@@ -144,7 +144,7 @@
 
                         <TextView
                             android:id="@+id/tv_service_table"
-                            android:layout_width="127dp"
+                            android:layout_width="170dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="3dp"
                             android:background="#f1f1f1"
