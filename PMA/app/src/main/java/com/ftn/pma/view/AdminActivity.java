@@ -115,7 +115,7 @@ public class AdminActivity extends AppCompatActivity {
                 showNotification(1,car);
 
                 byte[] img = uriImageToByte(uri);
-//                car_db.insertDataCar(car,img);
+                car_db.insertDataCar(car,img);
             }
         });
 
