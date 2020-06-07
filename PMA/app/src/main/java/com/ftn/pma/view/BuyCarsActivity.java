@@ -14,6 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -162,11 +163,23 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
             int dpImage = 3;
         for (Car car : cars) {
             final Car carbtn = car;
-            ImageView imageCar = new ImageView(this);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
-            imageCar.setImageBitmap(bitmap);
-            imageCar.setLayoutParams(new LinearLayout.LayoutParams(365*dpImage,300*dpImage));
-            linearLayout.addView(imageCar);
+            int orientation = getResources().getConfiguration().orientation;
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                // In landscape
+                ImageView imageCar = new ImageView(this);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
+                imageCar.setImageBitmap(bitmap);
+                LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(365*dpImage,300*dpImage);
+                imageParams.setMarginStart(100*dpImage);
+                imageCar.setLayoutParams(imageParams);
+                linearLayout.addView(imageCar);
+            } else {
+                ImageView imageCar = new ImageView(this);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
+                imageCar.setImageBitmap(bitmap);
+                imageCar.setLayoutParams(new LinearLayout.LayoutParams(365*dpImage,300*dpImage));
+                linearLayout.addView(imageCar);
+            }
 
             RatingBar ratingBar = new RatingBar(this);
             LinearLayout.LayoutParams ratingParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,30*dp);
