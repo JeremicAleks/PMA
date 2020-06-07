@@ -129,7 +129,7 @@
                                         android:id="@+id/textView15"
                                         android:layout_width="95dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Power(kW):"
+                                        android:text="Power:"
                                         android:textSize="18sp" />
 
                                     <TextView
