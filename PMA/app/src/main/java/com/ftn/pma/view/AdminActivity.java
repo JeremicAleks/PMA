@@ -26,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.Car_db;
@@ -121,6 +122,7 @@ public class AdminActivity extends AppCompatActivity {
 
                 byte[] img = uriImageToByte(uri);
                 car_db.insertDataCar(car,img);
+                Toast.makeText(AdminActivity.this,"Car is successfully added!",Toast.LENGTH_LONG).show();
             }
         });
 

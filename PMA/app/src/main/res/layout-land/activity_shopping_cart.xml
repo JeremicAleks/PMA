@@ -93,63 +93,6 @@
                             android:textStyle="bold" />
                     </TableRow>
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="190dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="#f1f1f1"
-                            android:text="Renaul Clio"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="190dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="#f1f1f1"
-                            android:text="11000e"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="190dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="#f1f1f1"
-                            android:text="Skoda Superb"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="190dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="#f1f1f1"
-                            android:text="22000e"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
                 </TableLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
