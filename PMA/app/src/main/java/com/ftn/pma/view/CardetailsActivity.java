@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -122,6 +123,9 @@ public class CardetailsActivity extends AppCompatActivity {
         TextView tv_Name = findViewById(R.id.tv_carDetailName);
         String carText = car.getBrand() + " " + car.getModel();
         tv_Name.setText(carText);
+
+        RatingBar ratingBar = findViewById(R.id.ratingBar2);
+        ratingBar.setRating(car.getRating());
 
         TextView tvPrice = findViewById(R.id.tv_carDetailPrice);
         String price = car.getPrice() + "e";

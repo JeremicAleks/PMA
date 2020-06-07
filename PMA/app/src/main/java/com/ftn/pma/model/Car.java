@@ -16,6 +16,7 @@ public class Car implements Serializable {
     private double height;
     private double length;
     private double width;
+    private float rating;
 
     public Car() {
     }
@@ -136,5 +137,13 @@ public class Car implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }

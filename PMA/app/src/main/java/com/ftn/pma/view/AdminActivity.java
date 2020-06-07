@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ftn.pma.R;
@@ -49,6 +50,7 @@ public class AdminActivity extends AppCompatActivity {
     EditText etLength;
     EditText etHeight;
     EditText etTransmission;
+    RatingBar ratingBar;
     Button btnAddCar;
 
     Uri uri = null;
@@ -85,6 +87,7 @@ public class AdminActivity extends AppCompatActivity {
         etWidth = findViewById(R.id.et_adminWidth);
         etHeight = findViewById(R.id.et_adminHeight);
         etLength = findViewById(R.id.et_adminLenght);
+        ratingBar = findViewById(R.id.rb_admin);
 
         btnAddCar = findViewById(R.id.btn_adminAddCar);
 
@@ -112,6 +115,7 @@ public class AdminActivity extends AppCompatActivity {
                 car.setHeight(Double.parseDouble(etHeight.getText().toString()));
                 car.setWidth(Double.parseDouble(etWidth.getText().toString()));
                 car.setLength(Double.parseDouble(etLength.getText().toString()));
+                car.setRating(ratingBar.getRating());
                 showNotification(1,car);
 
                 byte[] img = uriImageToByte(uri);

@@ -77,6 +77,13 @@
                 android:numeric="decimal"
                 android:selectAllOnFocus="true" />
 
+            <RatingBar
+                android:id="@+id/rb_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="5"
+                android:stepSize="0.5" />
+
             <TextView
                 android:id="@+id/tv_adminSpecification"
                 android:layout_width="match_parent"
