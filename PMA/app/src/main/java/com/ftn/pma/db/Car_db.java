@@ -36,7 +36,7 @@ public class Car_db extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+ User_db.TABLE_NAME_Car +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,IMAGE BLOB, BRAND TEXT,MODEL TEXT, PRICE TEXT, POWER TEXT, HORSEPOWER TEXT,TORQUE TEXT, REVATMAXPOWER TEXT,TRANSMISSION TEXT,HEIGHT TEXT,LENGTH TEXT,WIDTH TEXT)");
+        db.execSQL("create table "+ User_db.TABLE_NAME_Car +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,IMAGE BLOB, BRAND TEXT,MODEL TEXT, PRICE TEXT, POWER TEXT, HORSEPOWER TEXT,TORQUE TEXT, REVATMAXPOWER TEXT,TRANSMISSION TEXT,HEIGHT TEXT,LENGTH TEXT,WIDTH TEXT,RATING TEXT)");
     }
 
     @Override
@@ -61,6 +61,7 @@ public class Car_db extends SQLiteOpenHelper {
         parameters.put(CarDBGlobals.HEIGHT,car.getHeight());
         parameters.put(CarDBGlobals.LENGTH,car.getLength());
         parameters.put(CarDBGlobals.WIDTH,car.getWidth());
+        parameters.put(CarDBGlobals.RATING,car.getRating());
         long rez = db.insert(User_db.TABLE_NAME_Car,null,parameters);
         if(rez != -1)
         {
@@ -80,6 +81,7 @@ public class Car_db extends SQLiteOpenHelper {
                 Car car = new Car(read.getString(read.getColumnIndex(CarDBGlobals.BRAND)), read.getString(read.getColumnIndex(CarDBGlobals.MODEL)), read.getDouble(read.getColumnIndex(CarDBGlobals.PRICE)), read.getString(read.getColumnIndex(CarDBGlobals.POWER)), read.getString(read.getColumnIndex(CarDBGlobals.HORSEPOWER)), read.getString(read.getColumnIndex(CarDBGlobals.TORQUE)), read.getString(read.getColumnIndex(CarDBGlobals.REVATMAXPOWER)), read.getString(read.getColumnIndex(CarDBGlobals.TRANSMISSION)), read.getDouble(read.getColumnIndex(CarDBGlobals.HEIGHT)), read.getDouble(read.getColumnIndex(CarDBGlobals.LENGTH)), read.getDouble(read.getColumnIndex(CarDBGlobals.WIDTH)));
                 car.setId(read.getInt(read.getColumnIndex("ID")));
                 car.setImage(read.getBlob(read.getColumnIndex(CarDBGlobals.IMAGE)));
+                car.setRating(Float.parseFloat(read.getString(read.getColumnIndex(CarDBGlobals.RATING))));
                 cars.add(car);
             } while (read.moveToNext());
         }

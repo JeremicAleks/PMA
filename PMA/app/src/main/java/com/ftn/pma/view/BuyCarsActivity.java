@@ -72,7 +72,6 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         car_db = new Car_db(this);
         Toolbar toolbar = findViewById(R.id.tb_buyCar);
         setSupportActionBar(toolbar);
-        ImageView imageView = findViewById(R.id.img_view_clio);
          user = (User) getIntent().getSerializableExtra("user");
 
          List<Car> cars = car_db.getAllCars();
@@ -92,16 +91,6 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-        TextView tvDetail = findViewById(R.id.tv_detail_clio);
-        tvDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BuyCarsActivity.this,CardetailsActivity.class);
-                intent.putExtra("user",user);
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -184,9 +173,11 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
             ratingParams.setMarginEnd(15*dp);
             ratingParams.gravity = Gravity.CENTER;
             ratingBar.setNumStars(5);
-            ratingBar.setStepSize(1);
+            ratingBar.setStepSize(0.5f);
             ratingBar.setLayoutParams(ratingParams);
             ratingBar.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            ratingBar.setRating(car.getRating());
+            ratingBar.setIsIndicator(true);
             linearLayout.addView(ratingBar);
 
             TextView textCar = new TextView(this);

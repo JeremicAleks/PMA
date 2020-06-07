@@ -13,4 +13,5 @@ public interface CarDBGlobals {
     String HEIGHT = "HEIGHT";
     String LENGTH = "LENGTH";
     String WIDTH = "WIDTH";
+    String RATING = "RATING";
 }
