@@ -51,14 +51,18 @@ public class ShoppingCart_db extends SQLiteOpenHelper {
     public List<ShoppingCart> getAllBuyCars(String user_id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor read = db.rawQuery("select * from "+ User_db.TABLE_NAME1 + " where USER_ID=?",new String[]{user_id});
+
+        Cursor read = db.rawQuery("select * from "+ User_db.TABLE_NAME3 + " where USER_ID=?",new String[]{user_id});
         List<ShoppingCart> shoppingCarts = new ArrayList<>();
         ShoppingCart shoppingCart;
+
         if(read.getCount() > 0)
         {
-            read.moveToNext();
-            shoppingCart = new ShoppingCart(read.getString(read.getColumnIndex("USER_ID")),read.getString(read.getColumnIndex("CARS_ID")));
-            shoppingCarts.add(shoppingCart);
+            read.moveToFirst();
+            do {
+                shoppingCart = new ShoppingCart(read.getString(read.getColumnIndex("USER_ID")),read.getString(read.getColumnIndex("CARS_ID")));
+                shoppingCarts.add(shoppingCart);
+            }while(read.moveToNext());
             return shoppingCarts;
         }else
         {

@@ -55,8 +55,6 @@ public class SettingsFragment extends Fragment {
     private RadioButton dark,light;
     private CheckBox cb_sound;
     private CheckBox cb_vibrate;
-    private static Uri alarmSound;
-    private final long[] pattern = {100,500,500,100};
     private NotificationManager notificationManager;
     private  AudioManager audioManager;
 
@@ -132,7 +130,8 @@ public class SettingsFragment extends Fragment {
         cb_vibrate = root.findViewById(R.id.cb_vibration);
 
         audioManager = (AudioManager) getActivity().getApplicationContext().getSystemService(AUDIO_SERVICE);
-        alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        //provera statusa zvuka
+        currenyStateAudio(audioManager);
 
         notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -216,6 +215,18 @@ public class SettingsFragment extends Fragment {
         ft.replace(R.id.contentContainer, new SettingsFragment());
         ft.addToBackStack(null);
         ft.commit();
+    }
+
+    public void currenyStateAudio(AudioManager audioManager)
+    {
+        int audio = audioManager.getRingerMode();
+        if(audio == 1)
+        {
+            cb_vibrate.setChecked(true);
+        }else if(audio == 2)
+        {
+            cb_sound.setChecked(true);
+        }
     }
 
 

@@ -1,6 +1,7 @@
 package com.ftn.pma.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -25,6 +26,14 @@ public class RegistrationActivity extends AppCompatActivity {
     Button registracija;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //promena dark ili light modela
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        {
+            setTheme(R.style.darkMode);
+        }else
+        {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         hideSystemUIImperativeMode();
         setContentView(R.layout.activity_registration);

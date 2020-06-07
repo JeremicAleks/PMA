@@ -36,7 +36,7 @@
                     android:layout_marginTop="105dp"
                     android:layout_marginBottom="38dp"
                     android:transitionName="imageTrasition"
-                    app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+                    app:layout_constraintBottom_toTopOf="@+id/shoppingTable"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
                     app:srcCompat="@mipmap/collect_cars_foreground" />
 
                 <TableLayout
-                    android:id="@+id/tableLayout2"
+                    android:id="@+id/shoppingTable"
                     android:layout_width="380dp"
                     android:layout_height="374dp"
                     android:transitionName="imageTrasition"
@@ -80,63 +80,6 @@
                             android:textStyle="bold" />
                     </TableRow>
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView8"
-                            android:layout_width="190dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="#f1f1f1"
-                            android:text="Renaul Clio"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/textView9"
-                            android:layout_width="190dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="#f1f1f1"
-                            android:text="11000e"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/textView10"
-                            android:layout_width="190dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="#f1f1f1"
-                            android:text="Skoda Superb"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/textView11"
-                            android:layout_width="190dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
-                            android:layout_marginBottom="3dp"
-                            android:background="#f1f1f1"
-                            android:text="22000e"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
                 </TableLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

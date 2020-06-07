@@ -48,14 +48,14 @@
                     android:layout_height="176dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/tableLayout2"
+                    app:layout_constraintBottom_toTopOf="@+id/shoppingTable"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tb_shopping_cart"
                     app:srcCompat="@mipmap/collect_cars_foreground" />
 
                 <TableLayout
-                    android:id="@+id/tableLayout2"
+                    android:id="@+id/shoppingTable"
                     android:layout_width="729dp"
                     android:layout_height="174dp"
                     android:layout_marginStart="1dp"
