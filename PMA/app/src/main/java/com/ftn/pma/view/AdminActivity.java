@@ -173,6 +173,13 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        System.exit(0);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

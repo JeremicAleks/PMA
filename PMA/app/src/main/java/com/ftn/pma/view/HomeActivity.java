@@ -1,6 +1,7 @@
 package com.ftn.pma.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,7 +90,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     openFragment(new HomeFragment());
                     break;
                 case R.id.nav_help:
-                    openFragment(new HelpFragment());
+//                    openFragment(new HelpFragment());
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://zakazitehnicki.rs/ "));
+                    startActivity(browserIntent);
                     break;
                 case R.id.nav_settings:
                     openFragment(new SettingsFragment());
@@ -147,7 +150,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 openFragment(new HomeFragment());
                 break;
             case R.id.nav_help:
-                openFragment(new HelpFragment());
+//                openFragment(new HelpFragment());
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://zakazitehnicki.rs/ "));
+                startActivity(browserIntent);
                 break;
             case R.id.nav_settings:
                 openFragment(new SettingsFragment());
