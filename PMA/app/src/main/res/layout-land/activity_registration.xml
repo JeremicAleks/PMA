@@ -84,7 +84,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Registration"
-        android:background="@drawable/custom_button"
+        android:background="?attr/buttoncolor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/ed_password"
         app:layout_constraintHorizontal_bias="0.0"

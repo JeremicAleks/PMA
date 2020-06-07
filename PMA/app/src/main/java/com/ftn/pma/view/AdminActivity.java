@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ public class AdminActivity extends AppCompatActivity {
     EditText etTransmission;
     RatingBar ratingBar;
     Button btnAddCar;
-
+    ImageButton signOut;
     Uri uri = null;
 
 
@@ -88,7 +89,7 @@ public class AdminActivity extends AppCompatActivity {
         etHeight = findViewById(R.id.et_adminHeight);
         etLength = findViewById(R.id.et_adminLenght);
         ratingBar = findViewById(R.id.rb_admin);
-
+        signOut = findViewById(R.id.signOut);
         btnAddCar = findViewById(R.id.btn_adminAddCar);
 
         alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -137,6 +138,15 @@ public class AdminActivity extends AppCompatActivity {
         });
 
         hideSystemUIImperativeMode();
+
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void pickImage() {
