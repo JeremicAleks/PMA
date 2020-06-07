@@ -222,6 +222,8 @@ public class AdminActivity extends AppCompatActivity {
             InputStream inputStream = cr.openInputStream(uri);
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            //RESIZE SLIKE (BUDE LOSIJEG KVALITETA)
+            bitmap = bitmap.createScaledBitmap(bitmap,120,120,false);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             data = baos.toByteArray();
         } catch (FileNotFoundException e) {

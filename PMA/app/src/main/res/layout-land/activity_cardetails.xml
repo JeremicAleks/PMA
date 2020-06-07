@@ -34,7 +34,7 @@
                 app:title="Car Detail" />
 
             <ImageView
-                android:id="@+id/img_view_clio2"
+                android:id="@+id/img_view_carDetail"
                 android:layout_width="308dp"
                 android:layout_height="124dp"
                 android:src="@mipmap/renault_cars"
@@ -42,14 +42,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/tb_carDetail2" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/tv_carDetailName"
                 android:layout_width="148dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Renault Clio"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/img_view_clio2"
+                app:layout_constraintStart_toEndOf="@+id/img_view_carDetail"
                 app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
 
             <RatingBar
@@ -57,29 +57,29 @@
                 android:layout_width="234dp"
                 android:layout_height="49dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_view_clio2"
+                app:layout_constraintStart_toEndOf="@+id/img_view_carDetail"
                 app:layout_constraintTop_toBottomOf="@+id/tb_carDetail2" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/tv_cdAbout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:text="1.2 16V 75ks"
-                app:layout_constraintStart_toEndOf="@+id/img_view_clio2"
-                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                app:layout_constraintStart_toEndOf="@+id/img_view_carDetail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_carDetailName" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tv_carDetailPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:text="11000e"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView12"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_carDetailName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView12" />
+                app:layout_constraintTop_toTopOf="@+id/tv_carDetailName" />
 
             <TabHost
                 android:id="@+id/tabHost"
@@ -91,7 +91,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/btn_buy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13">
+                app:layout_constraintTop_toBottomOf="@+id/tv_cdAbout">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/textView20"
+                                        android:id="@+id/tv_cdPower"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="66"
@@ -149,7 +149,7 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/textView21"
+                                        android:id="@+id/tv_cdHorsePower"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="90 ks"
@@ -168,7 +168,7 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/textView22"
+                                        android:id="@+id/tv_cdTorque"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="200 Nm"
@@ -187,7 +187,7 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/textView23"
+                                        android:id="@+id/tv_cdRevMax"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="4000-6000"
@@ -206,7 +206,7 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/textView24"
+                                        android:id="@+id/tv_cdTransmission"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="Manual"
@@ -238,7 +238,7 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/textView31"
+                                        android:id="@+id/tv_cdLength"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="1000"
@@ -257,7 +257,7 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/textView27"
+                                        android:id="@+id/tv_cdHeight"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="2000"
@@ -276,7 +276,7 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/textView28"
+                                        android:id="@+id/tv_cdWidth"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="3000"
