@@ -86,11 +86,13 @@ public class CardetailsActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             mDialog.cancel();
+                            Toast.makeText(CardetailsActivity.this,"Successful buy car!",Toast.LENGTH_LONG).show();
                         }
                     },4000);
+
                 }else
                 {
-                    Toast.makeText(CardetailsActivity.this,"Error to buy cars!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CardetailsActivity.this,"Error to buy car!",Toast.LENGTH_LONG).show();
                 }
 
             }
