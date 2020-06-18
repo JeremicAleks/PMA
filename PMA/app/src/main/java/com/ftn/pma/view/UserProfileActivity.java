@@ -2,6 +2,7 @@ package com.ftn.pma.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -22,6 +24,7 @@ import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,9 +34,11 @@ import android.widget.TextView;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.Reservation_db;
+import com.ftn.pma.db.User_db;
 import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.TypeOfService;
 import com.ftn.pma.model.User;
+import com.ftn.pma.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import java.sql.SQLOutput;
@@ -42,7 +47,16 @@ import java.util.List;
 public class UserProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ImageButton shoppingCart;
+    private ImageButton edit;
+    private ImageButton saveEditText;
+    private AlertDialog changeName;
+    private AlertDialog changeEmail;
+    private AlertDialog changeNumber;
+    private EditText editName;
+    private EditText editEmail;
+    private EditText editNumber;
     private AppBarConfiguration mAppBarConfiguration;
+    private int editUserProfile = 0;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
@@ -52,13 +66,13 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
     Reservation_db reservation_db;
     TableLayout reservation_table;
     User user;
+    User_db user_db;
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //promena dark ili light modela
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
         {
-            System.out.println("DARK MOD");
             setTheme(R.style.darkMode);
         }else
         {
@@ -78,7 +92,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         user = (User) getIntent().getSerializableExtra("user");
         //inicijalizacija baze reservation
         reservation_db = new Reservation_db(this);
-
+        user_db = new User_db(this);
         reservation_table = findViewById(R.id.tabela_rezervacija);
 
         //izlistavanje rezervacija od korinsika
@@ -108,17 +122,110 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         //postavljanje username u navigation View
-        TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user_name);
+        final TextView txtProfileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user_name);
         txtProfileName.setText(user.getName()+" "+user.getSurname());
         toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        //edit dugme za user profile
+        edit = findViewById(R.id.img_btn_edit);
+        edit.setBackgroundColor(Color.TRANSPARENT);
+        saveEditText = findViewById(R.id.img_btn_save);
+        saveEditText.setBackgroundColor(Color.TRANSPARENT);
+        editName = new EditText(this);
+//        editEmail = new EditText(this);
+        editNumber = new EditText(this);
+        changeName = new AlertDialog.Builder(this).create();
+//        changeEmail = new AlertDialog.Builder(this).create();
+        changeNumber = new AlertDialog.Builder(this).create();
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edit.setVisibility(View.GONE);
+                saveEditText.setVisibility(View.VISIBLE);
+                changeName.setTitle("Edit Name and Surname");
+                changeName.setView(editName);
+//                changeEmail.setTitle("Edit email");
+//                changeEmail.setView(editEmail);
+                changeNumber.setTitle("Edit number");
+                changeNumber.setView(editNumber);
+                editUserProfile = 1;
+            }
+        });
+        saveEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveEditText.setVisibility(View.GONE);
+                edit.setVisibility(View.VISIBLE);
+                editUserProfile=0;
+                //update informacija o korisniku
+                user_db.updateInfo(String.valueOf(user.getId()),tv_name.getText().toString(),tv_telephone.getText().toString(),tv_email.getText().toString());
+                user = user_db.getCurrentUser(String.valueOf(user.getId()));
+                txtProfileName.setText(user.getName()+" "+user.getSurname());
+            }
+        });
+        tv_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editUserProfile == 1)
+                {
+                    editName.setText(tv_name.getText());
+                    changeName.show();
+                }
+            }
+        });
+        changeName.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE TEXT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                tv_name.setText(editName.getText());
+            }
+        });
+//        tv_email.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(editUserProfile == 1)
+//                {
+//                    editEmail.setText(tv_email.getText());
+//                    changeEmail.show();
+//                }
+//            }
+//        });
+//        changeEmail.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE TEXT", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                tv_email.setText(editEmail.getText());
+//            }
+//        });
+        tv_telephone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editUserProfile == 1)
+                {
+                    editNumber.setText(tv_telephone.getText());
+                    changeNumber.show();
+                }
+            }
+        });
+        changeNumber.setButton(DialogInterface.BUTTON_POSITIVE, "SAVE TEXT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                tv_telephone.setText(editNumber.getText());
+            }
+        });
     }
     @Override
     public void finish()
     {
+        //Starting the previous Intent
+        Intent previousScreen = new Intent(getApplicationContext(), HomeFragment.class);
+        //Sending the data to Activity_A
+        previousScreen.putExtra("user",user);
+        setResult(1, previousScreen);
         super.finish();
+
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
 

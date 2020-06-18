@@ -83,4 +83,37 @@ public class User_db extends SQLiteOpenHelper {
         }
 
     }
+
+    public boolean updateInfo(String id, String name, String telephone,String email)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues parameters = new ContentValues();
+        String[] split = name.split(" ");
+        parameters.put(NAME,split[0]);
+        parameters.put(SURNAME,split[1]);
+        parameters.put(TELEPHONE,telephone);
+        parameters.put(EMAIL,email);
+        long rez = db.update(TABLE_NAME,parameters,"ID="+id, null);
+        if(rez != -1)
+        {
+            return true;
+        }else
+            return false;
+    }
+
+    public User getCurrentUser(String id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor read = db.rawQuery("select * from "+ TABLE_NAME + " where ID=?",new String[]{id});
+        User user;
+        if(read.getCount() > 0)
+        {
+            read.moveToFirst();
+            user = new User(Integer.parseInt(read.getString(read.getColumnIndex("ID"))),read.getString(read.getColumnIndex("NAME")), read.getString(read.getColumnIndex("SURNAME")), read.getString(read.getColumnIndex("TELEPHONE")),read.getString(read.getColumnIndex("EMAIL")),read.getString(read.getColumnIndex("PASSWORD")));
+            return user;
+        }else
+        {
+            return null;
+        }
+    }
 }

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.ftn.pma.R;
+import com.ftn.pma.db.User_db;
 import com.ftn.pma.model.User;
 import com.ftn.pma.view.AboutActivity;
 import com.ftn.pma.view.BuyCarsActivity;
@@ -22,7 +23,8 @@ import com.ftn.pma.view.UserProfileActivity;
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private HomeViewModel homeViewModel;
-
+    private User_db user_db;
+    private User user;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -31,13 +33,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         ImageButton btnAbout = root.findViewById(R.id.img_btn_about);
 
-        final User user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user = (User) getActivity().getIntent().getSerializableExtra("user");
+        user_db = new User_db(getContext());
+        user = user_db.getCurrentUser(String.valueOf(user.getId()));
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AboutActivity.class);
-                intent.putExtra("user",user);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
@@ -61,7 +65,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UserProfileActivity.class);
                 intent.putExtra("user",user);
-                startActivity(intent);
+                startActivityForResult(intent,1);
                 getActivity().overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
@@ -83,5 +87,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        user = (User) data.getSerializableExtra("user");
     }
 }
