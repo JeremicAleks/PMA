@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ftn.pma.R;
@@ -47,10 +49,12 @@ public class RegistrationActivity extends AppCompatActivity {
         password = findViewById(R.id.ed_password);
         registracija = findViewById(R.id.btn_registration);
 
+
         registracija.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                if(chechValidation()){
                 boolean rezultat = user_db.insertData(name.getText().toString(),surname.getText().toString(),
                         telephone.getText().toString(),email.getText().toString(),
                         password.getText().toString());
@@ -63,6 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 {
                     Toast.makeText(RegistrationActivity.this,"Problem with registration",Toast.LENGTH_LONG).show();
                 }
+            }
             }
         });
     }
@@ -82,6 +87,37 @@ public class RegistrationActivity extends AppCompatActivity {
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private boolean chechValidation(){
+        boolean flag = true;
+
+            if(name.getText().toString().isEmpty()) {
+                name.setError("Name is mandatory!");
+                flag = false;
+            }
+            if(surname.getText().toString().isEmpty()){
+                surname.setError("Surname is mandatory!");
+                flag = false;
+            }
+            if(telephone.getText().toString().isEmpty()){
+                telephone.setError("Telephone is mandatory!");
+                flag = false;
+            }
+            if(email.getText().toString().isEmpty()){
+                email.setError("Email is mandatory!");
+                flag = false;
+            }
+            if(!email.getText().toString().contains("@") && !email.getText().toString().isEmpty()){
+                email.setError("Email is not valid!");
+                flag = false;
+            }
+            if(password.getText().toString().isEmpty()){
+                password.setError("Password is mandatory!");
+                flag = false;
+            }
+
+        return flag;
     }
 
 

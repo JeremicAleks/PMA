@@ -105,24 +105,26 @@ public class AdminActivity extends AppCompatActivity {
         btnAddCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Car car = new Car();
-                car.setBrand(etBrand.getText().toString());
-                car.setModel(etModel.getText().toString());
-                car.setPrice(Double.parseDouble(etPrice.getText().toString()));
-                car.setPower(etPower.getText().toString());
-                car.setHorsePower(etHorsePower.getText().toString());
-                car.setTorque(etTorque.getText().toString());
-                car.setRevAtMaxPower(etMaxPower.getText().toString());
-                car.setTransmission(etTransmission.getText().toString());
-                car.setHeight(Double.parseDouble(etHeight.getText().toString()));
-                car.setWidth(Double.parseDouble(etWidth.getText().toString()));
-                car.setLength(Double.parseDouble(etLength.getText().toString()));
-                car.setRating(ratingBar.getRating());
-                showNotification(1,car);
+                if (validation()) {
+                    Car car = new Car();
+                    car.setBrand(etBrand.getText().toString());
+                    car.setModel(etModel.getText().toString());
+                    car.setPrice(Double.parseDouble(etPrice.getText().toString()));
+                    car.setPower(etPower.getText().toString());
+                    car.setHorsePower(etHorsePower.getText().toString());
+                    car.setTorque(etTorque.getText().toString());
+                    car.setRevAtMaxPower(etMaxPower.getText().toString());
+                    car.setTransmission(etTransmission.getText().toString());
+                    car.setHeight(Double.parseDouble(etHeight.getText().toString()));
+                    car.setWidth(Double.parseDouble(etWidth.getText().toString()));
+                    car.setLength(Double.parseDouble(etLength.getText().toString()));
+                    car.setRating(ratingBar.getRating());
+                    showNotification(1, car);
 
-                byte[] img = uriImageToByte(uri);
-                car_db.insertDataCar(car,img);
-                Toast.makeText(AdminActivity.this,"Car is successfully added!",Toast.LENGTH_LONG).show();
+                    byte[] img = uriImageToByte(uri);
+                    car_db.insertDataCar(car, img);
+                    Toast.makeText(AdminActivity.this, "Car is successfully added!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -254,5 +256,56 @@ public class AdminActivity extends AppCompatActivity {
         }
         return data;
     }
+
+    private boolean validation(){
+        boolean flag = true;
+        if(etBrand.getText().toString().isEmpty()){
+            etBrand.setError("Brand is mandatory!");
+            flag = false;
+        }
+        if(etModel.getText().toString().isEmpty()){
+            etModel.setError("Model is mandatory!");
+            flag = false;
+        }
+        if(etPrice.getText().toString().isEmpty()){
+            etPrice.setError("Price is mandatory!");
+            flag = false;
+        }
+        if(etPower.getText().toString().isEmpty()){
+            etPower.setError("Power is mandatory!");
+            flag = false;
+        }
+        if(etHorsePower.getText().toString().isEmpty()){
+            etHorsePower.setError("Horse Power is mandatory!");
+            flag = false;
+        }
+        if(etTorque.getText().toString().isEmpty()){
+            etTorque.setError("Torque is mandatory!");
+            flag = false;
+        }
+        if(etMaxPower.getText().toString().isEmpty()){
+            etMaxPower.setError("Field is mandatory!");
+            flag = false;
+        }
+        if(etTransmission.getText().toString().isEmpty()){
+            etTransmission.setText("Transmission is mandatory!");
+            flag = false;
+        }
+        if(etWidth.getText().toString().isEmpty()){
+            etWidth.setError("Width is mandatory!");
+            flag = false;
+        }
+        if(etHeight.getText().toString().isEmpty()){
+            etHeight.setError("Height is mandatory!");
+            flag = false;
+        }
+        if(etLength.getText().toString().isEmpty()){
+            etLength.setError("Length is mandatory!");
+            flag = false;
+        }
+       return flag;
+    }
+
+
 
 }

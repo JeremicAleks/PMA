@@ -20,6 +20,9 @@ import com.ftn.pma.model.User;
 
 public class LoginActivity extends AppCompatActivity{
 
+    EditText etEmail;
+    EditText etPassword;
+
     User_db user_db;
     User user;
 
@@ -39,8 +42,8 @@ public class LoginActivity extends AppCompatActivity{
         hideSystemUIImperativeMode();
 
         TextView tvSignUp = findViewById(R.id.tv_signUp);
-        final EditText etEmail = findViewById(R.id.et_email);
-        final EditText etPassword = findViewById(R.id.et_password);
+        etEmail = findViewById(R.id.et_email);
+        etPassword = findViewById(R.id.et_password);
         user_db = new User_db(this);
         Button btnLogin = findViewById(R.id.btn_login);
 
@@ -48,23 +51,23 @@ public class LoginActivity extends AppCompatActivity{
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = etEmail.getText().toString();
-                String pass = etPassword.getText().toString();
-                user = user_db.login(email,pass);
-                if(user != null)
-                {
-                    Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                    intent.putExtra("user", user);
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                    finish();
-                }else if(email.equalsIgnoreCase("admin") && pass.equalsIgnoreCase("admin")){
-                    Intent intent = new Intent(LoginActivity.this,AdminActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else
-                {
-                    Toast.makeText(LoginActivity.this,"Failed Login",Toast.LENGTH_SHORT).show();
+                if (validation()) {
+                    String email = etEmail.getText().toString();
+                    String pass = etPassword.getText().toString();
+                    user = user_db.login(email, pass);
+                    if (user != null) {
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        finish();
+                    } else if (email.equalsIgnoreCase("admin") && pass.equalsIgnoreCase("admin")) {
+                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Failed Login", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -97,6 +100,23 @@ public class LoginActivity extends AppCompatActivity{
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private boolean validation(){
+        boolean flag = true;
+
+        if(etEmail.getText().toString().isEmpty()){
+            etEmail.setError("Email is mandatory!");
+            flag = false;
+        }
+
+        if(etPassword.getText().toString().isEmpty()){
+            etPassword.setError("Password is mandatory!");
+            flag = false;
+        }
+
+        return flag;
+
     }
 
 }
