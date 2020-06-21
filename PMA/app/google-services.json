@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "248494403196",
+    "firebase_url": "https://pma-project-3252d.firebaseio.com",
+    "project_id": "pma-project-3252d",
+    "storage_bucket": "pma-project-3252d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248494403196:android:8c2601e6b76d9b2961a3f9",
+        "android_client_info": {
+          "package_name": "com.ftn.pma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248494403196-c2ohlnfea61h2d11k2r1ndot6v41qhs3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCno5DzABWJtfbyuUQuM3nxBiZMTXukwvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248494403196-c2ohlnfea61h2d11k2r1ndot6v41qhs3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
