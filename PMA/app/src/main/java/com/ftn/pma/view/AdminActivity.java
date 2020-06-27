@@ -30,11 +30,14 @@ import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.Car_db;
+import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -77,6 +80,7 @@ public class AdminActivity extends AppCompatActivity {
         //inicijalizacija baze cars
         final Car_db car_db = new Car_db(this);
 
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         //Edit Texts Admin add car
         etBrand = findViewById(R.id.et_adminCarBrand);
         etModel = findViewById(R.id.et_adminCarModel);
@@ -123,7 +127,27 @@ public class AdminActivity extends AppCompatActivity {
 
                     byte[] img = uriImageToByte(uri);
                     car_db.insertDataCar(car, img);
-                    Toast.makeText(AdminActivity.this, "Car is successfully added!", Toast.LENGTH_LONG).show();
+                    new FirebaseDatabaseHelper("cars").addCar(car, new FirebaseDatabaseHelper.DataStatus() {
+                        @Override
+                        public void DataLoaded(List<Car> cars, List<String> keys) {
+
+                        }
+
+                        @Override
+                        public void DataInserted() {
+                            Toast.makeText(AdminActivity.this, "Car is successfully added!", Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void DataUpdated() {
+
+                        }
+
+                        @Override
+                        public void DataIsDeleted() {
+
+                        }
+                    });
                 }
             }
         });
