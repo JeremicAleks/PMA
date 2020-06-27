@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -126,6 +127,8 @@ public class AdminActivity extends AppCompatActivity {
                     showNotification(1, car);
 
                     byte[] img = uriImageToByte(uri);
+                    String base = Base64.encodeToString(img,Base64.DEFAULT);
+                    car.setImageString(base);
                     car_db.insertDataCar(car, img);
                     new FirebaseDatabaseHelper("cars").addCar(car, new FirebaseDatabaseHelper.DataStatus() {
                         @Override

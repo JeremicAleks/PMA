@@ -1,5 +1,7 @@
 package com.ftn.pma.helper;
 
+import android.util.Base64;
+
 import androidx.annotation.NonNull;
 
 import com.ftn.pma.model.Car;
@@ -51,6 +53,7 @@ public class FirebaseDatabaseHelper {
                 for(DataSnapshot keyShot : snapshot.getChildren()){
                     keys.add(keyShot.getKey());
                     Car car = keyShot.getValue(Car.class);
+                    car.setImage(Base64.decode(car.getImageString(),Base64.DEFAULT));
                     cars.add(car);
                 }
                 dataStatus.DataLoaded(cars,keys);

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Car implements Serializable {
     private byte[] image;
+    private String imageString;
     private int id;
     private String brand;
     private String model;
@@ -145,5 +146,13 @@ public class Car implements Serializable {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
     }
 }
