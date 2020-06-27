@@ -119,8 +119,8 @@ public class CardetailsActivity extends AppCompatActivity {
 
     private void fillCarData(Car car){
         ImageView imageView = findViewById(R.id.img_view_carDetail);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
-        imageView.setImageBitmap(bitmap);
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
+//        imageView.setImageBitmap(bitmap);
 
         TextView tv_Name = findViewById(R.id.tv_carDetailName);
         String carText = car.getBrand() + " " + car.getModel();

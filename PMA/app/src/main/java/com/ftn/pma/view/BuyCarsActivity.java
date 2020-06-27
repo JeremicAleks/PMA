@@ -40,6 +40,7 @@ import android.widget.TextView;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.Car_db;
+import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
@@ -75,10 +76,32 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         setSupportActionBar(toolbar);
          user = (User) getIntent().getSerializableExtra("user");
 
-         List<Car> cars = car_db.getAllCars();
+         new FirebaseDatabaseHelper("cars").readCars(new FirebaseDatabaseHelper.DataStatus() {
+             @Override
+             public void DataLoaded(List<Car> cars, List<String> keys) {
+                 displayCars(cars);
+             }
+
+             @Override
+             public void DataInserted() {
+
+             }
+
+             @Override
+             public void DataUpdated() {
+
+             }
+
+             @Override
+             public void DataIsDeleted() {
+
+             }
+         });
+
+//         List<Car> cars = car_db.getAllCars();
 
 
-         displayCars(cars);
+//         displayCars(cars);
 
         //meni koji izlazi :D
         drawerLayout = findViewById(R.id.drawer);
@@ -164,22 +187,22 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         for (Car car : cars) {
             final Car carbtn = car;
             int orientation = getResources().getConfiguration().orientation;
-            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                // In landscape
-                ImageView imageCar = new ImageView(this);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
-                imageCar.setImageBitmap(bitmap);
-                LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(365*dpImage,300*dpImage);
-                imageParams.setMarginStart(100*dpImage);
-                imageCar.setLayoutParams(imageParams);
-                linearLayout.addView(imageCar);
-            } else {
-                ImageView imageCar = new ImageView(this);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
-                imageCar.setImageBitmap(bitmap);
-                imageCar.setLayoutParams(new LinearLayout.LayoutParams(365*dpImage,300*dpImage));
-                linearLayout.addView(imageCar);
-            }
+//            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//                // In landscape
+//                ImageView imageCar = new ImageView(this);
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
+//                imageCar.setImageBitmap(bitmap);
+//                LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(365*dpImage,300*dpImage);
+//                imageParams.setMarginStart(100*dpImage);
+//                imageCar.setLayoutParams(imageParams);
+//                linearLayout.addView(imageCar);
+//            } else {
+//                ImageView imageCar = new ImageView(this);
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(car.getImage(), 0, car.getImage().length);
+//                imageCar.setImageBitmap(bitmap);
+//                imageCar.setLayoutParams(new LinearLayout.LayoutParams(365*dpImage,300*dpImage));
+//                linearLayout.addView(imageCar);
+//            }
 
             RatingBar ratingBar = new RatingBar(this);
             LinearLayout.LayoutParams ratingParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,30*dp);
