@@ -16,6 +16,11 @@ import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.User_db;
+import com.ftn.pma.helper.FirebaseDatabaseHelper;
+import com.ftn.pma.model.Car;
+import com.ftn.pma.model.User;
+
+import java.util.List;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -26,6 +31,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText email;
     EditText password;
     Button registracija;
+    User user = new User();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //promena dark ili light modela
@@ -60,7 +66,36 @@ public class RegistrationActivity extends AppCompatActivity {
                         password.getText().toString());
                 if(rezultat)
                 {
-                    Toast.makeText(RegistrationActivity.this,"Successful registration",Toast.LENGTH_SHORT).show();
+                    user.setName(name.getText().toString());
+                    user.setSurname(surname.getText().toString());
+                    user.setTelephone(telephone.getText().toString());
+                    user.setEmail(email.getText().toString());
+                    user.setPassword(password.getText().toString());
+                    new FirebaseDatabaseHelper("users").addUser(user, new FirebaseDatabaseHelper.DataStatus() {
+                        @Override
+                        public void DataLoaded(List<Car> cars, List<String> keys) {
+
+                        }
+
+                        @Override
+                        public void DataInserted() {
+                           }
+
+                        @Override
+                        public void DataUpdated() {
+
+                        }
+
+                        @Override
+                        public void DataIsDeleted() {
+
+                        }
+
+                        @Override
+                        public void UserIsAdded() {
+                            Toast.makeText(RegistrationActivity.this,"Successful registration",Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     Intent intent = new Intent(RegistrationActivity.this,LoginActivity.class);
                     startActivity(intent);
                 }else

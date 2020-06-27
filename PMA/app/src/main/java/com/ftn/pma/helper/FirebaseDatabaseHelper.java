@@ -40,8 +40,6 @@ public class FirebaseDatabaseHelper {
                 dataStatus.UserIsAdded();
             }
         });
-
-
     }
 
     public void readCars(final DataStatus dataStatus){

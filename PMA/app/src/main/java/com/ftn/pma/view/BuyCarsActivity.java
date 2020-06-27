@@ -96,6 +96,11 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
              public void DataIsDeleted() {
 
              }
+
+             @Override
+             public void UserIsAdded() {
+
+             }
          });
 
 //         List<Car> cars = car_db.getAllCars();

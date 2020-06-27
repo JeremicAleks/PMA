@@ -147,6 +147,11 @@ public class AdminActivity extends AppCompatActivity {
                         public void DataIsDeleted() {
 
                         }
+
+                        @Override
+                        public void UserIsAdded() {
+
+                        }
                     });
                 }
             }
