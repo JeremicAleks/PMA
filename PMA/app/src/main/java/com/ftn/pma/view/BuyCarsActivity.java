@@ -42,6 +42,7 @@ import com.ftn.pma.R;
 import com.ftn.pma.db.Car_db;
 import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
+import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
 
@@ -99,6 +100,21 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
 
              @Override
              public void UserIsAdded() {
+
+             }
+
+             @Override
+             public void UserLogin(List<User> users) {
+
+             }
+
+             @Override
+             public void ReservationAdd() {
+
+             }
+
+             @Override
+             public void ReservationRead(List<Reservation> reservations) {
 
              }
          });

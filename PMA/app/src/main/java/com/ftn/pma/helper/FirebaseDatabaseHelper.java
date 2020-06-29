@@ -5,6 +5,7 @@ import android.util.Base64;
 import androidx.annotation.NonNull;
 
 import com.ftn.pma.model.Car;
+import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +27,9 @@ public class FirebaseDatabaseHelper {
         void DataUpdated();
         void DataIsDeleted();
         void UserIsAdded();
+        void UserLogin(List<User> users);
+        void ReservationAdd();
+        void ReservationRead(List<Reservation> reservations);
     }
 
 
@@ -40,6 +44,27 @@ public class FirebaseDatabaseHelper {
             @Override
             public void onSuccess(Void aVoid) {
                 dataStatus.UserIsAdded();
+            }
+        });
+    }
+
+    public void readUser(final DataStatus dataStatus){
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<User> users = new ArrayList<>();
+                List<String> keys = new ArrayList<>();
+                for(DataSnapshot keyShot : snapshot.getChildren()){
+                    keys.add(keyShot.getKey());
+                    User user = keyShot.getValue(User.class);
+                    users.add(user);
+                }
+                dataStatus.UserLogin(users);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
@@ -72,6 +97,37 @@ public class FirebaseDatabaseHelper {
             @Override
             public void onSuccess(Void aVoid) {
                 dataStatus.DataInserted();
+            }
+        });
+    }
+
+    public void addReservation(Reservation reservation,final DataStatus dataStatus){
+        String key = databaseReference.push().getKey();
+        databaseReference.child(key).setValue(reservation).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dataStatus.ReservationAdd();
+            }
+        });
+    }
+
+    public void readReservation(final DataStatus dataStatus){
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Reservation> reservations = new ArrayList<>();
+                List<String> keys = new ArrayList<>();
+                for(DataSnapshot keyShot : snapshot.getChildren()){
+                    keys.add(keyShot.getKey());
+                    Reservation reservation = keyShot.getValue(Reservation.class);
+                    reservations.add(reservation);
+                }
+                dataStatus.ReservationRead(reservations);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

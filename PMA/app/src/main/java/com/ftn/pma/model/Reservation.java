@@ -9,6 +9,7 @@ public class Reservation implements Serializable {
     private List<TypeOfService> typeOfService;
     private String date;
     private String time;
+    private int userId;
 
     public Reservation() {
     }
@@ -17,7 +18,15 @@ public class Reservation implements Serializable {
         this.email = email;
         this.typeOfService = typeOfService;
         this.date = date;
+        this.time = time;
+    }
+
+    public Reservation(String email, List<TypeOfService> typeOfService, String date, String time, int userId) {
+        this.email = email;
+        this.typeOfService = typeOfService;
+        this.date = date;
         this.time=time;
+        this.userId=userId;
     }
 
     public String getEmail() {
@@ -50,5 +59,13 @@ public class Reservation implements Serializable {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

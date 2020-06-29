@@ -16,7 +16,12 @@ import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.User_db;
+import com.ftn.pma.helper.FirebaseDatabaseHelper;
+import com.ftn.pma.model.Car;
+import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.User;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity{
 
@@ -52,22 +57,65 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if (validation()) {
-                    String email = etEmail.getText().toString();
-                    String pass = etPassword.getText().toString();
-                    user = user_db.login(email, pass);
-                    if (user != null) {
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        intent.putExtra("user", user);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        finish();
-                    } else if (email.equalsIgnoreCase("admin") && pass.equalsIgnoreCase("admin")) {
-                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Failed Login", Toast.LENGTH_SHORT).show();
-                    }
+                    final String email = etEmail.getText().toString();
+                    final String pass = etPassword.getText().toString();
+//                    user = user_db.login(email, pass);
+                    new FirebaseDatabaseHelper("users").readUser(new FirebaseDatabaseHelper.DataStatus() {
+                        @Override
+                        public void DataLoaded(List<Car> cars, List<String> keys) {
+                        }
+
+                        @Override
+                        public void DataInserted() {
+
+                        }
+
+                        @Override
+                        public void DataUpdated() {
+
+                        }
+
+                        @Override
+                        public void DataIsDeleted() {
+
+                        }
+
+                        @Override
+                        public void UserIsAdded() {
+
+                        }
+
+                        @Override
+                        public void UserLogin(List<User> users) {
+                            for(User u : users)
+                            {
+                                if (u.getEmail().equals(email) && u.getPassword().equals(pass)) {
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    intent.putExtra("user", u);
+                                    startActivity(intent);
+                                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                    finish();
+                                } else if (email.equalsIgnoreCase("admin") && pass.equalsIgnoreCase("admin")) {
+                                    Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Failed Login", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void ReservationAdd() {
+
+                        }
+
+                        @Override
+                        public void ReservationRead(List<Reservation> reservations) {
+
+                        }
+                    });
+
                 }
             }
         });

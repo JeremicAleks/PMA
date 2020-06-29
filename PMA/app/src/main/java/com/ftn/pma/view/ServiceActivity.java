@@ -29,6 +29,8 @@ import android.widget.Toast;
 import com.ftn.pma.R;
 import com.ftn.pma.db.Reservation_db;
 import com.ftn.pma.globals.SendMail;
+import com.ftn.pma.helper.FirebaseDatabaseHelper;
+import com.ftn.pma.model.Car;
 import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.TypeOfService;
 import com.ftn.pma.model.User;
@@ -39,8 +41,10 @@ import com.leo.simplearcloader.SimpleArcLoader;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Properties;
@@ -164,28 +168,76 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
             public void onClick(View v) {
 
                 if (validation()) {
-
+                    Reservation r = new Reservation();
                     boolean rezultat = false;
                     if (cb_small_service.isChecked() && cb_big_service.isChecked() && cb_technical_inspection.isChecked()) {
                         rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE + "," + TypeOfService.BIG_SERVICE + "," + TypeOfService.TECHNICAL_INSPECTION, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
+                        List<TypeOfService> tp = new ArrayList<>();
+                        tp.add(TypeOfService.SMALL_SERVICE);
+                        tp.add(TypeOfService.BIG_SERVICE);
+                        tp.add(TypeOfService.TECHNICAL_INSPECTION);
+                        r.setEmail(et_email_service.getText().toString());
+                        r.setTypeOfService(tp);
+                        r.setDate(tvSelectDate.getText().toString());
+                        r.setTime(tvSelectTime.getText().toString());
+                        r.setUserId(user.getId());
                     } else if (cb_small_service.isChecked() && cb_big_service.isChecked()) {
                         rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE + "," + TypeOfService.BIG_SERVICE, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
-
+                        List<TypeOfService> tp = new ArrayList<>();
+                        tp.add(TypeOfService.SMALL_SERVICE);
+                        tp.add(TypeOfService.BIG_SERVICE);
+                        r.setEmail(et_email_service.getText().toString());
+                        r.setTypeOfService(tp);
+                        r.setDate(tvSelectDate.getText().toString());
+                        r.setTime(tvSelectTime.getText().toString());
+                        r.setUserId(user.getId());
                     } else if (cb_big_service.isChecked() && cb_technical_inspection.isChecked()) {
                         rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.BIG_SERVICE + "," + TypeOfService.TECHNICAL_INSPECTION, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
-
+                        List<TypeOfService> tp = new ArrayList<>();
+                        tp.add(TypeOfService.BIG_SERVICE);
+                        tp.add(TypeOfService.TECHNICAL_INSPECTION);
+                        r.setEmail(et_email_service.getText().toString());
+                        r.setTypeOfService(tp);
+                        r.setDate(tvSelectDate.getText().toString());
+                        r.setTime(tvSelectTime.getText().toString());
+                        r.setUserId(user.getId());
                     } else if (cb_small_service.isChecked() && cb_technical_inspection.isChecked()) {
                         rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE + "," + TypeOfService.TECHNICAL_INSPECTION, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
-
+                        List<TypeOfService> tp = new ArrayList<>();
+                        tp.add(TypeOfService.SMALL_SERVICE);
+                        tp.add(TypeOfService.TECHNICAL_INSPECTION);
+                        r.setEmail(et_email_service.getText().toString());
+                        r.setTypeOfService(tp);
+                        r.setDate(tvSelectDate.getText().toString());
+                        r.setTime(tvSelectTime.getText().toString());
+                        r.setUserId(user.getId());
                     } else if (cb_small_service.isChecked()) {
                         rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE.toString(), tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
-
+                        List<TypeOfService> tp = new ArrayList<>();
+                        tp.add(TypeOfService.SMALL_SERVICE);
+                        r.setEmail(et_email_service.getText().toString());
+                        r.setTypeOfService(tp);
+                        r.setDate(tvSelectDate.getText().toString());
+                        r.setTime(tvSelectTime.getText().toString());
+                        r.setUserId(user.getId());
                     } else if (cb_big_service.isChecked()) {
                         rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.BIG_SERVICE.toString(), tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
-
+                        List<TypeOfService> tp = new ArrayList<>();
+                        tp.add(TypeOfService.BIG_SERVICE);
+                        r.setEmail(et_email_service.getText().toString());
+                        r.setTypeOfService(tp);
+                        r.setDate(tvSelectDate.getText().toString());
+                        r.setTime(tvSelectTime.getText().toString());
+                        r.setUserId(user.getId());
                     } else if (cb_technical_inspection.isChecked()) {
                         rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.TECHNICAL_INSPECTION.toString(), tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
-
+                        List<TypeOfService> tp = new ArrayList<>();
+                        tp.add(TypeOfService.TECHNICAL_INSPECTION);
+                        r.setEmail(et_email_service.getText().toString());
+                        r.setTypeOfService(tp);
+                        r.setDate(tvSelectDate.getText().toString());
+                        r.setTime(tvSelectTime.getText().toString());
+                        r.setUserId(user.getId());
                     }
                     final SimpleArcDialog mDialog = new SimpleArcDialog(ServiceActivity.this);
                     ArcConfiguration configuration = new ArcConfiguration(ServiceActivity.this);
@@ -208,7 +260,47 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                         } catch (MessagingException e) {
                             e.printStackTrace();
                         }
-                        Toast.makeText(ServiceActivity.this, "Successful registration", Toast.LENGTH_SHORT).show();
+                        new FirebaseDatabaseHelper("service").addReservation(r, new FirebaseDatabaseHelper.DataStatus() {
+                            @Override
+                            public void DataLoaded(List<Car> cars, List<String> keys) {
+
+                            }
+
+                            @Override
+                            public void DataInserted() {
+                            }
+
+                            @Override
+                            public void DataUpdated() {
+
+                            }
+
+                            @Override
+                            public void DataIsDeleted() {
+
+                            }
+
+                            @Override
+                            public void UserIsAdded() {
+
+                            }
+
+                            @Override
+                            public void UserLogin(List<User> users) {
+
+                            }
+
+                            @Override
+                            public void ReservationAdd() {
+                                Toast.makeText(ServiceActivity.this,"Successful reservation service",Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void ReservationRead(List<Reservation> reservations) {
+
+                            }
+                        });
+                        Toast.makeText(ServiceActivity.this, "Successful reservation service", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ServiceActivity.this, HomeActivity.class);
                         intent.putExtra("user", user);
                         startActivity(intent);

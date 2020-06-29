@@ -18,6 +18,7 @@ import com.ftn.pma.R;
 import com.ftn.pma.db.User_db;
 import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
+import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.User;
 
 import java.util.List;
@@ -94,6 +95,21 @@ public class RegistrationActivity extends AppCompatActivity {
                         @Override
                         public void UserIsAdded() {
                             Toast.makeText(RegistrationActivity.this,"Successful registration",Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void UserLogin(List<User> users) {
+
+                        }
+
+                        @Override
+                        public void ReservationAdd() {
+
+                        }
+
+                        @Override
+                        public void ReservationRead(List<Reservation> reservations) {
+
                         }
                     });
                     Intent intent = new Intent(RegistrationActivity.this,LoginActivity.class);
