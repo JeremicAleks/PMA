@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCart_db extends SQLiteOpenHelper {
-
+    private User_db user_db;
     public ShoppingCart_db(@Nullable Context context) {
         super(context, User_db.DATABASE_NAME, null, 1);
     }

@@ -34,6 +34,7 @@ import com.ftn.pma.db.Car_db;
 import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
 import com.ftn.pma.model.Reservation;
+import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.User;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -175,6 +176,11 @@ public class AdminActivity extends AppCompatActivity {
 
                         @Override
                         public void ReservationUser(List<Reservation> reservations) {
+
+                        }
+
+                        @Override
+                        public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
                         }
 

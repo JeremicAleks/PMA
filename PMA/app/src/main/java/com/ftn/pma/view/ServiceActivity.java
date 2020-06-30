@@ -32,6 +32,7 @@ import com.ftn.pma.globals.SendMail;
 import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
 import com.ftn.pma.model.Reservation;
+import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.TypeOfService;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
@@ -302,6 +303,11 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
 
                             @Override
                             public void ReservationUser(List<Reservation> reservations) {
+
+                            }
+
+                            @Override
+                            public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
                             }
 

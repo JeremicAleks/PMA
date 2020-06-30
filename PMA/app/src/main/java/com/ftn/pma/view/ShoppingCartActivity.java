@@ -20,11 +20,14 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.Car_db;
 import com.ftn.pma.db.ShoppingCart_db;
+import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
+import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
@@ -159,8 +162,64 @@ public class ShoppingCartActivity extends AppCompatActivity implements Navigatio
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    public void getAllCars(String user_id, TableLayout t)
+    public void getAllCars(final String user_id, TableLayout t)
     {
+        new FirebaseDatabaseHelper("shoppingcart").readShoppingCart(new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void DataLoaded(List<Car> cars, List<String> keys) {
+            }
+
+            @Override
+            public void DataInserted() {
+            }
+
+            @Override
+            public void DataUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+
+            @Override
+            public void UserIsAdded() {
+
+            }
+
+            @Override
+            public void UserLogin(List<User> users) {
+
+            }
+
+            @Override
+            public void ReservationAdd() {
+
+            }
+
+            @Override
+            public void ReservationRead(List<Reservation> reservations) {
+
+            }
+
+            @Override
+            public void ReservationUser(List<Reservation> reservations) {
+            }
+
+            @Override
+            public void ShopingCart(List<ShoppingCart> shoppingCarts) {
+                List<ShoppingCart> shopiShoppingCartList = shoppingCart_db.getAllBuyCars(user_id);
+                for(ShoppingCart s : shoppingCarts)
+                {
+                    for(ShoppingCart s1: shopiShoppingCartList)
+                    {
+                        if(!(s.getUser_id().equals(s1.getUser_id()) && s.getCars_id().equals(s1.getCars_id())))
+                            shoppingCart_db.insertData(s.getUser_id(),s.getCars_id());
+                    }
+                }
+            }
+        });
 
         List<ShoppingCart> shopiShoppingCartList = shoppingCart_db.getAllBuyCars(user_id);
         List<Car> carList = car_db.getAllCars();

@@ -19,6 +19,7 @@ import com.ftn.pma.db.User_db;
 import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
 import com.ftn.pma.model.Reservation;
+import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.User;
 
 import java.util.List;
@@ -114,6 +115,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
                         @Override
                         public void ReservationUser(List<Reservation> reservations) {
+
+                        }
+
+                        @Override
+                        public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
                         }
 

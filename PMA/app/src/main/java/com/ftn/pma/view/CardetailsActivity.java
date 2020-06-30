@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.ShoppingCart_db;
+import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
+import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.User;
 import com.leo.simplearcloader.ArcConfiguration;
@@ -27,6 +29,8 @@ import com.leo.simplearcloader.SimpleArcDialog;
 import com.leo.simplearcloader.SimpleArcLoader;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 public class CardetailsActivity extends AppCompatActivity {
 
@@ -73,6 +77,56 @@ public class CardetailsActivity extends AppCompatActivity {
                 boolean rez = shoppingCart_db.insertData(String.valueOf(user.getId()),String.valueOf(car.getId()));
                 if(rez)
                 {
+                    ShoppingCart s = new ShoppingCart(String.valueOf(user.getId()),String.valueOf(car.getId()));
+                    new FirebaseDatabaseHelper("shoppingcart").addShopping(s,new FirebaseDatabaseHelper.DataStatus() {
+                        @Override
+                        public void DataLoaded(List<Car> cars, List<String> keys) {
+                        }
+
+                        @Override
+                        public void DataInserted() {
+                            Toast.makeText(CardetailsActivity.this,"Successfull buy cars",Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void DataUpdated() {
+
+                        }
+
+                        @Override
+                        public void DataIsDeleted() {
+
+                        }
+
+                        @Override
+                        public void UserIsAdded() {
+
+                        }
+
+                        @Override
+                        public void UserLogin(List<User> users) {
+
+                        }
+
+                        @Override
+                        public void ReservationAdd() {
+
+                        }
+
+                        @Override
+                        public void ReservationRead(List<Reservation> reservations) {
+
+                        }
+
+                        @Override
+                        public void ReservationUser(List<Reservation> reservations) {
+                        }
+
+                        @Override
+                        public void ShopingCart(List<ShoppingCart> shoppingCarts) {
+
+                        }
+                    });
                     final SimpleArcDialog mDialog = new SimpleArcDialog(CardetailsActivity.this);
                     ArcConfiguration configuration = new ArcConfiguration(CardetailsActivity.this);
                     configuration.setAnimationSpeed(SimpleArcLoader.SPEED_MEDIUM);
