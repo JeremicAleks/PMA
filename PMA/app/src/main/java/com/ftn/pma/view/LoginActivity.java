@@ -60,6 +60,11 @@ public class LoginActivity extends AppCompatActivity{
                 if (validation()) {
                     final String email = etEmail.getText().toString();
                     final String pass = etPassword.getText().toString();
+                    if (email.equalsIgnoreCase("admin") && pass.equalsIgnoreCase("admin")) {
+                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
 //                    user = user_db.login(email, pass);
                     new FirebaseDatabaseHelper("users").userIsLogin(email,pass,new FirebaseDatabaseHelper.DataStatus() {
                         @Override
@@ -96,10 +101,6 @@ public class LoginActivity extends AppCompatActivity{
                                     intent.putExtra("user", user);
                                     startActivity(intent);
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                                    finish();
-                                } else if (email.equalsIgnoreCase("admin") && pass.equalsIgnoreCase("admin")) {
-                                    Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-                                    startActivity(intent);
                                     finish();
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Failed Login", Toast.LENGTH_SHORT).show();
