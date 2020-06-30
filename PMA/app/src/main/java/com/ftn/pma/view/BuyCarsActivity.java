@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Gravity;
 
 import android.content.Intent;
@@ -43,6 +44,7 @@ import com.ftn.pma.db.Car_db;
 import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
 import com.ftn.pma.model.Reservation;
+import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
 
@@ -77,10 +79,10 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         setSupportActionBar(toolbar);
          user = (User) getIntent().getSerializableExtra("user");
 
-         new FirebaseDatabaseHelper("cars").readCars(new FirebaseDatabaseHelper.DataStatus() {
+        new FirebaseDatabaseHelper("cars").readCars(new FirebaseDatabaseHelper.DataStatus() {
              @Override
              public void DataLoaded(List<Car> cars, List<String> keys) {
-                 displayCars(cars);
+                 syncSqlLite(cars);
              }
 
              @Override
@@ -123,12 +125,17 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
 
              }
 
-         });
+            @Override
+            public void ShopingCart(List<ShoppingCart> shoppingCarts) {
+                
+            }
 
-//         List<Car> cars = car_db.getAllCars();
+        });
+
+         List<Car> cars = car_db.getAllCars();
 
 
-//         displayCars(cars);
+         displayCars(cars);
 
         //meni koji izlazi :D
         drawerLayout = findViewById(R.id.drawer);
@@ -204,6 +211,13 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    private void syncSqlLite(List<Car> cars){
+        car_db.deleteTable();
+        for(Car car: cars){
+        car_db.insertDataCar(car, Base64.decode(car.getImageString(),Base64.DEFAULT));
+        }
     }
 
     private void displayCars(List<Car> cars){

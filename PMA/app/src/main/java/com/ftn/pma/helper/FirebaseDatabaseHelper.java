@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.ftn.pma.model.Car;
 import com.ftn.pma.model.Reservation;
+import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.User;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +33,7 @@ public class FirebaseDatabaseHelper {
         void ReservationAdd();
         void ReservationRead(List<Reservation> reservations);
         void ReservationUser(List<Reservation> reservations);
+        void ShopingCart(List<ShoppingCart> shoppingCarts);
     }
 
 
@@ -99,6 +101,37 @@ public class FirebaseDatabaseHelper {
             @Override
             public void onSuccess(Void aVoid) {
                 dataStatus.DataInserted();
+            }
+        });
+    }
+
+    public void addShopping(ShoppingCart shoppingCart, final DataStatus dataStatus){
+        String key = databaseReference.push().getKey();
+        databaseReference.child(key).setValue(shoppingCart).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dataStatus.DataInserted();
+            }
+        });
+    }
+
+    public void readShoppingCart(final DataStatus dataStatus){
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<ShoppingCart> shoppingCarts = new ArrayList<>();
+                List<String> keys = new ArrayList<>();
+                for(DataSnapshot keyShot : snapshot.getChildren()){
+                    keys.add(keyShot.getKey());
+                    ShoppingCart shoppingCart = keyShot.getValue(ShoppingCart.class);
+                    shoppingCarts.add(shoppingCart);
+                }
+                dataStatus.ShopingCart(shoppingCarts);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

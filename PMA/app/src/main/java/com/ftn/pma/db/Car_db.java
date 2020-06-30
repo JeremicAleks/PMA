@@ -106,6 +106,9 @@ public class Car_db extends SQLiteOpenHelper {
         return null;
     }
 
-
+    public void deleteTable(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from "+ User_db.TABLE_NAME_Car);
+    }
 
 }
