@@ -39,6 +39,7 @@ import com.ftn.pma.db.User_db;
 import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
 import com.ftn.pma.model.Reservation;
+import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.TypeOfService;
 import com.ftn.pma.model.User;
 import com.ftn.pma.ui.home.HomeFragment;
@@ -195,7 +196,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                         }
 
                         @Override
-                        public void UserLogin(List<User> users) {
+                        public void UserLogin(User user) {
 
                         }
 
@@ -211,6 +212,11 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
 
                         @Override
                         public void ReservationUser(List<Reservation> reservations) {
+
+                        }
+
+                        @Override
+                        public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
                         }
                     });
@@ -372,7 +378,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             }
 
             @Override
-            public void UserLogin(List<User> users) {
+            public void UserLogin(User user) {
 
             }
 
@@ -400,6 +406,11 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
 
                     reservation_db.insertData(r.getEmail(),s,r.getDate(),r.getTime(),String.valueOf(r.getUserId()));
                 }
+            }
+
+            @Override
+            public void ShopingCart(List<ShoppingCart> shoppingCarts) {
+
             }
         });
 

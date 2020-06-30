@@ -19,6 +19,7 @@ import com.ftn.pma.db.User_db;
 import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
 import com.ftn.pma.model.Reservation;
+import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.User;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class LoginActivity extends AppCompatActivity{
                     final String email = etEmail.getText().toString();
                     final String pass = etPassword.getText().toString();
 //                    user = user_db.login(email, pass);
-                    new FirebaseDatabaseHelper("users").readUser(new FirebaseDatabaseHelper.DataStatus() {
+                    new FirebaseDatabaseHelper("users").userIsLogin(email,pass,new FirebaseDatabaseHelper.DataStatus() {
                         @Override
                         public void DataLoaded(List<Car> cars, List<String> keys) {
                         }
@@ -86,15 +87,13 @@ public class LoginActivity extends AppCompatActivity{
                         }
 
                         @Override
-                        public void UserLogin(List<User> users) {
-                            System.out.println("Users count: " + users.size());
-                            for(User u : users)
-                            {
-                                if (u.getEmail().equals(email) && u.getPassword().equals(pass)) {
+                        public void UserLogin(User user) {
+
+                                if (user!=null) {
                                     System.out.println("Kreira tabelu!");
                                     user_db.createTable();
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                    intent.putExtra("user", u);
+                                    intent.putExtra("user", user);
                                     startActivity(intent);
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();
@@ -105,7 +104,7 @@ public class LoginActivity extends AppCompatActivity{
                                 } else {
                                     Toast.makeText(LoginActivity.this, "Failed Login", Toast.LENGTH_SHORT).show();
                                 }
-                            }
+
                         }
 
                         @Override
@@ -120,6 +119,11 @@ public class LoginActivity extends AppCompatActivity{
 
                         @Override
                         public void ReservationUser(List<Reservation> reservations) {
+
+                        }
+
+                        @Override
+                        public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
                         }
 

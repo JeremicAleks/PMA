@@ -10,6 +10,7 @@ public class User implements Serializable {
     private String telephone;
     private String email;
     private String password;
+    private String key;
 
     public User() {
     }
@@ -69,5 +70,13 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
