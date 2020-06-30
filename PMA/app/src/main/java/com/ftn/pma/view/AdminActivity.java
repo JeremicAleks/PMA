@@ -160,7 +160,7 @@ public class AdminActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void UserLogin(List<User> users) {
+                        public void UserLogin(User user) {
 
                         }
 

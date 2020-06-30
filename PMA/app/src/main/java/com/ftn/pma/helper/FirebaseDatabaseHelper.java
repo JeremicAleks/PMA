@@ -1,5 +1,6 @@
 package com.ftn.pma.helper;
 
+import android.provider.ContactsContract;
 import android.util.Base64;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,7 @@ public class FirebaseDatabaseHelper {
         void DataUpdated();
         void DataIsDeleted();
         void UserIsAdded();
-        void UserLogin(List<User> users);
+        void UserLogin(User user);
         void ReservationAdd();
         void ReservationRead(List<Reservation> reservations);
         void ReservationUser(List<Reservation> reservations);
@@ -52,18 +53,19 @@ public class FirebaseDatabaseHelper {
         });
     }
 
-    public void readUser(final DataStatus dataStatus){
-        databaseReference.addValueEventListener(new ValueEventListener() {
+    public void userIsLogin(String email, final String pass, final DataStatus dataStatus){
+        Query query = databaseReference.orderByChild("email").equalTo(email);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<User> users = new ArrayList<>();
-                List<String> keys = new ArrayList<>();
                 for(DataSnapshot keyShot : snapshot.getChildren()){
-                    keys.add(keyShot.getKey());
                     User user = keyShot.getValue(User.class);
-                    users.add(user);
+                    if(user.getPassword().equals(pass)){
+                        user.setKey(keyShot.getKey());
+                        dataStatus.UserLogin(user);
+                        break;
+                    }
                 }
-                dataStatus.UserLogin(users);
             }
 
             @Override
@@ -72,6 +74,7 @@ public class FirebaseDatabaseHelper {
             }
         });
     }
+
 
     public void readCars(final DataStatus dataStatus){
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -168,25 +171,10 @@ public class FirebaseDatabaseHelper {
     }
 
     public void editUser(final User user, final DataStatus dataStatus){
-        System.out.println("User ID: " + user.getId());
-        Query query = databaseReference.orderByChild("id").equalTo(user.getId());
-        query.addValueEventListener(new ValueEventListener() {
+        databaseReference.child(user.getKey()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                snapshot.getChildren();
-                for (DataSnapshot keyShot : snapshot.getChildren()) {
-                    databaseReference.child(keyShot.getKey()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            dataStatus.DataUpdated();
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onSuccess(Void aVoid) {
+                dataStatus.DataUpdated();
             }
         });
     }

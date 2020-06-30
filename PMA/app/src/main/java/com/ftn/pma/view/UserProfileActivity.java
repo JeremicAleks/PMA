@@ -196,7 +196,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                         }
 
                         @Override
-                        public void UserLogin(List<User> users) {
+                        public void UserLogin(User user) {
 
                         }
 
@@ -378,7 +378,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             }
 
             @Override
-            public void UserLogin(List<User> users) {
+            public void UserLogin(User user) {
 
             }
 

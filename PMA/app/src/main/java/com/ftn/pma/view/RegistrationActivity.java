@@ -99,9 +99,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void UserLogin(List<User> users) {
+                        public void UserLogin(User user) {
 
                         }
+
 
                         @Override
                         public void ReservationAdd() {
