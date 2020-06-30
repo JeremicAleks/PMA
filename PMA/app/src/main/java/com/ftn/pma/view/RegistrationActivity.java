@@ -111,6 +111,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void ReservationRead(List<Reservation> reservations) {
 
                         }
+
+                        @Override
+                        public void ReservationUser(List<Reservation> reservations) {
+
+                        }
+
                     });
                     Intent intent = new Intent(RegistrationActivity.this,LoginActivity.class);
                     startActivity(intent);

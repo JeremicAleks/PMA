@@ -43,7 +43,7 @@ public class User_db extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+//        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME1);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME_Car);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME3);
@@ -72,13 +72,7 @@ public class User_db extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues parameters = new ContentValues();
-        long rez = db.insert(TABLE_NAME,null,parameters);
-        if(rez != -1)
-        {
-            return true;
-        }else
-            return false;
-
+        return true;
     }
 
     public User login(String email, String password)

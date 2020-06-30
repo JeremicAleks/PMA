@@ -34,8 +34,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         ImageButton btnAbout = root.findViewById(R.id.img_btn_about);
 
         user = (User) getActivity().getIntent().getSerializableExtra("user");
-        user_db = new User_db(getContext());
-//        user = user_db.getCurrentUser(String.valueOf(user.getId()));
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override

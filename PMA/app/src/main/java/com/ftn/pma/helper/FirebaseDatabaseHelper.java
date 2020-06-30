@@ -113,27 +113,6 @@ public class FirebaseDatabaseHelper {
         });
     }
 
-    public void readReservation(final DataStatus dataStatus){
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Reservation> reservations = new ArrayList<>();
-                List<String> keys = new ArrayList<>();
-                for(DataSnapshot keyShot : snapshot.getChildren()){
-                    keys.add(keyShot.getKey());
-                    Reservation reservation = keyShot.getValue(Reservation.class);
-                    reservations.add(reservation);
-                }
-                dataStatus.ReservationRead(reservations);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
     public void readReservationOfUser(int userID, final DataStatus dataStatus){
         Query query = databaseReference.orderByChild("userId").equalTo(userID);
         query.addValueEventListener(new ValueEventListener() {
@@ -152,7 +131,31 @@ public class FirebaseDatabaseHelper {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        })
+        });
+    }
+
+    public void editUser(final User user, final DataStatus dataStatus){
+        System.out.println("User ID: " + user.getId());
+        Query query = databaseReference.orderByChild("id").equalTo(user.getId());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                snapshot.getChildren();
+                for (DataSnapshot keyShot : snapshot.getChildren()) {
+                    databaseReference.child(keyShot.getKey()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            dataStatus.DataUpdated();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }

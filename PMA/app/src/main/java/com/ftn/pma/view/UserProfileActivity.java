@@ -31,10 +31,13 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.Reservation_db;
 import com.ftn.pma.db.User_db;
+import com.ftn.pma.helper.FirebaseDatabaseHelper;
+import com.ftn.pma.model.Car;
 import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.TypeOfService;
 import com.ftn.pma.model.User;
@@ -92,7 +95,6 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         user = (User) getIntent().getSerializableExtra("user");
         //inicijalizacija baze reservation
         reservation_db = new Reservation_db(this);
-        user_db = new User_db(this);
         reservation_table = findViewById(R.id.tabela_rezervacija);
 
         //izlistavanje rezervacija od korinsika
@@ -161,9 +163,61 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                 saveEditText.setVisibility(View.GONE);
                 edit.setVisibility(View.VISIBLE);
                 editUserProfile=0;
-                //update informacija o korisniku
-                user_db.updateInfo(String.valueOf(user.getId()),tv_name.getText().toString(),tv_telephone.getText().toString(),tv_email.getText().toString());
-                user = user_db.getCurrentUser(String.valueOf(user.getId()));
+                String[] split = tv_name.getText().toString().split(" ");
+                if(split.length > 1)
+                {
+                    user.setName(split[0]);
+                    user.setSurname(split[1]);
+                    user.setTelephone(tv_telephone.getText().toString());
+                    new FirebaseDatabaseHelper("users").editUser(user,new FirebaseDatabaseHelper.DataStatus() {
+                        @Override
+                        public void DataLoaded(List<Car> cars, List<String> keys) {
+                        }
+
+                        @Override
+                        public void DataInserted() {
+
+                        }
+
+                        @Override
+                        public void DataUpdated() {
+                            Toast.makeText(UserProfileActivity.this,"Successful edit profile",Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void DataIsDeleted() {
+
+                        }
+
+                        @Override
+                        public void UserIsAdded() {
+
+                        }
+
+                        @Override
+                        public void UserLogin(List<User> users) {
+
+                        }
+
+                        @Override
+                        public void ReservationAdd() {
+
+                        }
+
+                        @Override
+                        public void ReservationRead(List<Reservation> reservations) {
+
+                        }
+
+                        @Override
+                        public void ReservationUser(List<Reservation> reservations) {
+
+                        }
+                    });
+                }else
+                {
+                    Toast.makeText(UserProfileActivity.this,"Error edit profile",Toast.LENGTH_SHORT).show();
+                }
                 txtProfileName.setText(user.getName()+" "+user.getSurname());
             }
         });
@@ -216,18 +270,18 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             }
         });
     }
-    @Override
-    public void finish()
-    {
-        //Starting the previous Intent
-        Intent previousScreen = new Intent(getApplicationContext(), HomeFragment.class);
-        //Sending the data to Activity_A
-        previousScreen.putExtra("user",user);
-        setResult(1, previousScreen);
-        super.finish();
-
-        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-    }
+//    @Override
+//    public void finish()
+//    {
+//        //Starting the previous Intent
+//        Intent previousScreen = new Intent(getApplicationContext(), HomeFragment.class);
+//        //Sending the data to Activity_A
+//        previousScreen.putExtra("user",user);
+//        setResult(1, previousScreen);
+//        super.finish();
+//
+//        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -290,8 +344,65 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    public void rezervacijeKorisnika(String id, TableLayout t)
+    public void rezervacijeKorisnika(String id, final TableLayout t)
     {
+        new FirebaseDatabaseHelper("service").readReservationOfUser(Integer.parseInt(id),new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void DataLoaded(List<Car> cars, List<String> keys) {
+            }
+
+            @Override
+            public void DataInserted() {
+
+            }
+
+            @Override
+            public void DataUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+
+            @Override
+            public void UserIsAdded() {
+
+            }
+
+            @Override
+            public void UserLogin(List<User> users) {
+
+            }
+
+            @Override
+            public void ReservationAdd() {
+
+            }
+
+            @Override
+            public void ReservationRead(List<Reservation> reservations) {
+
+            }
+
+            @Override
+            public void ReservationUser(List<Reservation> reservations) {
+                reservation_db.deleteTable();
+                for(Reservation r : reservations)
+                {
+                    String s="";
+                    for(int i=0;i<r.getTypeOfService().size()-1;i++)
+                    {
+                        s += r.getTypeOfService().get(i) + ",";
+                    }
+                    s+= r.getTypeOfService().get(r.getTypeOfService().size()-1);
+
+                    reservation_db.insertData(r.getEmail(),s,r.getDate(),r.getTime(),String.valueOf(r.getUserId()));
+                }
+            }
+        });
+
         List<Reservation> rezervacije = reservation_db.getAllReservation(id);
 
         if(rezervacije!= null)

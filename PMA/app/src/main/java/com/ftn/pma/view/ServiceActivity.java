@@ -299,6 +299,12 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                             public void ReservationRead(List<Reservation> reservations) {
 
                             }
+
+                            @Override
+                            public void ReservationUser(List<Reservation> reservations) {
+
+                            }
+
                         });
                         Toast.makeText(ServiceActivity.this, "Successful reservation service", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ServiceActivity.this, HomeActivity.class);

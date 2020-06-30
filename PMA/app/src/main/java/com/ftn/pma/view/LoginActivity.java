@@ -87,9 +87,11 @@ public class LoginActivity extends AppCompatActivity{
 
                         @Override
                         public void UserLogin(List<User> users) {
+                            System.out.println("Users count: " + users.size());
                             for(User u : users)
                             {
                                 if (u.getEmail().equals(email) && u.getPassword().equals(pass)) {
+                                    System.out.println("Kreira tabelu!");
                                     user_db.createTable();
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                     intent.putExtra("user", u);
@@ -115,6 +117,13 @@ public class LoginActivity extends AppCompatActivity{
                         public void ReservationRead(List<Reservation> reservations) {
 
                         }
+
+                        @Override
+                        public void ReservationUser(List<Reservation> reservations) {
+
+                        }
+
+
                     });
 
                 }

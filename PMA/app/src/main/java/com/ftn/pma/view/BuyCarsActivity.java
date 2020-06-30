@@ -117,6 +117,12 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
              public void ReservationRead(List<Reservation> reservations) {
 
              }
+
+             @Override
+             public void ReservationUser(List<Reservation> reservations) {
+
+             }
+
          });
 
 //         List<Car> cars = car_db.getAllCars();
