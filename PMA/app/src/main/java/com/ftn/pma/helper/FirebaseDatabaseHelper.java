@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class FirebaseDatabaseHelper {
         void UserLogin(List<User> users);
         void ReservationAdd();
         void ReservationRead(List<Reservation> reservations);
+        void ReservationUser(List<Reservation> reservations);
     }
 
 
@@ -130,6 +132,27 @@ public class FirebaseDatabaseHelper {
 
             }
         });
+    }
+
+    public void readReservationOfUser(int userID, final DataStatus dataStatus){
+        Query query = databaseReference.orderByChild("userId").equalTo(userID);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Reservation> reservations = new ArrayList<>();
+                snapshot.getChildren();
+                for (DataSnapshot keyShot : snapshot.getChildren()) {
+                    Reservation reservation = keyShot.getValue(Reservation.class);
+                    reservations.add(reservation);
+                }
+                dataStatus.ReservationUser(reservations);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        })
     }
 
 }
