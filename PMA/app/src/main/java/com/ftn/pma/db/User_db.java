@@ -35,7 +35,7 @@ public class User_db extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+ TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,SURNAME TEXT, TELEPHONE TEXT, EMAIL TEXT,PASSWORD TEXT)");
+//        db.execSQL("create table "+ TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,SURNAME TEXT, TELEPHONE TEXT, EMAIL TEXT,PASSWORD TEXT)");
         db.execSQL("create table "+ TABLE_NAME1 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, EMAIL TEXT,TYPE_OF_SERVICE TEXT, DATE TEXT,TIME TEXT, USER_ID REFERENCES user(ID))");
         db.execSQL("create table "+ TABLE_NAME_Car +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,IMAGE BLOB, BRAND TEXT,MODEL TEXT, PRICE TEXT, POWER TEXT, HORSEPOWER TEXT,TORQUE TEXT, REVATMAXPOWER TEXT,TRANSMISSION TEXT,HEIGHT TEXT,LENGTH TEXT,WIDTH TEXT,RATING TEXT)");
         db.execSQL("create table "+ TABLE_NAME3 +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, USER_ID REFERENCES user(ID), CARS_ID REFERENCES car(ID))");
@@ -50,21 +50,35 @@ public class User_db extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String name,String surname,String telephone,String email, String password)
+//    public boolean insertData(String name,String surname,String telephone,String email, String password)
+//    {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues parameters = new ContentValues();
+//        parameters.put(NAME,name);
+//        parameters.put(SURNAME,surname);
+//        parameters.put(TELEPHONE,telephone);
+//        parameters.put(EMAIL,email);
+//        parameters.put(PASSWORD,password);
+//        long rez = db.insert(TABLE_NAME,null,parameters);
+//        if(rez != -1)
+//        {
+//            return true;
+//        }else
+//            return false;
+//    }
+
+    //kreiranje pocetnih tabela
+    public boolean createTable()
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues parameters = new ContentValues();
-        parameters.put(NAME,name);
-        parameters.put(SURNAME,surname);
-        parameters.put(TELEPHONE,telephone);
-        parameters.put(EMAIL,email);
-        parameters.put(PASSWORD,password);
         long rez = db.insert(TABLE_NAME,null,parameters);
         if(rez != -1)
         {
             return true;
         }else
             return false;
+
     }
 
     public User login(String email, String password)

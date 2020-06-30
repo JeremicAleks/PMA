@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity{
                             for(User u : users)
                             {
                                 if (u.getEmail().equals(email) && u.getPassword().equals(pass)) {
+                                    user_db.createTable();
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                     intent.putExtra("user", u);
                                     startActivity(intent);

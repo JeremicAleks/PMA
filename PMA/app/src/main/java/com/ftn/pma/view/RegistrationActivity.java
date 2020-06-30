@@ -47,7 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
         hideSystemUIImperativeMode();
         setContentView(R.layout.activity_registration);
 
-        user_db = new User_db(this);
+//        user_db = new User_db(this);
 
         name = findViewById(R.id.ed_name);
         surname = findViewById(R.id.ed_surname);
@@ -62,11 +62,11 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(chechValidation()){
-                boolean rezultat = user_db.insertData(name.getText().toString(),surname.getText().toString(),
-                        telephone.getText().toString(),email.getText().toString(),
-                        password.getText().toString());
-                if(rezultat)
-                {
+//                boolean rezultat = user_db.insertData(name.getText().toString(),surname.getText().toString(),
+//                        telephone.getText().toString(),email.getText().toString(),
+//                        password.getText().toString());
+//                if(rezultat)
+//                {
                     user.setName(name.getText().toString());
                     user.setSurname(surname.getText().toString());
                     user.setTelephone(telephone.getText().toString());
@@ -118,7 +118,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 {
                     Toast.makeText(RegistrationActivity.this,"Problem with registration",Toast.LENGTH_LONG).show();
                 }
-            }
             }
         });
     }

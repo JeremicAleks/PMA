@@ -93,6 +93,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        user = (User) data.getSerializableExtra("user");
+//        user = (User) data.getSerializableExtra("user");
     }
 }
