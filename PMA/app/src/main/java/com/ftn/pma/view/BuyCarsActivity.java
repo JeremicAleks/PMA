@@ -216,13 +216,7 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
 
     private void syncSqlLite(List<Car> cars){
         car_db.deleteTable();
-        List<Car> cars_list = car_db.getAllCars();
         for(Car car: cars){
-//            for(Car car1: cars_list)
-//            {
-//                if(!(car.getUser_id().equals(s1.getUser_id()) && s.getCars_id().equals(s1.getCars_id())))
-//                    shoppingCart_db.insertData(s.getUser_id(),s.getCars_id());
-//            }
         car_db.insertDataCar(car, Base64.decode(car.getImageString(),Base64.DEFAULT));
         }
     }

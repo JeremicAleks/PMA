@@ -10,6 +10,7 @@ public class Reservation implements Serializable {
     private String date;
     private String time;
     private int userId;
+    private String userKey;
 
     public Reservation() {
     }
@@ -67,5 +68,13 @@ public class Reservation implements Serializable {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getUserKey() {
+        return userKey;
+    }
+
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
     }
 }

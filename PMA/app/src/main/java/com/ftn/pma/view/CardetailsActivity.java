@@ -74,10 +74,10 @@ public class CardetailsActivity extends AppCompatActivity {
         btBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean rez = shoppingCart_db.insertData(String.valueOf(user.getId()),String.valueOf(car.getId()));
+                boolean rez = shoppingCart_db.insertData(user.getKey(),car.getKey());
                 if(rez)
                 {
-                    ShoppingCart s = new ShoppingCart(String.valueOf(user.getId()),String.valueOf(car.getId()));
+                    ShoppingCart s = new ShoppingCart(user.getKey(),car.getKey());
                     new FirebaseDatabaseHelper("shoppingcart").addShopping(s,new FirebaseDatabaseHelper.DataStatus() {
                         @Override
                         public void DataLoaded(List<Car> cars, List<String> keys) {
@@ -104,7 +104,7 @@ public class CardetailsActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void UserLogin(List<User> users) {
+                        public void UserLogin(User user) {
 
                         }
 

@@ -86,6 +86,7 @@ public class FirebaseDatabaseHelper {
                     keys.add(keyShot.getKey());
                     Car car = keyShot.getValue(Car.class);
                     car.setImage(Base64.decode(car.getImageString(),Base64.DEFAULT));
+                    car.setKey(keyShot.getKey());
                     cars.add(car);
                 }
                 dataStatus.DataLoaded(cars,keys);
@@ -149,8 +150,8 @@ public class FirebaseDatabaseHelper {
         });
     }
 
-    public void readReservationOfUser(int userID, final DataStatus dataStatus){
-        Query query = databaseReference.orderByChild("userId").equalTo(userID);
+    public void readReservationOfUser(String key, final DataStatus dataStatus){
+        Query query = databaseReference.orderByChild("userKey").equalTo(key);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

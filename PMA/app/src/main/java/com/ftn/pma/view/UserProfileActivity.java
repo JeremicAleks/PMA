@@ -99,7 +99,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
         reservation_table = findViewById(R.id.tabela_rezervacija);
 
         //izlistavanje rezervacija od korinsika
-        rezervacijeKorisnika(String.valueOf(user.getId()),reservation_table);
+        rezervacijeKorisnika(user.getKey(),reservation_table);
 
         tv_name = findViewById(R.id.tv_name);
         tv_email = findViewById(R.id.tv_email);
@@ -350,9 +350,9 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    public void rezervacijeKorisnika(String id, final TableLayout t)
+    public void rezervacijeKorisnika(String key, final TableLayout t)
     {
-        new FirebaseDatabaseHelper("service").readReservationOfUser(Integer.parseInt(id),new FirebaseDatabaseHelper.DataStatus() {
+        new FirebaseDatabaseHelper("service").readReservationOfUser(key,new FirebaseDatabaseHelper.DataStatus() {
             @Override
             public void DataLoaded(List<Car> cars, List<String> keys) {
             }
@@ -404,7 +404,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                     }
                     s+= r.getTypeOfService().get(r.getTypeOfService().size()-1);
 
-                    reservation_db.insertData(r.getEmail(),s,r.getDate(),r.getTime(),String.valueOf(r.getUserId()));
+                    reservation_db.insertData(r.getEmail(),s,r.getDate(),r.getTime(),r.getUserKey());
                 }
             }
 
@@ -414,7 +414,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             }
         });
 
-        List<Reservation> rezervacije = reservation_db.getAllReservation(id);
+        List<Reservation> rezervacije = reservation_db.getAllReservation(user.getKey());
 
         if(rezervacije!= null)
         {

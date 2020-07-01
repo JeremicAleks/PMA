@@ -92,7 +92,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements Navigatio
         shoppingCart_db = new ShoppingCart_db(this);
         car_db = new Car_db(this);
         shopping_table = findViewById(R.id.shoppingTable);
-        getAllCars(String.valueOf(user.getId()),shopping_table);
+        getAllCars(user.getKey(),shopping_table);
 
     }
     @Override
@@ -189,9 +189,10 @@ public class ShoppingCartActivity extends AppCompatActivity implements Navigatio
             }
 
             @Override
-            public void UserLogin(List<User> users) {
+            public void UserLogin(User user) {
 
             }
+
 
             @Override
             public void ReservationAdd() {
@@ -209,14 +210,10 @@ public class ShoppingCartActivity extends AppCompatActivity implements Navigatio
 
             @Override
             public void ShopingCart(List<ShoppingCart> shoppingCarts) {
-                List<ShoppingCart> shopiShoppingCartList = shoppingCart_db.getAllBuyCars(user_id);
+                shoppingCart_db.deleteTable();
                 for(ShoppingCart s : shoppingCarts)
                 {
-                    for(ShoppingCart s1: shopiShoppingCartList)
-                    {
-                        if(!(s.getUser_id().equals(s1.getUser_id()) && s.getCars_id().equals(s1.getCars_id())))
-                            shoppingCart_db.insertData(s.getUser_id(),s.getCars_id());
-                    }
+                    shoppingCart_db.insertData(s.getUser_id(),s.getCars_id());
                 }
             }
         });
@@ -230,7 +227,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements Navigatio
                 for(Car c : carList)
                 {
                     System.out.println("IZBOR KOLA");
-                    if(c.getId() == Integer.parseInt(shop.getCars_id()))
+                    if(c.getKey().equals(shop.getCars_id()))
                     {
                         System.out.println("NASAO AUTO");
                         TableRow tr = new TableRow(this);

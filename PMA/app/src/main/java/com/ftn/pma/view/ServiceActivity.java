@@ -172,7 +172,7 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                     Reservation r = new Reservation();
                     boolean rezultat = false;
                     if (cb_small_service.isChecked() && cb_big_service.isChecked() && cb_technical_inspection.isChecked()) {
-                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE + "," + TypeOfService.BIG_SERVICE + "," + TypeOfService.TECHNICAL_INSPECTION, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
+                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE + "," + TypeOfService.BIG_SERVICE + "," + TypeOfService.TECHNICAL_INSPECTION, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), user.getKey());
                         List<TypeOfService> tp = new ArrayList<>();
                         tp.add(TypeOfService.SMALL_SERVICE);
                         tp.add(TypeOfService.BIG_SERVICE);
@@ -181,9 +181,9 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                         r.setTypeOfService(tp);
                         r.setDate(tvSelectDate.getText().toString());
                         r.setTime(tvSelectTime.getText().toString());
-                        r.setUserId(user.getId());
+                        r.setUserKey(user.getKey());
                     } else if (cb_small_service.isChecked() && cb_big_service.isChecked()) {
-                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE + "," + TypeOfService.BIG_SERVICE, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
+                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE + "," + TypeOfService.BIG_SERVICE, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), user.getKey());
                         List<TypeOfService> tp = new ArrayList<>();
                         tp.add(TypeOfService.SMALL_SERVICE);
                         tp.add(TypeOfService.BIG_SERVICE);
@@ -191,9 +191,9 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                         r.setTypeOfService(tp);
                         r.setDate(tvSelectDate.getText().toString());
                         r.setTime(tvSelectTime.getText().toString());
-                        r.setUserId(user.getId());
+                        r.setUserKey(user.getKey());
                     } else if (cb_big_service.isChecked() && cb_technical_inspection.isChecked()) {
-                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.BIG_SERVICE + "," + TypeOfService.TECHNICAL_INSPECTION, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
+                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.BIG_SERVICE + "," + TypeOfService.TECHNICAL_INSPECTION, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), user.getKey());
                         List<TypeOfService> tp = new ArrayList<>();
                         tp.add(TypeOfService.BIG_SERVICE);
                         tp.add(TypeOfService.TECHNICAL_INSPECTION);
@@ -201,9 +201,9 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                         r.setTypeOfService(tp);
                         r.setDate(tvSelectDate.getText().toString());
                         r.setTime(tvSelectTime.getText().toString());
-                        r.setUserId(user.getId());
+                        r.setUserKey(user.getKey());
                     } else if (cb_small_service.isChecked() && cb_technical_inspection.isChecked()) {
-                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE + "," + TypeOfService.TECHNICAL_INSPECTION, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
+                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE + "," + TypeOfService.TECHNICAL_INSPECTION, tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), user.getKey());
                         List<TypeOfService> tp = new ArrayList<>();
                         tp.add(TypeOfService.SMALL_SERVICE);
                         tp.add(TypeOfService.TECHNICAL_INSPECTION);
@@ -211,34 +211,34 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                         r.setTypeOfService(tp);
                         r.setDate(tvSelectDate.getText().toString());
                         r.setTime(tvSelectTime.getText().toString());
-                        r.setUserId(user.getId());
+                        r.setUserKey(user.getKey());
                     } else if (cb_small_service.isChecked()) {
-                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE.toString(), tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
+                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.SMALL_SERVICE.toString(), tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), user.getKey());
                         List<TypeOfService> tp = new ArrayList<>();
                         tp.add(TypeOfService.SMALL_SERVICE);
                         r.setEmail(et_email_service.getText().toString());
                         r.setTypeOfService(tp);
                         r.setDate(tvSelectDate.getText().toString());
                         r.setTime(tvSelectTime.getText().toString());
-                        r.setUserId(user.getId());
+                        r.setUserKey(user.getKey());
                     } else if (cb_big_service.isChecked()) {
-                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.BIG_SERVICE.toString(), tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
+                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.BIG_SERVICE.toString(), tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), user.getKey());
                         List<TypeOfService> tp = new ArrayList<>();
                         tp.add(TypeOfService.BIG_SERVICE);
                         r.setEmail(et_email_service.getText().toString());
                         r.setTypeOfService(tp);
                         r.setDate(tvSelectDate.getText().toString());
                         r.setTime(tvSelectTime.getText().toString());
-                        r.setUserId(user.getId());
+                        r.setUserKey(user.getKey());
                     } else if (cb_technical_inspection.isChecked()) {
-                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.TECHNICAL_INSPECTION.toString(), tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), String.valueOf(user.getId()));
+                        rezultat = reservation_db.insertData(et_email_service.getText().toString(), TypeOfService.TECHNICAL_INSPECTION.toString(), tvSelectDate.getText().toString(), tvSelectTime.getText().toString(), user.getKey());
                         List<TypeOfService> tp = new ArrayList<>();
                         tp.add(TypeOfService.TECHNICAL_INSPECTION);
                         r.setEmail(et_email_service.getText().toString());
                         r.setTypeOfService(tp);
                         r.setDate(tvSelectDate.getText().toString());
                         r.setTime(tvSelectTime.getText().toString());
-                        r.setUserId(user.getId());
+                        r.setUserKey(user.getKey());
                     }
                     final SimpleArcDialog mDialog = new SimpleArcDialog(ServiceActivity.this);
                     ArcConfiguration configuration = new ArcConfiguration(ServiceActivity.this);
@@ -394,7 +394,7 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
 
     public void sendEmail(String emailTo) throws MessagingException {
 
-        Reservation reservation = reservation_db.zadnjaRezervacija(String.valueOf(user.getId()));
+        Reservation reservation = reservation_db.zadnjaRezervacija(user.getKey());
         final String email="nijemidosadno@gmail.com";
         final String password="nijemidosadno123";
 

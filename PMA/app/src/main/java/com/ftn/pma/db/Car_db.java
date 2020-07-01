@@ -36,7 +36,7 @@ public class Car_db extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "+ User_db.TABLE_NAME_Car +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,IMAGE BLOB, BRAND TEXT,MODEL TEXT, PRICE TEXT, POWER TEXT, HORSEPOWER TEXT,TORQUE TEXT, REVATMAXPOWER TEXT,TRANSMISSION TEXT,HEIGHT TEXT,LENGTH TEXT,WIDTH TEXT,RATING TEXT)");
+        db.execSQL("create table "+ User_db.TABLE_NAME_Car +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,IMAGE BLOB, BRAND TEXT,MODEL TEXT, PRICE TEXT, POWER TEXT, HORSEPOWER TEXT,TORQUE TEXT, REVATMAXPOWER TEXT,TRANSMISSION TEXT,HEIGHT TEXT,LENGTH TEXT,WIDTH TEXT,RATING TEXT, KLJUC TEXT)");
     }
 
     @Override
@@ -62,6 +62,7 @@ public class Car_db extends SQLiteOpenHelper {
         parameters.put(CarDBGlobals.LENGTH,car.getLength());
         parameters.put(CarDBGlobals.WIDTH,car.getWidth());
         parameters.put(CarDBGlobals.RATING,car.getRating());
+        parameters.put(CarDBGlobals.KEY,car.getKey());
         long rez = db.insert(User_db.TABLE_NAME_Car,null,parameters);
         if(rez != -1)
         {
@@ -82,6 +83,7 @@ public class Car_db extends SQLiteOpenHelper {
                 car.setId(read.getInt(read.getColumnIndex("ID")));
                 car.setImage(read.getBlob(read.getColumnIndex(CarDBGlobals.IMAGE)));
                 car.setRating(Float.parseFloat(read.getString(read.getColumnIndex(CarDBGlobals.RATING))));
+                car.setKey(read.getString(read.getColumnIndex(CarDBGlobals.KEY)));
                 cars.add(car);
             } while (read.moveToNext());
         }
