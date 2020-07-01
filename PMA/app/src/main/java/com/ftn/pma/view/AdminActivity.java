@@ -155,7 +155,7 @@ public class AdminActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void UserIsAdded() {
+                        public void UserIsAdded(Boolean status) {
 
                         }
 
@@ -183,7 +183,6 @@ public class AdminActivity extends AppCompatActivity {
                         public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
                         }
-
 
                     });
                 }

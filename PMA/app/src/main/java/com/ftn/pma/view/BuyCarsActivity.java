@@ -101,7 +101,7 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
              }
 
              @Override
-             public void UserIsAdded() {
+             public void UserIsAdded(Boolean status) {
 
              }
 
@@ -129,6 +129,8 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
             public void ShopingCart(List<ShoppingCart> shoppingCarts) {
                 
             }
+
+
 
         });
 

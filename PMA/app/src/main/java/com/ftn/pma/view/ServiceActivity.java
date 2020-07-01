@@ -282,7 +282,7 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                             }
 
                             @Override
-                            public void UserIsAdded() {
+                            public void UserIsAdded(Boolean status) {
 
                             }
 
@@ -310,6 +310,7 @@ public class ServiceActivity extends AppCompatActivity implements NavigationView
                             public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
                             }
+
 
                         });
                         Toast.makeText(ServiceActivity.this, "Successful reservation service", Toast.LENGTH_SHORT).show();

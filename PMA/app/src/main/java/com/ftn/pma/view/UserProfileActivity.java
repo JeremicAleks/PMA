@@ -191,7 +191,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                         }
 
                         @Override
-                        public void UserIsAdded() {
+                        public void UserIsAdded(Boolean status) {
 
                         }
 
@@ -219,6 +219,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                         public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
                         }
+
                     });
                 }else
                 {
@@ -373,7 +374,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             }
 
             @Override
-            public void UserIsAdded() {
+            public void UserIsAdded(Boolean status) {
 
             }
 
@@ -412,6 +413,7 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
             public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
             }
+
         });
 
         List<Reservation> rezervacije = reservation_db.getAllReservation(id);

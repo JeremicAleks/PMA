@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity{
                         }
 
                         @Override
-                        public void UserIsAdded() {
+                        public void UserIsAdded(Boolean status) {
 
                         }
 
@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity{
                         public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
                         }
+
 
 
                     });

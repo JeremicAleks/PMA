@@ -3,15 +3,11 @@ package com.ftn.pma.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ftn.pma.R;
@@ -63,70 +59,74 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(chechValidation()){
-//                boolean rezultat = user_db.insertData(name.getText().toString(),surname.getText().toString(),
-//                        telephone.getText().toString(),email.getText().toString(),
-//                        password.getText().toString());
-//                if(rezultat)
-//                {
-                    user.setName(name.getText().toString());
-                    user.setSurname(surname.getText().toString());
-                    user.setTelephone(telephone.getText().toString());
-                    user.setEmail(email.getText().toString());
-                    user.setPassword(password.getText().toString());
-                    new FirebaseDatabaseHelper("users").addUser(user, new FirebaseDatabaseHelper.DataStatus() {
-                        @Override
-                        public void DataLoaded(List<Car> cars, List<String> keys) {
 
-                        }
+                        user.setName(name.getText().toString());
+                        user.setSurname(surname.getText().toString());
+                        user.setTelephone(telephone.getText().toString());
+                        user.setEmail(email.getText().toString());
+                        user.setPassword(password.getText().toString());
+                        new FirebaseDatabaseHelper("users").addUser(user, new FirebaseDatabaseHelper.DataStatus() {
+                            @Override
+                            public void DataLoaded(List<Car> cars, List<String> keys) {
 
-                        @Override
-                        public void DataInserted() {
-                           }
+                            }
 
-                        @Override
-                        public void DataUpdated() {
+                            @Override
+                            public void DataInserted() {
+                            }
 
-                        }
+                            @Override
+                            public void DataUpdated() {
 
-                        @Override
-                        public void DataIsDeleted() {
+                            }
 
-                        }
+                            @Override
+                            public void DataIsDeleted() {
 
-                        @Override
-                        public void UserIsAdded() {
-                            Toast.makeText(RegistrationActivity.this,"Successful registration",Toast.LENGTH_SHORT).show();
-                        }
+                            }
 
-                        @Override
-                        public void UserLogin(User user) {
+                            @Override
+                            public void UserIsAdded(Boolean status) {
+                                if(status) {
+                                    Toast.makeText(RegistrationActivity.this, "Successful registration", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(RegistrationActivity.this, "Email already exist!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
 
-                        }
+                            @Override
+                            public void UserLogin(User user) {
+
+                            }
 
 
-                        @Override
-                        public void ReservationAdd() {
+                            @Override
+                            public void ReservationAdd() {
 
-                        }
+                            }
 
-                        @Override
-                        public void ReservationRead(List<Reservation> reservations) {
+                            @Override
+                            public void ReservationRead(List<Reservation> reservations) {
 
-                        }
+                            }
 
-                        @Override
-                        public void ReservationUser(List<Reservation> reservations) {
+                            @Override
+                            public void ReservationUser(List<Reservation> reservations) {
 
-                        }
+                            }
 
-                        @Override
-                        public void ShopingCart(List<ShoppingCart> shoppingCarts) {
+                            @Override
+                            public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
-                        }
+                            }
 
-                    });
-                    Intent intent = new Intent(RegistrationActivity.this,LoginActivity.class);
-                    startActivity(intent);
+
+
+                        });
+
+
                 }else
                 {
                     Toast.makeText(RegistrationActivity.this,"Problem with registration",Toast.LENGTH_LONG).show();
@@ -134,6 +134,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void hideSystemUIImperativeMode() {
         // Enables regular immersive mode.

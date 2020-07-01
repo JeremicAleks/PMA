@@ -1,6 +1,5 @@
 package com.ftn.pma.helper;
 
-import android.provider.ContactsContract;
 import android.util.Base64;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,7 @@ public class FirebaseDatabaseHelper {
         void DataInserted();
         void DataUpdated();
         void DataIsDeleted();
-        void UserIsAdded();
+        void UserIsAdded(Boolean status);
         void UserLogin(User user);
         void ReservationAdd();
         void ReservationRead(List<Reservation> reservations);
@@ -44,13 +43,37 @@ public class FirebaseDatabaseHelper {
     }
 
     public void addUser(User user,final DataStatus dataStatus){
-        String key = databaseReference.push().getKey();
-        databaseReference.child(key).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+        final User user1 = user;
+        Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
+        final List<User> users = new ArrayList<>();
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(Void aVoid) {
-                dataStatus.UserIsAdded();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot keyShot : snapshot.getChildren()){
+                    User user = keyShot.getValue(User.class);
+                    users.add(user);
+                }
+                if(users.size()>=1){
+                    dataStatus.UserIsAdded(false);
+                }else{
+                    String key = databaseReference.push().getKey();
+                    databaseReference.child(key).setValue(user1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            dataStatus.UserIsAdded(true);
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
+
     }
 
     public void userIsLogin(String email, final String pass, final DataStatus dataStatus){
@@ -138,6 +161,7 @@ public class FirebaseDatabaseHelper {
             }
         });
     }
+
 
     public void addReservation(Reservation reservation,final DataStatus dataStatus){
         String key = databaseReference.push().getKey();
