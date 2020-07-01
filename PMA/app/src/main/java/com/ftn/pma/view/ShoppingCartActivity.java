@@ -20,11 +20,14 @@ import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.Car_db;
 import com.ftn.pma.db.ShoppingCart_db;
+import com.ftn.pma.helper.FirebaseDatabaseHelper;
 import com.ftn.pma.model.Car;
+import com.ftn.pma.model.Reservation;
 import com.ftn.pma.model.ShoppingCart;
 import com.ftn.pma.model.User;
 import com.google.android.material.navigation.NavigationView;
@@ -89,7 +92,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements Navigatio
         shoppingCart_db = new ShoppingCart_db(this);
         car_db = new Car_db(this);
         shopping_table = findViewById(R.id.shoppingTable);
-        getAllCars(String.valueOf(user.getId()),shopping_table);
+        getAllCars(user.getKey(),shopping_table);
 
     }
     @Override
@@ -159,8 +162,61 @@ public class ShoppingCartActivity extends AppCompatActivity implements Navigatio
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
 
-    public void getAllCars(String user_id, TableLayout t)
+    public void getAllCars(final String user_id, TableLayout t)
     {
+        new FirebaseDatabaseHelper("shoppingcart").readShoppingCart(new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void DataLoaded(List<Car> cars, List<String> keys) {
+            }
+
+            @Override
+            public void DataInserted() {
+            }
+
+            @Override
+            public void DataUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+
+            @Override
+            public void UserIsAdded() {
+
+            }
+
+            @Override
+            public void UserLogin(User user) {
+
+            }
+
+
+            @Override
+            public void ReservationAdd() {
+
+            }
+
+            @Override
+            public void ReservationRead(List<Reservation> reservations) {
+
+            }
+
+            @Override
+            public void ReservationUser(List<Reservation> reservations) {
+            }
+
+            @Override
+            public void ShopingCart(List<ShoppingCart> shoppingCarts) {
+                shoppingCart_db.deleteTable();
+                for(ShoppingCart s : shoppingCarts)
+                {
+                    shoppingCart_db.insertData(s.getUser_id(),s.getCars_id());
+                }
+            }
+        });
 
         List<ShoppingCart> shopiShoppingCartList = shoppingCart_db.getAllBuyCars(user_id);
         List<Car> carList = car_db.getAllCars();
@@ -171,7 +227,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements Navigatio
                 for(Car c : carList)
                 {
                     System.out.println("IZBOR KOLA");
-                    if(c.getId() == Integer.parseInt(shop.getCars_id()))
+                    if(c.getKey().equals(shop.getCars_id()))
                     {
                         System.out.println("NASAO AUTO");
                         TableRow tr = new TableRow(this);

@@ -18,6 +18,7 @@ public class Car implements Serializable {
     private double length;
     private double width;
     private float rating;
+    private String key;
 
     public Car() {
     }
@@ -154,5 +155,13 @@ public class Car implements Serializable {
 
     public void setImageString(String imageString) {
         this.imageString = imageString;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
