@@ -99,7 +99,7 @@ public class CardetailsActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void UserIsAdded() {
+                        public void UserIsAdded(Boolean status) {
 
                         }
 

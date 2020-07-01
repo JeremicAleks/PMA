@@ -184,7 +184,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements Navigatio
             }
 
             @Override
-            public void UserIsAdded() {
+            public void UserIsAdded(Boolean status) {
 
             }
 
