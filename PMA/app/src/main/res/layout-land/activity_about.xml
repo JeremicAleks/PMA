@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="30dp"
     android:background="?attr/backgroundcolor"
     tools:context=".view.AboutActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFFFFF"
