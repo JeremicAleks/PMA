@@ -64,6 +64,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".service.NotificationService" />
+
         <service
             android:name=".firebase.FirebaseMessaging"
             android:directBootAware="true"
