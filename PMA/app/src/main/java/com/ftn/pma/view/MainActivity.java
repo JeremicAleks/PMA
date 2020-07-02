@@ -49,6 +49,58 @@ public class MainActivity extends AppCompatActivity {
         hideSystemUIImperativeMode();
         setContentView(R.layout.activity_main);
 
+        new FirebaseDatabaseHelper("cars").readCars(new FirebaseDatabaseHelper.DataStatus() {
+            @Override
+            public void DataLoaded(List<Car> cars, List<String> keys) {
+                carsNumber = cars.size();
+            }
+
+            @Override
+            public void DataInserted() {
+
+            }
+
+            @Override
+            public void DataUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+
+            @Override
+            public void UserIsAdded(Boolean status) {
+
+            }
+
+            @Override
+            public void UserLogin(User user) {
+
+            }
+
+            @Override
+            public void ReservationAdd() {
+
+            }
+
+            @Override
+            public void ReservationRead(List<Reservation> reservations) {
+
+            }
+
+            @Override
+            public void ReservationUser(List<Reservation> reservations) {
+
+            }
+
+            @Override
+            public void ShopingCart(List<ShoppingCart> shoppingCarts) {
+
+            }
+        });
+
         ConstraintLayout constraintLayout =  findViewById(R.id.mainLayout);
 
         //animacije za bootup
