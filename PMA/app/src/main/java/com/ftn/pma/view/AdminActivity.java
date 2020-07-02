@@ -127,7 +127,7 @@ public class AdminActivity extends AppCompatActivity {
                     car.setWidth(Double.parseDouble(etWidth.getText().toString()));
                     car.setLength(Double.parseDouble(etLength.getText().toString()));
                     car.setRating(ratingBar.getRating());
-                    showNotification(1, car);
+//                    showNotification(1, car);
 
                     byte[] img = uriImageToByte(uri);
                     String base = Base64.encodeToString(img,Base64.DEFAULT);
