@@ -17,11 +17,12 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.io.IOException;
 
-class FirebaseMessaging extends FirebaseMessagingService {
+public class FirebaseMessaging extends FirebaseMessagingService {
+
     @Override
     public void onNewToken(@NonNull String s) {
         super.onNewToken(s);
-        Log.d("MyToken",s);
+        Log.d("NewToken", s);
     }
 
     @Override
@@ -30,10 +31,13 @@ class FirebaseMessaging extends FirebaseMessagingService {
         if(remoteMessage.getData().size() > 0){
             //handle the data message here
         }
-        showNotification(1,"AAAAAAA");
+
+
+
         //getting the title and the body
         String title = remoteMessage.getNotification().getTitle();
         String body = remoteMessage.getNotification().getBody();
+        showNotification(1,title);
     }
 
     private void showNotification(int id, String text) {

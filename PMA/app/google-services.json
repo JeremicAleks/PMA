@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "248494403196-7dp216vpov9pvdmnefjtkrkevfpli86v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ftn.pma",
+            "certificate_hash": "3f4a9c6fdf74301acef52073757e805ae1363c48"
+          }
+        },
+        {
+          "client_id": "248494403196-hk7sevmpl3f587maq4ufcf942k4rd9vp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ftn.pma",
+            "certificate_hash": "d0c3b527c5d746456b805b5fe2ce72132018f412"
+          }
+        },
+        {
           "client_id": "248494403196-c2ohlnfea61h2d11k2r1ndot6v41qhs3.apps.googleusercontent.com",
           "client_type": 3
         }
