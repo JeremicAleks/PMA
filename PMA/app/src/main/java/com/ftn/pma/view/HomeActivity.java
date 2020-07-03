@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     break;
                 case R.id.nav_help:
 //                    openFragment(new HelpFragment());
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://zakazitehnicki.rs/ "));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/BLTPKRKA7qQ "));
                     startActivity(browserIntent);
                     break;
                 case R.id.nav_settings:
@@ -155,7 +155,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_help:
 //                openFragment(new HelpFragment());
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://zakazitehnicki.rs/ "));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/BLTPKRKA7qQ "));
                 startActivity(browserIntent);
                 break;
             case R.id.nav_settings:
