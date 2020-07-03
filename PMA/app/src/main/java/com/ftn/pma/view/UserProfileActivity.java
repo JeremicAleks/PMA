@@ -14,11 +14,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.MenuItem;
@@ -353,116 +356,84 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
 
     public void rezervacijeKorisnika(String key, final TableLayout t)
     {
-        new FirebaseDatabaseHelper("service").readReservationOfUser(key,new FirebaseDatabaseHelper.DataStatus() {
-            @Override
-            public void DataLoaded(List<Car> cars, List<String> keys) {
-            }
 
-            @Override
-            public void DataInserted() {
+        //provera da li postoji internet konekcija
+        ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-            }
+        NetworkInfo aktivnaMreza = manager.getActiveNetworkInfo();
 
-            @Override
-            public void DataUpdated() {
-
-            }
-
-            @Override
-            public void DataIsDeleted() {
-
-            }
-
-            @Override
-            public void UserIsAdded(Boolean status) {
-
-            }
-
-            @Override
-            public void UserLogin(User user) {
-
-            }
-
-            @Override
-            public void ReservationAdd() {
-
-            }
-
-            @Override
-            public void ReservationRead(List<Reservation> reservations) {
-
-            }
-
-            @Override
-            public void ReservationUser(List<Reservation> reservations) {
-                reservation_db.deleteTable();
-                for(Reservation r : reservations)
-                {
-                    String s="";
-                    for(int i=0;i<r.getTypeOfService().size()-1;i++)
-                    {
-                        s += r.getTypeOfService().get(i) + ",";
-                    }
-                    s+= r.getTypeOfService().get(r.getTypeOfService().size()-1);
-
-                    reservation_db.insertData(r.getEmail(),s,r.getDate(),r.getTime(),r.getUserKey());
-                }
-
-                displayReservation(reservations,t);
-            }
-
-            @Override
-            public void ShopingCart(List<ShoppingCart> shoppingCarts) {
-
-            }
-
-        });
-
-        List<Reservation> rezervacije = reservation_db.getAllReservation(user.getKey());
-
-        if(rezervacije!= null)
+        if(aktivnaMreza!=null)
         {
-            for(Reservation r : rezervacije)
-            {
-                TableRow tr = new TableRow(this);
-                tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-                /* Date button */
-                TextView date = new TextView(this);
-                date.setText(r.getDate());
-                TableRow.LayoutParams params = new TableRow.LayoutParams(127, TableRow.LayoutParams.WRAP_CONTENT);
-                params.setMargins(0,0,0,10);
-                date.setLayoutParams(params);
-                date.setLines(r.getTypeOfService().size());
-                date.setBackgroundColor(Color.parseColor("#f1f1f1"));
-                date.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                tr.addView(date);
-                /* TIME button */
-                TextView time = new TextView(this);
-                time.setBackgroundColor(Color.parseColor("#f1f1f1"));
-                time.setText(r.getTime());
-                time.setLines(r.getTypeOfService().size());
-                time.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                time.setLayoutParams(params);
-                tr.addView(time);
-                /* SERVICE button */
-                TextView service = new TextView(this);
-                service.setBackgroundColor(Color.parseColor("#f1f1f1"));
-                service.setLines(r.getTypeOfService().size());
-                service.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                for(int i=0;i<r.getTypeOfService().size()-1;i++)
-                {
-                        service.append(r.getTypeOfService().get(i).toString().replace("_"," "));
-                        service.append(",\n");
+            new FirebaseDatabaseHelper("service").readReservationOfUser(key,new FirebaseDatabaseHelper.DataStatus() {
+                @Override
+                public void DataLoaded(List<Car> cars, List<String> keys) {
                 }
 
-                service.append(r.getTypeOfService().get(r.getTypeOfService().size()-1).toString().replace("_"," "));
+                @Override
+                public void DataInserted() {
 
-                service.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
-                tr.addView(service);
+                }
 
-                /* Add row to TableLayout. */
-                t.addView(tr);
-            }
+                @Override
+                public void DataUpdated() {
+
+                }
+
+                @Override
+                public void DataIsDeleted() {
+
+                }
+
+                @Override
+                public void UserIsAdded(Boolean status) {
+
+                }
+
+                @Override
+                public void UserLogin(User user) {
+
+                }
+
+                @Override
+                public void ReservationAdd() {
+
+                }
+
+                @Override
+                public void ReservationRead(List<Reservation> reservations) {
+
+                }
+
+                @Override
+                public void ReservationUser(List<Reservation> reservations) {
+                    reservation_db.deleteTable();
+                    for(Reservation r : reservations)
+                    {
+                        String s="";
+                        for(int i=0;i<r.getTypeOfService().size()-1;i++)
+                        {
+                            s += r.getTypeOfService().get(i) + ",";
+                        }
+                        s+= r.getTypeOfService().get(r.getTypeOfService().size()-1);
+
+                        reservation_db.insertData(r.getEmail(),s,r.getDate(),r.getTime(),r.getUserKey());
+                    }
+                    displayReservation(reservations,t);
+                }
+
+                @Override
+                public void ShopingCart(List<ShoppingCart> shoppingCarts) {
+
+                }
+
+            });
+            Toast.makeText(this,"Sync online", Toast.LENGTH_LONG).show();
+        }else
+        {
+            List<Reservation> reservations = reservation_db.getAllReservation(user.getKey());
+            displayReservation(reservations,t);
+
+            Toast.makeText(this,"Sync offline", Toast.LENGTH_LONG).show();
         }
     }
 

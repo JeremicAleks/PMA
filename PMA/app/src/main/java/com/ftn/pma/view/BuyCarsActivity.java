@@ -14,10 +14,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.Gravity;
@@ -38,6 +41,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ftn.pma.R;
 import com.ftn.pma.db.Car_db;
@@ -80,64 +84,75 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
         setSupportActionBar(toolbar);
          user = (User) getIntent().getSerializableExtra("user");
 
-        new FirebaseDatabaseHelper("cars").readCars(new FirebaseDatabaseHelper.DataStatus() {
-             @Override
-             public void DataLoaded(List<Car> cars, List<String> keys) {
-                 syncSqlLite(cars);
-                 displayCars(cars);
-             }
+         //provera da li postoji internet konekcija
+        ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-             @Override
-             public void DataInserted() {
+        NetworkInfo aktivnaMreza = manager.getActiveNetworkInfo();
 
-             }
+        if(aktivnaMreza!=null)
+        {
+            new FirebaseDatabaseHelper("cars").readCars(new FirebaseDatabaseHelper.DataStatus() {
+                @Override
+                public void DataLoaded(List<Car> cars, List<String> keys) {
+                    syncSqlLite(cars);
+                    displayCars(cars);
 
-             @Override
-             public void DataUpdated() {
+                }
 
-             }
+                @Override
+                public void DataInserted() {
 
-             @Override
-             public void DataIsDeleted() {
+                }
 
-             }
+                @Override
+                public void DataUpdated() {
 
-             @Override
-             public void UserIsAdded(Boolean status) {
+                }
 
-             }
+                @Override
+                public void DataIsDeleted() {
 
-             @Override
-             public void UserLogin(User user) {
+                }
 
-             }
+                @Override
+                public void UserIsAdded(Boolean status) {
 
-             @Override
-             public void ReservationAdd() {
+                }
 
-             }
+                @Override
+                public void UserLogin(User user) {
 
-             @Override
-             public void ReservationRead(List<Reservation> reservations) {
+                }
 
-             }
+                @Override
+                public void ReservationAdd() {
 
-             @Override
-             public void ReservationUser(List<Reservation> reservations) {
+                }
 
-             }
+                @Override
+                public void ReservationRead(List<Reservation> reservations) {
 
-            @Override
-            public void ShopingCart(List<ShoppingCart> shoppingCarts) {
+                }
 
-            }
+                @Override
+                public void ReservationUser(List<Reservation> reservations) {
 
-        });
+                }
 
-         List<Car> cars = car_db.getAllCars();
+                @Override
+                public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
+                }
 
-         displayCars(cars);
+            });
+            Toast.makeText(this,"Sync online", Toast.LENGTH_LONG).show();
+        }else
+        {
+            List<Car> cars = car_db.getAllCars();
+
+            displayCars(cars);
+            Toast.makeText(this,"Sync offline", Toast.LENGTH_LONG).show();
+        }
 
         //meni koji izlazi :D
         drawerLayout = findViewById(R.id.drawer);
@@ -297,6 +312,21 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
 
 
 
+        }
+    }
+
+    public void proveraInterneta()
+    {
+        ConnectivityManager manager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo aktivnaMreza = manager.getActiveNetworkInfo();
+
+        if(aktivnaMreza!=null)
+        {
+            Toast.makeText(this,"Data Network Enabled", Toast.LENGTH_LONG).show();
+        }else
+        {
+            Toast.makeText(this,"No Internet Connection", Toast.LENGTH_LONG).show();
         }
     }
 
