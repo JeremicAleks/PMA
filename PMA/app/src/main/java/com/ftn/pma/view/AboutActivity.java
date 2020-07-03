@@ -142,11 +142,11 @@ public class AboutActivity extends AppCompatActivity implements OnMapReadyCallba
                     //dodavanje markera na mapi (pozicija 1 markera)
                     googleMap.addMarker(new MarkerOptions().position(currentLocation).title("My Locatioon"));
 
-                    //kreiranje URL za dve lokacije koje su dodate na mapi
-                    String url = RequetsURL(fax_NS,currentLocation);
-                    System.out.println("POVRATNI STRING: " + url.toString());
-                    TaskRequestDirections taskRequestDirections = new TaskRequestDirections(googleMap);
-                    taskRequestDirections.execute(url);
+//                    //kreiranje URL za dve lokacije koje su dodate na mapi
+//                    String url = RequetsURL(fax_NS,currentLocation);
+//                    System.out.println("POVRATNI STRING: " + url.toString());
+//                    TaskRequestDirections taskRequestDirections = new TaskRequestDirections(googleMap);
+//                    taskRequestDirections.execute(url);
                 }
             }
         });

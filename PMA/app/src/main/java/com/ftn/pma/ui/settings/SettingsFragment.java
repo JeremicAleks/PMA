@@ -81,12 +81,12 @@ public class SettingsFragment extends Fragment {
                 }else
                 {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);
-                    Intent intent1 = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(intent1);
-                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.contentContainer, new SettingsFragment());
-                    ft.addToBackStack(null);
-                    ft.commit();
+//                    Intent intent1 = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                    startActivity(intent1);
+//                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                    ft.replace(R.id.contentContainer, new SettingsFragment());
+//                    ft.addToBackStack(null);
+//                    ft.commit();
                 }
                 checkGPS();
             }
@@ -229,5 +229,24 @@ public class SettingsFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch(requestCode)
+        {
+            case 44:
+            {
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    Intent intent1 = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(intent1);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.contentContainer, new SettingsFragment());
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
 
+            }
+            return;
+        }
+    }
 }

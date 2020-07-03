@@ -407,6 +407,8 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
 
                     reservation_db.insertData(r.getEmail(),s,r.getDate(),r.getTime(),r.getUserKey());
                 }
+
+                displayReservation(reservations,t);
             }
 
             @Override
@@ -451,6 +453,54 @@ public class UserProfileActivity extends AppCompatActivity implements Navigation
                 {
                         service.append(r.getTypeOfService().get(i).toString().replace("_"," "));
                         service.append(",\n");
+                }
+
+                service.append(r.getTypeOfService().get(r.getTypeOfService().size()-1).toString().replace("_"," "));
+
+                service.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+                tr.addView(service);
+
+                /* Add row to TableLayout. */
+                t.addView(tr);
+            }
+        }
+    }
+
+    public void displayReservation(List<Reservation> reservations, final TableLayout t)
+    {
+        if(reservations!= null)
+        {
+            for(Reservation r : reservations)
+            {
+                TableRow tr = new TableRow(this);
+                tr.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+                /* Date button */
+                TextView date = new TextView(this);
+                date.setText(r.getDate());
+                TableRow.LayoutParams params = new TableRow.LayoutParams(127, TableRow.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0,0,0,10);
+                date.setLayoutParams(params);
+                date.setLines(r.getTypeOfService().size());
+                date.setBackgroundColor(Color.parseColor("#f1f1f1"));
+                date.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                tr.addView(date);
+                /* TIME button */
+                TextView time = new TextView(this);
+                time.setBackgroundColor(Color.parseColor("#f1f1f1"));
+                time.setText(r.getTime());
+                time.setLines(r.getTypeOfService().size());
+                time.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                time.setLayoutParams(params);
+                tr.addView(time);
+                /* SERVICE button */
+                TextView service = new TextView(this);
+                service.setBackgroundColor(Color.parseColor("#f1f1f1"));
+                service.setLines(r.getTypeOfService().size());
+                service.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                for(int i=0;i<r.getTypeOfService().size()-1;i++)
+                {
+                    service.append(r.getTypeOfService().get(i).toString().replace("_"," "));
+                    service.append(",\n");
                 }
 
                 service.append(r.getTypeOfService().get(r.getTypeOfService().size()-1).toString().replace("_"," "));

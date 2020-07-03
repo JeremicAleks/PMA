@@ -84,6 +84,7 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
              @Override
              public void DataLoaded(List<Car> cars, List<String> keys) {
                  syncSqlLite(cars);
+                 displayCars(cars);
              }
 
              @Override
@@ -130,8 +131,6 @@ public class BuyCarsActivity extends AppCompatActivity implements NavigationView
             public void ShopingCart(List<ShoppingCart> shoppingCarts) {
 
             }
-
-
 
         });
 

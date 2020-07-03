@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     Handler handler = new Handler();
     Runnable runnable;
-    int delay = 30000;
+    int delay = 5000;
 
     int carsNumber = 0;
 
